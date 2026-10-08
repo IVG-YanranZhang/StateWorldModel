@@ -5,522 +5,475 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated
-    Image Detection</title>
+  <title>State World Models: Execute the Rules, Generate the Pixels</title>
 
   <meta name="description"
-    content="UniGenDet is a unified generative-discriminative framework that co-evolves image generation and generated image detection, aligning generation with detector-aware signals for improved authenticity and robustness." />
+    content="Stateful Harness separates world evolution from video rendering: a deterministic rule program settles each turn over explicit state, and a frozen video model renders the settled event. Evaluated on WorldState-Bench, 50 counterfactual twin pairs." />
   <meta name="keywords"
-    content="generated image detection, image generation, generative-discriminative learning, co-evolution, alignment, robustness, computer vision" />
-  <meta name="author"
-    content="Yanran Zhang, Wenzhao Zheng, Yifei Li, Bingyao Yu, Yu Zheng, Lei Chen, Jie Zhou, Jiwen Lu" />
+    content="world models, video generation, game rules, explicit state, counterfactual twins, benchmark, ICLR" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:title"
-    content="UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection" />
+    content="State World Models: Execute the Rules, Generate the Pixels" />
   <meta property="og:description"
-    content="A unified framework that co-evolves image generation and generated image detection with detector-informed alignment." />
-  <meta property="og:image" content="static/images/social_preview.png" />
-  <meta property="og:url" content="https://ivg-yanranzhang.github.io/UniGenDet/" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title"
-    content="UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection" />
-  <meta name="twitter:description"
-    content="A unified framework that co-evolves image generation and generated image detection with detector-informed alignment." />
-  <meta name="twitter:image" content="static/images/social_preview.png" />
+    content="A runtime that separates world evolution from video rendering: rules settle each turn over explicit state, a frozen video model renders the settled event." />
+  <meta property="og:image" content="static/images/swm_teaser.png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="static/css/bulma.min.css" />
-  <link rel="stylesheet" href="static/css/bulma-carousel.min.css" />
-  <link rel="stylesheet" href="static/css/bulma-slider.min.css" />
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css" />
-  <link rel="stylesheet" href="static/css/index.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
-
-  <!-- JS -->
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script defer src="static/js/bulma-carousel.min.js"></script>
-  <script defer src="static/js/bulma-slider.min.js"></script>
-  <script defer src="static/js/index.js"></script>
 
   <style>
-    .content p {
-      line-height: 1.6;
-      margin-bottom: 1em;
+    /* ---- 页面专属微调(不污染模板) ---- */
+    :root {
+      --swm-gold: #b8860b;
+      --swm-red: #e2574c;
+      --swm-blue: #4c7fe2;
+      --swm-ink: #2a2f3a;
     }
 
-    .figure-caption {
-      margin-top: 0.6rem;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      max-width: 980px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .tight-hero .hero-body {
-      padding-bottom: 1.5rem;
-    }
-
-    .section-title-note {
-      margin-top: -1rem;
-      margin-bottom: 2rem;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-
-    .img-frame {
-      border-radius: 12px;
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      display: block;
+    .swm-hero {
+      max-width: 880px;
       margin: 0 auto;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      /* 学术图不要裁剪 */
-      background: var(--background-primary);
+      text-align: center;
+      padding-top: 3.2rem;
     }
 
-    /* 仅用于“并排放”的图片：等高、宽度随纵横比自动变化 */
-    .img-eqH {
-      height: 360px;
-      /* 你可改成 380/420，看视觉更舒服 */
-      width: auto;
-      /* 关键：宽度允许不一样 */
-      max-width: 100%;
-      object-fit: contain;
+    .swm-hero .title {
+      font-family: "Noto Serif SC", serif;
+      font-size: 2.35rem;
+      color: var(--swm-ink);
     }
 
-    /* 手机端不要强行固定高度 */
-    @media (max-width: 768px) {
-      .img-eqH {
-        height: auto;
-        width: 100%;
-      }
+    .swm-hero .title .accent-red { color: var(--swm-red); }
+    .swm-hero .title .accent-blue { color: var(--swm-blue); }
+
+    .swm-authors {
+      color: #5a6270;
+      font-size: 1.02rem;
+      margin-top: 1.1rem;
     }
 
-    .figure-card {
-      background: var(--background-primary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      box-shadow: var(--shadow-md);
+    .swm-authors .inst { font-size: 0.92rem; color: #8a919e; }
+
+    .swm-buttons { margin-top: 1.4rem; }
+
+    .swm-buttons .button {
+      border-radius: 10px;
+      padding: 0 1.35rem;
+      font-weight: 600;
     }
 
-    .publication-venue {
-      color: #262626;
-      font-size: 1.25rem;
+    .swm-buttons .button .icon { margin-right: 0.45em; }
+
+    .swm-teaser {
+      max-width: 920px;
+      margin: 2.2rem auto 0.6rem;
+    }
+
+    .swm-teaser img { border-radius: 10px; width: 100%; }
+
+    .swm-caption {
+      font-size: 0.88rem;
+      color: #6a7280;
+      max-width: 860px;
+      margin: 0.6rem auto 0;
+      line-height: 1.55;
+    }
+
+    .swm-caption b { color: var(--swm-ink); }
+
+    .swm-section { max-width: 920px; margin: 0 auto; padding: 2.6rem 1rem 0; }
+
+    .swm-section .title.is-4 {
+      font-family: "Noto Serif SC", serif;
+      font-size: 1.55rem;
+      color: var(--swm-ink);
+      text-align: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .swm-abstract {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: #3c4250;
+      background: #f7f8fa;
+      border-radius: 12px;
+      padding: 1.6rem 1.9rem;
+    }
+
+    .swm-abstract b { color: var(--swm-ink); }
+
+    .swm-numbers {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+      margin: 1.8rem auto 0.4rem;
+    }
+
+    .swm-num {
+      min-width: 168px;
+      background: linear-gradient(180deg, #fbfcfe, #f2f4f8);
+      border: 1px solid #e3e7ee;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+    }
+
+    .swm-num .n { font-size: 1.65rem; font-weight: 800; color: var(--swm-ink); }
+    .swm-num .n.gold { color: var(--swm-gold); }
+    .swm-num .n.red { color: var(--swm-red); }
+    .swm-num .n.blue { color: var(--swm-blue); }
+    .swm-num .d { font-size: 0.78rem; color: #79818e; margin-top: 2px; line-height: 1.4; }
+
+    .swm-contrib {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      margin-top: 1.4rem;
+    }
+    .swm-contrib .card-c {
+      background: #f7f8fa; border-radius: 12px; padding: 1.2rem 1.3rem;
+      border: 1px solid #e8ebf1;
+    }
+    .swm-contrib .card-c .h {
+      font-weight: 700; color: var(--swm-ink); margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .swm-contrib .card-c .h .icon { color: var(--swm-gold); }
+    .swm-contrib .card-c p { font-size: 0.9rem; color: #5a6270; line-height: 1.65; }
+
+    .swm-loop {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+    .swm-loop .step {
+      background: #fff; border: 1px solid #e3e7ee; border-radius: 12px;
+      padding: 1rem; text-align: center;
+    }
+    .swm-loop .step .icon {
+      font-size: 1.5rem; color: var(--swm-blue); margin-bottom: 0.45rem;
+    }
+    .swm-loop .step .t { font-weight: 700; font-size: 0.92rem; color: var(--swm-ink); }
+    .swm-loop .step .s { font-size: 0.78rem; color: #79818e; margin-top: 0.3rem; line-height: 1.45; }
+    .swm-loop-note {
+      text-align: center; font-size: 0.85rem; color: #8a919e; margin-bottom: 0.6rem;
+    }
+
+    /* 游戏画廊 */
+    .swm-games {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem;
+      margin-top: 1.3rem;
+    }
+    .swm-game {
+      background: #10141f; border-radius: 14px; overflow: hidden;
+      border: 1px solid #232a3a;
+    }
+    .swm-game video, .swm-game img {
+      width: 100%; aspect-ratio: 864 / 480; object-fit: cover; display: block;
+      background: #05070c;
+    }
+    .swm-game .body { padding: 0.85rem 1rem 1rem; }
+    .swm-game .body .n { font-weight: 700; font-size: 0.98rem; color: #f0f2f6; }
+    .swm-game .body .d {
+      font-size: 0.82rem; color: #a7afc0; margin-top: 0.35rem; line-height: 1.55;
+    }
+    .swm-game .tag {
+      display: inline-block; font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--swm-gold);
+      border: 1px solid rgba(222, 186, 96, 0.45); border-radius: 999px;
+      padding: 1px 9px; margin-bottom: 0.45rem;
+    }
+
+    .swm-table-note { font-size: 0.85rem; color: #79818e; margin-top: 0.7rem; }
+    .swm-hl td { background: #f6f9ff; font-weight: 700; }
+    .swm-table td, .swm-table th { font-size: 0.9rem; }
+
+    .swm-bibtex {
+      background: #10141f; color: #d7dee9; border-radius: 12px;
+      padding: 1.2rem 1.4rem; font-family: monospace; font-size: 0.82rem;
+      line-height: 1.6; overflow-x: auto; white-space: pre;
+    }
+
+    .swm-footer {
+      text-align: center; color: #9aa3b5; font-size: 0.85rem;
+      padding: 3rem 1rem 2.6rem;
+    }
+
+    @media (max-width: 900px) {
+      .swm-contrib, .swm-loop, .swm-games { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
+  <!-- ================= HERO ================= -->
+  <section class="swm-hero">
+    <h1 class="title">
+      <b class="accent-red">State</b> World Models: Execute the Rules,
+      Generate the <b class="accent-blue">Pixels</b>
+    </h1>
 
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Yanran Zhang</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="works-list">
-        <a href="https://ivg-yanranzhang.github.io/MoRe4D/" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Joint 3D Geometry Reconstruction and Motion Generation for 4D Synthesis from a Single Image</h5>
-            <p>A joint framework for single-image 4D generation that tightly couples motion and geometry, overcoming
-              the
-              inherent weaknesses of decoupled paradigms.</p>
-            <span class="work-venue">Arxiv</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://ivg-yanranzhang.github.io/D3QE/" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>D³QE: Learning Discrete Distribution Discrepancy-aware Quantization Error for Autoregressive-Generated
-              Image Detection</h5>
-            <p>D³QE is a novel framework for detecting autoregressive-generated images by exploiting the distinctive
-              patterns and frequency bias in the discrete latent codebook, achieving superior accuracy and
-              generalization.</p>
-            <span class="work-venue">ICCV 2025</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-      </div>
-      <div class="works-list">
-        <a href="https://ivg-yanranzhang.github.io/UniPre3D/" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>UniPre3D: Unified Pre-training of 3D Point Cloud Models with Cross-Modal Gaussian Splatting</h5>
-            <p>UniPre3D is the first unified pre-training method for 3D point clouds that effectively handles both
-              object- and scene-level data through cross-modal Gaussian splatting.</p>
-            <span class="work-venue">CVPR 2025</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-      </div>
+    <div class="swm-authors">
+      Anonymous Authors
+      <div class="inst">Paper under double-blind review at ICLR 2027</div>
     </div>
+
+    <div class="swm-buttons buttons is-centered">
+      <!-- TODO(相机就绪后填链接):论文 PDF / 匿名仓库 / 视频 -->
+      <a class="button is-light" href="#" aria-disabled="true">
+        <span class="icon"><svg viewBox="0 0 384 512" width="15" fill="#c0392b"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm102.1 330.7L273 414c-4.5 4.5-11.8 4.5-16.3-.1l-64-64.4c-4.5-4.5-4.5-11.8.1-16.3l15.4-15.3c4.5-4.5 11.8-4.5 16.3.1l38.3 38.5 89.7-90c4.5-4.5 11.8-4.5 16.3.1l15.3 15.4c4.5 4.5 4.5 11.8-.1 16.3l-138.6 138.3zM377 105L279 7c-4.5-4.5-10.6-7-17-7H256v128h128v-17c0-8.8-3.2-13.9-7-17z"/></svg></span>Paper
+      </a>
+      <a class="button is-light" href="#games">
+        <span class="icon"><svg viewBox="0 0 640 512" width="17" fill="currentColor"><path d="M480 96H160C71.6 96 0 167.6 0 256s71.6 160 160 160c44.5 0 84.8-18.2 113.9-47.6h92.3C395.2 397.8 435.5 416 480 416c88.4 0 160-71.6 160-160S568.4 96 480 96zM192 208v32h-32v48h-48v-48H80v-32h32v-48h48v48h32zm240 0a24 24 0 1 1 48 0 24 24 0 0 1-48 0zm80-48a24 24 0 1 1-48 0 24 24 0 0 1 48 0z"/></svg></span>Demos
+      </a>
+      <a class="button is-light" href="#bibtex">
+        <span class="icon"><svg viewBox="0 0 512 512" width="14" fill="currentColor"><path d="M464 32H336c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48zM16 208v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48H48C21.5 32 0 53.5 0 80v128z"/></svg></span>BibTeX
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= TEASER ================= -->
+  <div class="swm-teaser">
+    <img src="static/images/swm_teaser.png" alt="Stateful Harness overview" />
+    <p class="swm-caption">
+      <b>State World Models with the Stateful Harness.</b> The same initial frame and the
+      same action can lead to different outcomes under different world states. The harness
+      executes predefined rules to determine the event <i>before</i> a frozen video model
+      renders it — illustrated by the red and blue elemental states — and the generated clip
+      becomes the visual anchor for the next turn.
+    </p>
   </div>
 
-  <main id="main-content">
+  <!-- ================= ABSTRACT ================= -->
+  <section class="swm-section">
+    <h2 class="title is-4">Abstract</h2>
+    <div class="swm-abstract">
+      Existing world models can generate action-conditioned video from a single image. Many
+      focus on camera motion, allowing users to move through the generated scene. However,
+      navigation alone does not ensure that an action follows persistent rules when its
+      outcome depends on state that is invisible in the current frame. We present
+      <b>Stateful Harness</b>, a framework that separates world evolution from video
+      rendering to support stateful and rule-governed interaction. It maintains an evolving
+      world state under specified rules, renders each resulting event with a frozen video
+      model, and uses the generated clip to update the world state for the next turn. At
+      each turn, the harness resolves the action selected by the user and compiles the
+      resulting event into an instruction, while a preview clip from an editable 3D scene
+      provides spatial and camera guidance. To evaluate rule compliance, we build
+      <b>WorldState-Bench</b>, a benchmark of 50 counterfactual twin pairs that share an
+      initial frame and action but differ in hidden state and required outcome. Under
+      rule-only prompting, the best of the 11 evaluated video backends produces the required
+      endings for both cases in 32% of pairs. For MiniMax-H3, specifying the required endings
+      raises this rate from 32% to 64%, while the full harness reaches <b>92%</b> with the
+      same frozen model. These results support separating rule execution from video rendering
+      for world interactions with hidden state.
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero tight-hero">
-      <div class="hero-body">
-        <div class="container is-max-desktop has-text-centered">
-          <h1 class="title is-1 publication-title">
-            UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated
-            Image Detection
-          </h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://yanran-zhang.github.io/" target="_blank">Yanran Zhang</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://wzzheng.net/#" target="_blank">Wenzhao Zheng</a><sup>†</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://joeleelyf.github.io/" target="_blank">Yifei Li</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://yuby14.github.io/" target="_blank">Bingyao Yu</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://yzheng97.github.io/" target="_blank">Yu Zheng</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://leichenthu.github.io/" target="_blank">Lei Chen</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=6a79aPwAAAAJ&hl=en" target="_blank">Jie
-                Zhou</a><sup>*</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://ivg.au.tsinghua.edu.cn/Jiwen_Lu/" target="_blank">Jiwen Lu</a>
-            </span>
-          </div>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Department of Automation, Tsinghua University, China</span><br>
-            <span class="eql-cntrb"><small><sup>*</sup> Corresponding author &nbsp;&nbsp; <sup>†</sup> Project
-                leader</small>
-          </div>
-          <p class="publication-venue"><b>CVPR 2026</b></p>
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="static/pdfs/paper.pdf" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/Zhangyr2022/UniGenDet" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2604.21904v1" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://www.modelscope.cn/models/YanranZhang/UniGenDet/summary" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><img class="hf-icon" src="https://modelscope.cn/favicon.ico"
-                      alt="ModelScope"></span>
-                  <span>ModelScope</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://huggingface.co/Yanran21/UniGenDet" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><img class="hf-icon" src="https://huggingface.co/favicon.ico"
-                      alt="Hugging Face"></span>
-                  <span>Hugging Face</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
+    <div class="swm-numbers">
+      <div class="swm-num"><div class="n gold">92%</div>
+        <div class="d">PairFollow with the full harness (same frozen MiniMax-H3 weights)</div></div>
+      <div class="swm-num"><div class="n red">32% → 64%</div>
+        <div class="d">MiniMax-H3 PairFollow: rule-only → ending supplied</div></div>
+      <div class="swm-num"><div class="n blue">90%</div>
+        <div class="d">PairStrict: forbidden endings absent from both clips</div></div>
+      <div class="swm-num"><div class="n">50 pairs</div>
+        <div class="d">WorldState-Bench · 21 themes · 49 hidden variables</div></div>
+      <div class="swm-num"><div class="n">11</div>
+        <div class="d">video backends evaluated under the same probe and judge</div></div>
+    </div>
+  </section>
+
+  <!-- ================= CONTRIBUTIONS ================= -->
+  <section class="swm-section">
+    <h2 class="title is-4">Contributions</h2>
+    <div class="swm-contrib">
+      <div class="card-c">
+        <div class="h"><span class="icon"><svg viewBox="0 0 384 512" width="22" fill="#b8860b"><path d="M72 64h240v32h-16v167.1c0 10.6 2.6 21 7.7 30.3l62.3 114.3c14.9 27.4 4.9 61.7-22.5 76.6-8.4 4.6-17.8 7-27.4 7H75.9c-31.4 0-56.9-25.5-56.9-56.9 0-9.6 2.4-19 7-27.4l62.3-114.3c5.1-9.3 7.7-19.7 7.7-30.3V96H80V64zM193.3 362.7L155.1 293.2c-1.9-3.6-6.5-4.9-10.1-3s-4.9 6.5-3 10.1l27.6 50.6c1.9 3.6 6.5 4.9 10.1 3s4.9-6.5 3-10.1l-27.6-50.6 30.2 55.4z"/></svg></span>A diagnostic for rule compliance</div>
+        <p>Counterfactual twins hold the visible input and action fixed while changing hidden
+           state. WorldState-Bench contains 50 such pairs across 21 themes, with outcomes
+           derived from typed rule programs.</p>
       </div>
-    </section>
-
-    <!-- Teaser -->
-    <section class="hero teaser">
-      <div class="container is-max-desktop has-text-centered">
-        <img class="img-frame" src="static/images/fig01_teaser.png" alt="UniGenDet teaser" style="width: 45%;" />
-        <div class="figure-caption">UniGenDet bridges generation and detection in a unified, co-evolutionary
-          framework.</div>
-        <div class="content has-text-justified" style="margin-top: 1.5rem;">
-          <p>
-            Image generation and generated-image detection have both advanced rapidly, yet they are typically developed
-            in isolation:
-            generators focus on perceptual realism, while detectors react to a moving target by training on snapshots of
-            existing forgeries.
-            This “arms race” creates a persistent <i>detection lag</i>: detectors may overfit to transient artifacts and
-            struggle to generalize to new generators and post-processing.
-          </p>
-          <p>
-            <b>UniGenDet</b> breaks this separation by unifying generation and authenticity discrimination within one
-            framework.
-            As illustrated in Fig. 1, (a) generative knowledge helps detection reduce distribution gaps and improves
-            interpretability;
-            (b) detection feedback refines generation toward higher realism; and (c) a single architecture supports
-            multiple modalities and tasks (detection + explanation, and text-to-image generation).
-          </p>
-        </div>
+      <div class="card-c">
+        <div class="h"><span class="icon"><svg viewBox="0 0 640 512" width="22" fill="#b8860b"><path d="M308.5 135.3l7.2-32.5c1.5-6.8 8.4-11.1 15.2-9.6l30.9 6.9c5.9 1.3 11.9 2 18 2s12.1-.7 18-2l30.9-6.9c6.8-1.5 13.7 2.8 15.2 9.6l7.2 32.5c2.7 12.2 11.6 22 23.4 26.2 11.6 4.1 21.8 11 30 20l27.4 16.4c6 3.6 8.1 11.2 4.6 17.3l-15.5 27.2c-3 5.3-4.3 11.4-3.6 17.4.6 5.9.6 11.9 0 17.8-1.4 11.7 3.3 23.4 12.8 30.6l25.9 19.7c5.5 4.2 6.9 11.9 3.4 17.8l-28.5 49.4c-3.6 6.2-11.2 8.6-17.6 5.5l-29.1-14.8c-5.2-2.7-11.2-3.4-16.9-1.9-5.8 1.5-11.9 1.5-17.7 0-5.7-1.5-11.7-1.4-17.4.1-5.7 1.5-11.7 1.4-17.4-.1-5.7-1.5-11.7-1.4-17.4.1-5.7 1.5-11.7 1.4-17.4-.1-5.8-1.5-11.8-.8-17 1.9l-29.1 14.8c-6.4 3.1-14 1.6-17.6-5.5l-15.5-27.2c-3.6-6.2-1.4-14.1 4.6-17.8l25.9-19.7c9.5-7.2 14.2-18.9 12.8-30.6-.6-5.9-.6-11.9 0-17.8.7-6-0.6-12.1-3.6-17.4l-15.5-27.2c-3.6-6.2-1.4-14.1 4.6-17.8l27.4-16.4c8.2-9 18.4-15.9 30-20 11.8-4.2 20.7-14 23.4-26.2zM400 240a48 48 0 1 0-96 0 48 48 0 0 0 96 0zM96 480h96V368c0-17.7-14.3-32-32-32H128c-17.7 0-32 14.3-32 32v112zM0 352c0-11.1 5.7-21.4 15.1-27.3l32-20.3V224H0V96h96z"/></svg></span>A runtime for explicit state</div>
+        <p>The Stateful Harness settles actions in code, maintains semantic and spatial state,
+           and sends the resulting event through text and spatial-reference channels to a
+           compatible frozen video backend.</p>
       </div>
-    </section>
-
-    <section class="section hero is-light">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-            <h2 class="title is-3">Abstract</h2>
-            <div class="content has-text-justified">
-              In recent years, significant progress has been made in both image generation and generated image
-              detection. Despite their rapid, yet largely independent, development, these two fields have evolved
-              distinct architectural paradigms: the former predominantly relies on generative networks, while the latter
-              favors discriminative frameworks. A recent trend in both domains is the use of adversarial information to
-              enhance performance, revealing potential for synergy. However, the significant architectural divergence
-              between them presents considerable challenges. Departing from previous approaches, we propose
-              <b>UniGenDet</b>: a <b>Uni</b>fied generative-discriminative framework for
-              co-evolutionary image <b>Gen</b>eration and generated image <b>Det</b>ection. To bridge the task gap, we
-              design a symbiotic multimodal self-attention mechanism and a unified fine-tuning algorithm. This synergy
-              allows the generation task to improve the interpretability of authenticity identification, while
-              authenticity criteria guide the creation of higher-fidelity images. Furthermore, we introduce a
-              detector-informed generative alignment mechanism to facilitate seamless information exchange. Extensive
-              experiments on multiple datasets demonstrate that our method achieves state-of-the-art performance.
-            </div>
-          </div>
-        </div>
+      <div class="card-c">
+        <div class="h"><span class="icon"><svg viewBox="0 0 640 512" width="22" fill="#b8860b"><path d="M256 32h128v32h64c17.7 0 32 14.3 32 32s-14.3 32-32 32h-41.9l105.1 226.9c9.3 20.1-5.3 43.1-27.4 43.1H336v64h64c35.3 0 64 28.7 64 64s-28.7 64-64 64H240c-35.3 0-64-28.7-64-64s28.7-64 64-64h64v-64H90.2c-22.1 0-36.7-23-27.4-43.1L167.9 128H128c-17.7 0-32-14.3-32-32s14.3-32 32-32h64V32h128v64z"/></svg></span>A controlled comparison</div>
+        <p>On the same MiniMax-H3 weights, the full harness improves twin-joint accuracy from
+           32% with rule-only prompting and 64% with the ending supplied to 92%.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-
-
-    <!-- Highlights -->
-    <section class="section hero is-light">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Key Contributions</h2>
-        <p class="section-title-note">Framework design and methodological highlights</p>
-        <div class="content has-text-justified">
-          <li>
-            <b>Unified generative-discriminative co-evolution:</b>
-            We jointly optimize image generation and detection in a closed loop, so that the “spear” and “shield” evolve
-            synchronously instead of independently.
-          </li>
-          <li>
-            <b>Bridging the task gap via SMSA + unified fine-tuning:</b>
-            We introduce a Symbiotic Multi-modal Self-Attention mechanism and a unified fine-tuning algorithm to
-            transfer generative distributional knowledge to authenticity classification and explanation.
-          </li>
-          <li>
-            <b>Detector-informed generative alignment (DIGA):</b>
-            We inject the detector's forensic criteria back into the generator through feature alignment, encouraging
-            authenticity-aware synthesis while preserving generative fidelity.
-          </li>
-          </ul>
-          <p style="margin-top: 1rem;">
-            These contributions establish a novel paradigm for bridging image generation and detection, effectively
-            mitigating the traditional
-            lag between generative model advances and detection capabilities.
-          </p>
-        </div>
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="swm-section">
+    <h2 class="title is-4">How a Turn Works</h2>
+    <div class="swm-loop">
+      <div class="step">
+        <div class="icon"><svg viewBox="0 0 640 512" width="26" fill="#4c7fe2"><path d="M384 96v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h256c35.3 0 64 28.7 64 64zM480 416V96c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64h-32c-35.3 0-64-28.7-64-64z"/></svg></div>
+        <div class="t">1 · Action selected</div>
+        <div class="s">The player observes the current scene and picks an action; free-form
+            input is also supported.</div>
       </div>
-    </section>
-
-    <!-- Method Overview -->
-    <section class="section" id="method">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Method Overview</h2>
-        <p class="section-title-note">Two main modules: GDUF and DIGA</p>
-
-        <div class="columns is-centered is-variable is-5">
-          <div class="column is-6">
-            <div class="figure-card has-text-centered">
-              <img class="img-frame img-eqH" src="static/images/fig02_gduf_pipeline.png" alt="GDUF pipeline" />
-              <div class="figure-caption">
-                Fig. 2. Generation-Detection Unified Fine-tuning (GDUF) pipeline. The Symbiotic Multi-modal
-                Self-Attention transfers generator knowledge to the detector, enabling both accurate classification and
-                explanatory output.
-              </div>
-            </div>
-          </div>
-          <div class="column is-6">
-            <div class="figure-card has-text-centered">
-              <img class="img-frame img-eqH" src="static/images/fig03_diga_pipeline.png" alt="DIGA pipeline" />
-              <div class="figure-caption">
-                Fig. 3. Detector-Informed Generative Alignment (DIGA). The detector’s forensic knowledge is injected
-                into the generator, guiding image synthesis toward undetectable realism while maintaining generative
-                fidelity.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="content has-text-justified" style="margin-top: 1.25rem;">
-          <p>
-            <b>Stage I — GDUF (Generation-Detection Unified Fine-tuning).</b>
-            We build upon a unified generation-understanding model and fine-tune it on both generation data and
-            detection-with-explanation data.
-            For detection, the <b>Symbiotic Multi-modal Self-Attention (SMSA)</b> lets the detector attend to
-            generator-side latents together with visual/text features,
-            enabling accurate real/fake prediction and more grounded artifact explanations.
-            For generation, discriminative cues from the detector are injected as conditions, making synthesis more
-            aligned with authenticity criteria.
-          </p>
-          <p>
-            <b>Stage II — DIGA (Detector-Informed Generative Alignment).</b>
-            After obtaining a strong detector, we freeze it and use it as an authenticity teacher to guide the
-            generator.
-            Specifically, DIGA aligns generator intermediate features to the detector's representation of real images
-            (cosine-similarity feature alignment),
-            combined with the flow matching objective. This forms an explicit feedback loop: the generator is pushed
-            away from detector-sensitive (easily detectable) feature subspaces,
-            improving realism while keeping the base generative capability.
-          </p>
-        </div>
+      <div class="step">
+        <div class="icon"><svg viewBox="0 0 512 512" width="24" fill="#b8860b"><path d="M504.971 239.529l-135.5-135.5c-9.373-9.373-24.569-9.373-33.941 0l-17.071 17.071c-9.373 9.373-9.373 24.569 0 33.941L357.755 194.5L198.576 353.679l-39.598-39.598c-6.248-6.248-16.379-6.248-22.627 0l-58.666 58.664c-18.746 18.746-18.746 49.138 0 67.882l122.417 122.417c18.746 18.746 49.138 18.746 67.882 0l58.664-58.664c6.248-6.248 6.248-16.379 0-22.627l-39.598-39.598L445.794 202.744l38.747 38.746c9.373 9.373 24.569 9.373 33.941 0l17.071-17.071c9.372-9.372 9.372-24.568 0-33.941z"/></svg></div>
+        <div class="t">2 · Rules settle it</div>
+        <div class="s">A deterministic rule program resolves the action against explicit
+            semantic and spatial state — before any rendering.</div>
       </div>
-    </section>
-
-    <!-- Visualizations -->
-    <section class="section hero is-light" id="visualizations">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Qualitative Visualizations</h2>
-        <p class="section-title-note">Generation and detection comparisons</p>
-
-        <!-- Generation -->
-        <div class="columns is-centered">
-          <div class="column is-10 has-text-centered">
-            <div class="figure-card">
-              <img class="img-frame" src="static/images/vis01_generation.png" alt="Generation comparison" />
-              <div class="figure-caption">
-                <b>Generation results:</b> UniGenDet produces more natural lighting, coherent shadows, and artifact-free
-                textures than BAGEL, validating detector-informed training benefits for visual realism.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Detection -->
-        <div class="columns is-centered" style="margin-top: 1.5rem;">
-          <div class="column is-10 has-text-centered">
-            <div class="figure-card">
-              <img class="img-frame" src="static/images/vis02_detection.png" alt="Detection comparison" />
-              <div class="figure-caption">
-                <b>Detection results:</b> UniGenDet achieves higher accuracy in identifying real and fake images, while
-                providing clearer artifact explanations and interpretability for forensic evaluation compared to the
-                baseline BAGEL.
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="step">
+        <div class="icon"><svg viewBox="0 0 640 512" width="26" fill="#4c7fe2"><path d="M96 96l220.5-55.12L341.5 96H96zM0 128v64h611.5c14.3 0 22.5-10 19.8-23.2L607.8 63.5C604 45.4 589.7 32 570 32H96v96zm608 96H64v192c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64V288c0-35.3-28.7-64-64-64z"/></svg></div>
+        <div class="t">3 · Event compiled</div>
+        <div class="s">The settled outcome is compiled into a VisualScript instruction; a
+            preview clip from an editable 3D scene guides camera and layout.</div>
       </div>
-    </section>
-
-    <!-- Quantitative Results -->
-    <section class="section" id="quantitative">
-      <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
-        <p class="section-title-note">Detection and generation metrics explained</p>
-
-        <div class="columns is-centered">
-          <div class="column is-10 has-text-centered">
-            <div class="figure-card">
-              <img class="img-frame" src="static/images/tab01_detection.png" alt="Detection table"
-                style="height: auto; width: 90%;" />
-              <div class="figure-caption">
-                <b>Detection Performance:</b> UniGenDet outperforms existing methods on FakeClue, DMImage, and
-                ARForensics datasets. Accuracy and F1 improvements highlight the efficacy of joint training and
-                detector-guided generator feedback.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="columns is-centered" style="margin-top: 1.5rem;">
-          <div class="column is-10 has-text-centered">
-            <div class="figure-card">
-              <img class="img-frame" src="static/images/tab02_generation.png" alt="Generation table"
-                style="height: auto; width: 90%;" />
-              <div class="figure-caption">
-                <b>Generation Metrics:</b> Fréchet Inception Distance (FID) and GenEval results demonstrate improved
-                realism and text-image alignment. The two-stage training approach significantly enhances visual fidelity
-                over baseline BAGEL models.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="content has-text-justified" style="margin-top: 1rem;">
-          <p>
-            Overall, quantitative results confirm the effectiveness of the co-evolutionary framework. Detection
-            accuracy, F1, semantic consistency scores, and FID collectively indicate that UniGenDet successfully
-            balances both tasks, offering state-of-the-art performance in generation realism and forensic detection.
-          </p>
-        </div>
+      <div class="step">
+        <div class="icon"><svg viewBox="0 0 512 512" width="26" fill="#e2574c"><path d="M48 32h416v64H48zm-16 96v32h64v-32H32zm80 0v32h96v-32h-96zm128 0v32h128v-32H240zm160 0v32h96v-32h-96zm96 64v256H32V192h32v32h64v-32h96v32h128v-32h96v32h96v-32h-32zM112 224v64h48v-64h-48zm96 0v64h48v-64h-48zm96 0v64h48v-64h-48zm96 0v64h48v-64h-48z"/></svg></div>
+        <div class="t">4 · Pixels rendered</div>
+        <div class="s">A frozen video model renders the event; a VLM reads the clip back and
+            the state advances to the next turn.</div>
       </div>
-    </section>
+    </div>
+    <p class="swm-loop-note">
+      Rule execution, video generation, and visual observation form a closed loop that yields
+      <i>state world models</i>.
+    </p>
+    <div class="swm-teaser" style="margin-top:1.2rem">
+      <img src="static/images/paper/swm_multiturn.png"
+           alt="Multi-turn duel episode rendered by the harness" />
+      <p class="swm-caption">
+        A multi-turn duel rendered by the harness on the same frozen weights: every turn is
+        settled by rules first, then compiled into a per-turn instruction with a four-beat
+        timeline — one action, one sentence — before the frozen video model renders it.
+      </p>
+    </div>
+  </section>
 
-    <!-- BibTeX -->
-    <section class="section" id="BibTeX">
-      <div class="container is-max-desktop content">
-        <h2 class="title">BibTeX</h2>
-        <pre id="bibtex-code"><code>@inproceedings{zhang2026unigendet,
-  title     = {UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection},
-  author    = {Zhang, Yanran and Zheng, Wenzhao and Li, Yifei and Yu, Bingyao and Zheng, Yu and Chen, Lei and Zhou, Jie and Lu, Jiwen},
-  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year      = {2026}
-}
-        </code></pre>
-        <pre id="bibtex-code"><code>@article{zhang2026unigendet,
-  title   = {UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection},
-  author  = {Zhang, Yanran and Zheng, Wenzhao and Li, Yifei and Yu, Bingyao and Zheng, Yu and Chen, Lei and Zhou, Jie and Lu, Jiwen},
-  journal = {CoRR},
-  volume  = {abs/2604.21904},
-  year    = {2026},
-  url     = {https://arxiv.org/abs/2604.21904},
-}
-        </code></pre>
-      </div>
-    </section>
+  <!-- ================= GAME DEMOS ================= -->
+  <section class="swm-section" id="games">
+    <h2 class="title is-4">Nine Worlds, One Runtime</h2>
+    <p class="swm-caption" style="max-width:100%">
+      Every world below is a JSON definition: typed rules, hidden variables, and a fixed
+      camera. The same runtime settles actions, compiles a four-beat VisualScript, and
+      renders with a frozen video model. Click a card to play its highlight reel —
+      all clips are raw harness outputs, unedited.
+    </p>
+    <div class="swm-games" id="games-grid"></div>
+  </section>
 
-    <footer class="footer">
-      <div class="container">
-        <div class="content has-text-centered">
-          <p>
-            Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
-            Template adapted from <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
-          </p>
-        </div>
-      </div>
-    </footer>
+  <!-- ================= RESULTS ================= -->
+  <section class="swm-section">
+    <h2 class="title is-4">WorldState-Bench: Main Results</h2>
+    <p class="swm-caption" style="max-width:100%">
+      PairFollow requires both counterfactual clips to show their required endings;
+      PairStrict additionally requires the forbidden ending to be absent. Rule-only prompting
+      describes the rules; Rule+end also reveals the required outcome. The highlighted row is
+      the full harness — the same frozen MiniMax-H3 weights, text and first-frame reference.
+    </p>
+    <table class="table is-fullwidth swm-table">
+      <thead>
+        <tr>
+          <th>Backend</th>
+          <th colspan="3" style="text-align:center">A. Rule-only probe</th>
+          <th colspan="3" style="text-align:center">B. Rule+end probe</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th style="text-align:center">EndFollow↑</th>
+          <th style="text-align:center">PairFollow↑</th>
+          <th style="text-align:center">TwinContrast↑</th>
+          <th style="text-align:center">Strict↑</th>
+          <th style="text-align:center">CntAbsent↑</th>
+          <th style="text-align:center">PairStrict↑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="7" style="font-weight:600;color:#8a919e">Image-to-video generators</td></tr>
+        <tr><td>Wan2.2-A14B</td><td class="has-text-centered">65%</td><td class="has-text-centered">32%</td><td class="has-text-centered">38%</td><td class="has-text-centered">54%</td><td class="has-text-centered">63%</td><td class="has-text-centered">26%</td></tr>
+        <tr><td>LongCat-Video 13.6B</td><td class="has-text-centered">47%</td><td class="has-text-centered">8%</td><td class="has-text-centered">24%</td><td class="has-text-centered">46%</td><td class="has-text-centered">62%</td><td class="has-text-centered">8%</td></tr>
+        <tr><td>Hunyuan-Video 1.5</td><td class="has-text-centered">57%</td><td class="has-text-centered">20%</td><td class="has-text-centered">26%</td><td class="has-text-centered">29%</td><td class="has-text-centered">30%</td><td class="has-text-centered">4%</td></tr>
+        <tr><td>MiniMax-H3</td><td class="has-text-centered">60%</td><td class="has-text-centered">32%</td><td class="has-text-centered">32%</td><td class="has-text-centered">29%</td><td class="has-text-centered">30%</td><td class="has-text-centered">4%</td></tr>
+        <tr><td colspan="7" style="font-weight:600;color:#8a919e">Interactive world models</td></tr>
+        <tr><td>LingBot-World v2</td><td class="has-text-centered">48%</td><td class="has-text-centered">16%</td><td class="has-text-centered">38%</td><td class="has-text-centered">44%</td><td class="has-text-centered">76%</td><td class="has-text-centered">14%</td></tr>
+        <tr><td>Echo-WM Flash</td><td class="has-text-centered">57%</td><td class="has-text-centered">26%</td><td class="has-text-centered">43%</td><td class="has-text-centered">43%</td><td class="has-text-centered">60%</td><td class="has-text-centered">8%</td></tr>
+        <tr><td>FantasyWorld</td><td class="has-text-centered">34%</td><td class="has-text-centered">8%</td><td class="has-text-centered">30%</td><td class="has-text-centered">35%</td><td class="has-text-centered">81%</td><td class="has-text-centered">8%</td></tr>
+        <tr><td>AlayaWorld</td><td class="has-text-centered">37%</td><td class="has-text-centered">12%</td><td class="has-text-centered">28%</td><td class="has-text-centered">33%</td><td class="has-text-centered">85%</td><td class="has-text-centered">6%</td></tr>
+        <tr><td>InSpatio-World</td><td class="has-text-centered">19%</td><td class="has-text-centered">2%</td><td class="has-text-centered">14%</td><td class="has-text-centered">17%</td><td class="has-text-centered">92%</td><td class="has-text-centered">4%</td></tr>
+        <tr><td>Asra</td><td class="has-text-centered">11%</td><td class="has-text-centered">0%</td><td class="has-text-centered">14%</td><td class="has-text-centered">16%</td><td class="has-text-centered">96%</td><td class="has-text-centered">0%</td></tr>
+        <tr><td>HY-WorldPlay</td><td class="has-text-centered">9%</td><td class="has-text-centered">0%</td><td class="has-text-centered">4%</td><td class="has-text-centered">7%</td><td class="has-text-centered">94%</td><td class="has-text-centered">0%</td></tr>
+        <tr class="swm-hl"><td>Stateful Harness (ours)</td><td class="has-text-centered">96%</td><td class="has-text-centered">92%</td><td class="has-text-centered">96%</td><td class="has-text-centered">95%</td><td class="has-text-centered">98%</td><td class="has-text-centered">90%</td></tr>
+      </tbody>
+    </table>
+    <p class="swm-table-note">
+      Under review — numbers transcribed from the submission; the benchmark, judge prompts,
+      and per-clip verdicts will be released with the camera-ready version.
+    </p>
+  </section>
 
-  </main>
+  <!-- ================= BIBTEX ================= -->
+  <section class="swm-section" id="bibtex">
+    <h2 class="title is-4">BibTeX</h2>
+    <div class="swm-bibtex">@inproceedings{
+  stateworldmodels2027,
+  title     = {State World Models: Execute the Rules, Generate the Pixels},
+  author    = {Anonymous Authors},
+  booktitle = {Under review at the International Conference on Learning Representations (ICLR)},
+  year      = {2027},
+  note      = {Paper under double-blind review. Citation will be updated upon acceptance.}
+}</div>
+  </section>
+
+  <footer class="swm-footer">
+    This page is part of the anonymous ICLR 2027 submission. Web template adapted from the
+    Bulma academic project page pattern.
+  </footer>
+
+  <script>
+    /* 游戏画廊数据:首帧 + 亮点片段(均为 harness 原始输出) */
+    const SWM_GAMES = [
+      { id: "angry_birds_sling",  name: "Angry Birds: Slingshot Siege",  tag: "physics puzzle",
+        d: "Fifteen birds, one cracked pillar. Every launch rides the camera to the impact point; three pillar breaks collapse the fort in a chain, and the pigs react in three stages — startle, hide, bail out." },
+      { id: "pvz_garden",         name: "Lane of the Dead: Garden Defense", tag: "lane defense",
+        d: "A diagonal lane with four pits. Zombies advance marker by marker, stop to devour sprouts in their cell, and peashooters fire one fixed-beat shot per turn — damage visible as dented buckets and weeping wounds." },
+      { id: "pacman_blue_hour",   name: "Pac-Man: Blue Hour",  tag: "arcade chase",
+        d: "Two ghosts alternate their lunges from ten tiles back. Munch rows to score, grab a power pellet to open the three-beat frightened window — the blue fades each beat, and a chase devours the ghost for 400 points." },
+      { id: "pokemon_style_duel", name: "Type Duel: Moss Stone Ring", tag: "turn-based battle",
+        d: "Fire cub vs slate falcon on a ring of moss stones. Fire beats grass, grass beats water, water beats fire. Every attack re-lands on a neighboring stone; a read on the opponent's glow tells you which counter to bring." },
+      { id: "mario_blocks",       name: "Block Run",  tag: "platformer",
+        d: "Eleven segments of pits, turtles and piranha plants. Head-brick contents are hidden until you bonk them; the piranha only bites on its wide beat; mushrooms buy an extra life and a run never scrolls back." },
+      { id: "temple_run_forks",   name: "Temple Run: The Forks",  tag: "endless runner",
+        d: "Twelve junctions, one collapsing fork each — the crack lines and startled birds tell you which side is safe. The colossus closes one pace every two turns; stumble twice and it takes the run." },
+      { id: "street_fighter_duel",name: "Neon Bout: Strike & Throw",  tag: "fighting",
+        d: "Strike beats throw, throw beats block, block beats strike. Your meter fills as you trade; at full charge the finisher unlocks — and a reckless rush invites the counter-elbow." },
+      { id: "cs_aim_duel",        name: "Bombsite Duel",  tag: "tactical shooter",
+        d: "One enemy, three possible angles. Footstep direction and muzzle flashes leak the position; a flash forces the kill, a silent flank guarantees it, and the spike timer adds a second clock." },
+      { id: "monopoly_lane",      name: "One Street: Monopoly",  tag: "board game",
+        d: "Six tiles, three deeds, one rival whose gait betrays his cash. Buy, build, mortgage, and read the opportunity cards before he does — three deeds and 300 coins seals the street." },
+      { id: "duel_moon_dragon",   name: "Boss Duel: Moon Dragon",  tag: "showcase duel",
+        d: "A multi-turn boss duel on one frozen model: counter cycles, a charged eclipse release at turn 6, and an eleven-turn arc from first probe to the final blow — every beat settled by rules before rendering." },
+    ];
+
+    const grid = document.getElementById("games-grid");
+    for (const g of SWM_GAMES) {
+      const card = document.createElement("div");
+      card.className = "swm-game";
+      card.innerHTML = `
+        <video src="static/videos/${g.id}.mp4" muted loop playsinline preload="none"
+               poster="static/images/games/${g.id}.png"
+               onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0"></video>
+        <div class="body">
+          <span class="tag">${g.tag}</span>
+          <div class="n">${g.name}</div>
+          <div class="d">${g.d}</div>
+        </div>`;
+      grid.appendChild(card);
+    }
+  </script>
 </body>
-
 </html>

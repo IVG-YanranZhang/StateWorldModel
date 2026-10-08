@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated
+    Image Detection</title>
+
+  <meta name="description"
+    content="UniGenDet is a unified generative-discriminative framework that co-evolves image generation and generated image detection, aligning generation with detector-aware signals for improved authenticity and robustness." />
+  <meta name="keywords"
+    content="generated image detection, image generation, generative-discriminative learning, co-evolution, alignment, robustness, computer vision" />
+  <meta name="author"
+    content="Yanran Zhang, Wenzhao Zheng, Yifei Li, Bingyao Yu, Yu Zheng, Lei Chen, Jie Zhou, Jiwen Lu" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title"
+    content="UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection" />
+  <meta property="og:description"
+    content="A unified framework that co-evolves image generation and generated image detection with detector-informed alignment." />
+  <meta property="og:image" content="static/images/social_preview.png" />
+  <meta property="og:url" content="https://ivg-yanranzhang.github.io/UniGenDet/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title"
+    content="UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection" />
+  <meta name="twitter:description"
+    content="A unified framework that co-evolves image generation and generated image detection with detector-informed alignment." />
+  <meta name="twitter:image" content="static/images/social_preview.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css" />
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css" />
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css" />
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css" />
+  <link rel="stylesheet" href="static/css/index.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+
+  <!-- JS -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <style>
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 1em;
+    }
+
+    .figure-caption {
+      margin-top: 0.6rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tight-hero .hero-body {
+      padding-bottom: 1.5rem;
+    }
+
+    .section-title-note {
+      margin-top: -1rem;
+      margin-bottom: 2rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .img-frame {
+      border-radius: 12px;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      /* 学术图不要裁剪 */
+      background: var(--background-primary);
+    }
+
+    /* 仅用于“并排放”的图片：等高、宽度随纵横比自动变化 */
+    .img-eqH {
+      height: 360px;
+      /* 你可改成 380/420，看视觉更舒服 */
+      width: auto;
+      /* 关键：宽度允许不一样 */
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* 手机端不要强行固定高度 */
+    @media (max-width: 768px) {
+      .img-eqH {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .figure-card {
+      background: var(--background-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .publication-venue {
+      color: #262626;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Yanran Zhang</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://ivg-yanranzhang.github.io/MoRe4D/" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Joint 3D Geometry Reconstruction and Motion Generation for 4D Synthesis from a Single Image</h5>
+            <p>A joint framework for single-image 4D generation that tightly couples motion and geometry, overcoming
+              the
+              inherent weaknesses of decoupled paradigms.</p>
+            <span class="work-venue">Arxiv</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://ivg-yanranzhang.github.io/D3QE/" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>D³QE: Learning Discrete Distribution Discrepancy-aware Quantization Error for Autoregressive-Generated
+              Image Detection</h5>
+            <p>D³QE is a novel framework for detecting autoregressive-generated images by exploiting the distinctive
+              patterns and frequency bias in the discrete latent codebook, achieving superior accuracy and
+              generalization.</p>
+            <span class="work-venue">ICCV 2025</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+      <div class="works-list">
+        <a href="https://ivg-yanranzhang.github.io/UniPre3D/" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>UniPre3D: Unified Pre-training of 3D Point Cloud Models with Cross-Modal Gaussian Splatting</h5>
+            <p>UniPre3D is the first unified pre-training method for 3D point clouds that effectively handles both
+              object- and scene-level data through cross-modal Gaussian splatting.</p>
+            <span class="work-venue">CVPR 2025</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero tight-hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop has-text-centered">
+          <h1 class="title is-1 publication-title">
+            UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated
+            Image Detection
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://yanran-zhang.github.io/" target="_blank">Yanran Zhang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://wzzheng.net/#" target="_blank">Wenzhao Zheng</a><sup>†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://joeleelyf.github.io/" target="_blank">Yifei Li</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://yuby14.github.io/" target="_blank">Bingyao Yu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://yzheng97.github.io/" target="_blank">Yu Zheng</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://leichenthu.github.io/" target="_blank">Lei Chen</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=6a79aPwAAAAJ&hl=en" target="_blank">Jie
+                Zhou</a><sup>*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ivg.au.tsinghua.edu.cn/Jiwen_Lu/" target="_blank">Jiwen Lu</a>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Department of Automation, Tsinghua University, China</span><br>
+            <span class="eql-cntrb"><small><sup>*</sup> Corresponding author &nbsp;&nbsp; <sup>†</sup> Project
+                leader</small>
+          </div>
+          <p class="publication-venue"><b>CVPR 2026</b></p>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="static/pdfs/paper.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/Zhangyr2022/UniGenDet" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2604.21904v1" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://www.modelscope.cn/models/YanranZhang/UniGenDet/summary" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><img class="hf-icon" src="https://modelscope.cn/favicon.ico"
+                      alt="ModelScope"></span>
+                  <span>ModelScope</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/Yanran21/UniGenDet" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><img class="hf-icon" src="https://huggingface.co/favicon.ico"
+                      alt="Hugging Face"></span>
+                  <span>Hugging Face</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaser -->
+    <section class="hero teaser">
+      <div class="container is-max-desktop has-text-centered">
+        <img class="img-frame" src="static/images/fig01_teaser.png" alt="UniGenDet teaser" style="width: 45%;" />
+        <div class="figure-caption">UniGenDet bridges generation and detection in a unified, co-evolutionary
+          framework.</div>
+        <div class="content has-text-justified" style="margin-top: 1.5rem;">
+          <p>
+            Image generation and generated-image detection have both advanced rapidly, yet they are typically developed
+            in isolation:
+            generators focus on perceptual realism, while detectors react to a moving target by training on snapshots of
+            existing forgeries.
+            This “arms race” creates a persistent <i>detection lag</i>: detectors may overfit to transient artifacts and
+            struggle to generalize to new generators and post-processing.
+          </p>
+          <p>
+            <b>UniGenDet</b> breaks this separation by unifying generation and authenticity discrimination within one
+            framework.
+            As illustrated in Fig. 1, (a) generative knowledge helps detection reduce distribution gaps and improves
+            interpretability;
+            (b) detection feedback refines generation toward higher realism; and (c) a single architecture supports
+            multiple modalities and tasks (detection + explanation, and text-to-image generation).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              In recent years, significant progress has been made in both image generation and generated image
+              detection. Despite their rapid, yet largely independent, development, these two fields have evolved
+              distinct architectural paradigms: the former predominantly relies on generative networks, while the latter
+              favors discriminative frameworks. A recent trend in both domains is the use of adversarial information to
+              enhance performance, revealing potential for synergy. However, the significant architectural divergence
+              between them presents considerable challenges. Departing from previous approaches, we propose
+              <b>UniGenDet</b>: a <b>Uni</b>fied generative-discriminative framework for
+              co-evolutionary image <b>Gen</b>eration and generated image <b>Det</b>ection. To bridge the task gap, we
+              design a symbiotic multimodal self-attention mechanism and a unified fine-tuning algorithm. This synergy
+              allows the generation task to improve the interpretability of authenticity identification, while
+              authenticity criteria guide the creation of higher-fidelity images. Furthermore, we introduce a
+              detector-informed generative alignment mechanism to facilitate seamless information exchange. Extensive
+              experiments on multiple datasets demonstrate that our method achieves state-of-the-art performance.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Highlights -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Key Contributions</h2>
+        <p class="section-title-note">Framework design and methodological highlights</p>
+        <div class="content has-text-justified">
+          <li>
+            <b>Unified generative-discriminative co-evolution:</b>
+            We jointly optimize image generation and detection in a closed loop, so that the “spear” and “shield” evolve
+            synchronously instead of independently.
+          </li>
+          <li>
+            <b>Bridging the task gap via SMSA + unified fine-tuning:</b>
+            We introduce a Symbiotic Multi-modal Self-Attention mechanism and a unified fine-tuning algorithm to
+            transfer generative distributional knowledge to authenticity classification and explanation.
+          </li>
+          <li>
+            <b>Detector-informed generative alignment (DIGA):</b>
+            We inject the detector's forensic criteria back into the generator through feature alignment, encouraging
+            authenticity-aware synthesis while preserving generative fidelity.
+          </li>
+          </ul>
+          <p style="margin-top: 1rem;">
+            These contributions establish a novel paradigm for bridging image generation and detection, effectively
+            mitigating the traditional
+            lag between generative model advances and detection capabilities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Method Overview -->
+    <section class="section" id="method">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Method Overview</h2>
+        <p class="section-title-note">Two main modules: GDUF and DIGA</p>
+
+        <div class="columns is-centered is-variable is-5">
+          <div class="column is-6">
+            <div class="figure-card has-text-centered">
+              <img class="img-frame img-eqH" src="static/images/fig02_gduf_pipeline.png" alt="GDUF pipeline" />
+              <div class="figure-caption">
+                Fig. 2. Generation-Detection Unified Fine-tuning (GDUF) pipeline. The Symbiotic Multi-modal
+                Self-Attention transfers generator knowledge to the detector, enabling both accurate classification and
+                explanatory output.
+              </div>
+            </div>
+          </div>
+          <div class="column is-6">
+            <div class="figure-card has-text-centered">
+              <img class="img-frame img-eqH" src="static/images/fig03_diga_pipeline.png" alt="DIGA pipeline" />
+              <div class="figure-caption">
+                Fig. 3. Detector-Informed Generative Alignment (DIGA). The detector’s forensic knowledge is injected
+                into the generator, guiding image synthesis toward undetectable realism while maintaining generative
+                fidelity.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 1.25rem;">
+          <p>
+            <b>Stage I — GDUF (Generation-Detection Unified Fine-tuning).</b>
+            We build upon a unified generation-understanding model and fine-tune it on both generation data and
+            detection-with-explanation data.
+            For detection, the <b>Symbiotic Multi-modal Self-Attention (SMSA)</b> lets the detector attend to
+            generator-side latents together with visual/text features,
+            enabling accurate real/fake prediction and more grounded artifact explanations.
+            For generation, discriminative cues from the detector are injected as conditions, making synthesis more
+            aligned with authenticity criteria.
+          </p>
+          <p>
+            <b>Stage II — DIGA (Detector-Informed Generative Alignment).</b>
+            After obtaining a strong detector, we freeze it and use it as an authenticity teacher to guide the
+            generator.
+            Specifically, DIGA aligns generator intermediate features to the detector's representation of real images
+            (cosine-similarity feature alignment),
+            combined with the flow matching objective. This forms an explicit feedback loop: the generator is pushed
+            away from detector-sensitive (easily detectable) feature subspaces,
+            improving realism while keeping the base generative capability.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visualizations -->
+    <section class="section hero is-light" id="visualizations">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Qualitative Visualizations</h2>
+        <p class="section-title-note">Generation and detection comparisons</p>
+
+        <!-- Generation -->
+        <div class="columns is-centered">
+          <div class="column is-10 has-text-centered">
+            <div class="figure-card">
+              <img class="img-frame" src="static/images/vis01_generation.png" alt="Generation comparison" />
+              <div class="figure-caption">
+                <b>Generation results:</b> UniGenDet produces more natural lighting, coherent shadows, and artifact-free
+                textures than BAGEL, validating detector-informed training benefits for visual realism.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detection -->
+        <div class="columns is-centered" style="margin-top: 1.5rem;">
+          <div class="column is-10 has-text-centered">
+            <div class="figure-card">
+              <img class="img-frame" src="static/images/vis02_detection.png" alt="Detection comparison" />
+              <div class="figure-caption">
+                <b>Detection results:</b> UniGenDet achieves higher accuracy in identifying real and fake images, while
+                providing clearer artifact explanations and interpretability for forensic evaluation compared to the
+                baseline BAGEL.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quantitative Results -->
+    <section class="section" id="quantitative">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
+        <p class="section-title-note">Detection and generation metrics explained</p>
+
+        <div class="columns is-centered">
+          <div class="column is-10 has-text-centered">
+            <div class="figure-card">
+              <img class="img-frame" src="static/images/tab01_detection.png" alt="Detection table"
+                style="height: auto; width: 90%;" />
+              <div class="figure-caption">
+                <b>Detection Performance:</b> UniGenDet outperforms existing methods on FakeClue, DMImage, and
+                ARForensics datasets. Accuracy and F1 improvements highlight the efficacy of joint training and
+                detector-guided generator feedback.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered" style="margin-top: 1.5rem;">
+          <div class="column is-10 has-text-centered">
+            <div class="figure-card">
+              <img class="img-frame" src="static/images/tab02_generation.png" alt="Generation table"
+                style="height: auto; width: 90%;" />
+              <div class="figure-caption">
+                <b>Generation Metrics:</b> Fréchet Inception Distance (FID) and GenEval results demonstrate improved
+                realism and text-image alignment. The two-stage training approach significantly enhances visual fidelity
+                over baseline BAGEL models.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 1rem;">
+          <p>
+            Overall, quantitative results confirm the effectiveness of the co-evolutionary framework. Detection
+            accuracy, F1, semantic consistency scores, and FID collectively indicate that UniGenDet successfully
+            balances both tasks, offering state-of-the-art performance in generation realism and forensic detection.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BibTeX -->
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre id="bibtex-code"><code>@inproceedings{zhang2026unigendet,
+  title     = {UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection},
+  author    = {Zhang, Yanran and Zheng, Wenzhao and Li, Yifei and Yu, Bingyao and Zheng, Yu and Chen, Lei and Zhou, Jie and Lu, Jiwen},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year      = {2026}
+}
+        </code></pre>
+        <pre id="bibtex-code"><code>@article{zhang2026unigendet,
+  title   = {UniGenDet: A Unified Generative-Discriminative Framework for Co-Evolutionary Image Generation and Generated Image Detection},
+  author  = {Zhang, Yanran and Zheng, Wenzhao and Li, Yifei and Yu, Bingyao and Zheng, Yu and Chen, Lei and Zhou, Jie and Lu, Jiwen},
+  journal = {CoRR},
+  volume  = {abs/2604.21904},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2604.21904},
+}
+        </code></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
+            Template adapted from <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</body>
+
+</html>
