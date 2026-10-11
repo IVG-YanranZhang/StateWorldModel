@@ -357,7 +357,7 @@
 
   <!-- ================= GAME DEMOS ================= -->
   <section class="swm-section" id="games">
-    <h2 class="title is-4">Nine Worlds, One Runtime</h2>
+    <h2 class="title is-4">Three Worlds, One Runtime</h2>
     <p class="swm-caption" style="max-width:100%">
       Every world below is a JSON definition: typed rules, hidden variables, and a fixed
       camera. The same runtime settles actions, compiles a four-beat VisualScript, and
@@ -437,43 +437,14 @@
   <script>
     /* 游戏画廊数据:首帧 + 亮点片段(均为 harness 原始输出) */
     const SWM_GAMES = [
-      { id: "angry_birds_sling",  name: "Angry Birds: Slingshot Siege",  tag: "physics puzzle",
-        d: "Fifteen birds, one cracked pillar. Every launch rides the camera to the impact point; three pillar breaks collapse the fort in a chain, and the pigs react in three stages — startle, hide, bail out." },
-      { id: "pvz_garden",         name: "Lane of the Dead: Garden Defense", tag: "lane defense",
-        d: "A diagonal lane with four pits. Zombies advance marker by marker, stop to devour sprouts in their cell, and peashooters fire one fixed-beat shot per turn — damage visible as dented buckets and weeping wounds." },
-      { id: "pacman_blue_hour",   name: "Pac-Man: Blue Hour",  tag: "arcade chase",
-        d: "Two ghosts alternate their lunges from ten tiles back. Munch rows to score, grab a power pellet to open the three-beat frightened window — the blue fades each beat, and a chase devours the ghost for 400 points." },
-      { id: "pokemon_style_duel", name: "Type Duel: Moss Stone Ring", tag: "turn-based battle",
-        d: "Fire cub vs slate falcon on a ring of moss stones. Fire beats grass, grass beats water, water beats fire. Every attack re-lands on a neighboring stone; a read on the opponent's glow tells you which counter to bring." },
-      { id: "mario_blocks",       name: "Block Run",  tag: "platformer",
-        d: "Eleven segments of pits, turtles and piranha plants. Head-brick contents are hidden until you bonk them; the piranha only bites on its wide beat; mushrooms buy an extra life and a run never scrolls back." },
-      { id: "temple_run_forks",   name: "Temple Run: The Forks",  tag: "endless runner",
-        d: "Twelve junctions, one collapsing fork each — the crack lines and startled birds tell you which side is safe. The colossus closes one pace every two turns; stumble twice and it takes the run." },
-      { id: "street_fighter_duel",name: "Neon Bout: Strike & Throw",  tag: "fighting",
-        d: "Strike beats throw, throw beats block, block beats strike. Your meter fills as you trade; at full charge the finisher unlocks — and a reckless rush invites the counter-elbow." },
-      { id: "cs_aim_duel",        name: "Bombsite Duel",  tag: "tactical shooter",
-        d: "One enemy, three possible angles. Footstep direction and muzzle flashes leak the position; a flash forces the kill, a silent flank guarantees it, and the spike timer adds a second clock." },
-      { id: "monopoly_lane",      name: "One Street: Monopoly",  tag: "board game",
-        d: "Six tiles, three deeds, one rival whose gait betrays his cash. Buy, build, mortgage, and read the opportunity cards before he does — three deeds and 300 coins seals the street." },
-      { id: "duel_moon_dragon",   name: "Boss Duel: Moon Dragon",  tag: "showcase duel",
-        d: "A multi-turn boss duel on one frozen model: counter cycles, a charged eclipse release at turn 6, and an eleven-turn arc from first probe to the final blow — every beat settled by rules before rendering." },
+      { id: "duel_moon_dragon",   name: "Boss Duel: Moon Dragon",  tag: "boss duel",
+        d: "A multi-turn boss duel on one frozen model: counter cycles, a charged eclipse release, and an eleven-turn arc from first probe to the final blow — every beat settled by rules before rendering." },
+      { id: "romance",            name: "Quiet Hours: A Café Story",  tag: "romance",
+        d: "A narrative date driven by free-form dialogue: type anything, the LLM speaks for both sides, and the rules track affection and scene beats — every line settles before the frozen model renders the moment." },
+      { id: "openworld",          name: "Open World: The Wanted",  tag: "open world",
+        d: "A main quest line (The Blackthorn) with free exploration: talk, gather, and advance three chapters while the runtime keeps the world ledger consistent across every turn." },
     ];
 
-    const grid = document.getElementById("games-grid");
-    for (const g of SWM_GAMES) {
-      const card = document.createElement("div");
-      card.className = "swm-game";
-      card.innerHTML = `
-        <video src="static/videos/${g.id}.mp4" muted loop playsinline preload="none"
-               poster="static/images/games/${g.id}.png"
-               onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0"></video>
-        <div class="body">
-          <span class="tag">${g.tag}</span>
-          <div class="n">${g.name}</div>
-          <div class="d">${g.d}</div>
-        </div>`;
-      grid.appendChild(card);
-    }
-  </script>
+    const grid = document.getElementById("games-grid");</script>
 </body>
 </html>
