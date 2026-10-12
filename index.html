@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>State World Models: Execute the Rules, Generate the Pixels</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='22' y='22' width='56' height='56' rx='12' transform='rotate(45 50 50)' fill='%23b8860b'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23e2574c'/%3E%3C/svg%3E" />
 
   <meta name="description"
     content="Stateful Harness separates world evolution from video rendering: a deterministic rule program settles each turn over explicit state, and a frozen video model renders the settled event. Evaluated on WorldState-Bench, 50 counterfactual twin pairs." />
@@ -57,6 +58,20 @@
     .swm-hero .title .accent-red { color: var(--swm-red); }
     .swm-hero .title .accent-blue { color: var(--swm-blue); }
 
+    .conf-badge {
+      display: inline-block; font-size: 0.78rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--swm-blue);
+      border: 1px solid rgba(76, 127, 226, 0.35); border-radius: 999px;
+      padding: 5px 16px; margin-bottom: 1.1rem;
+      background: rgba(76, 127, 226, 0.05);
+    }
+    .hero-rule {
+      max-width: 240px; height: 3px; margin: 2.4rem auto 0;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--swm-red), var(--swm-blue), transparent);
+      opacity: 0.65;
+    }
+
     .swm-authors {
       color: #5a6270;
       font-size: 1.02rem;
@@ -71,6 +86,9 @@
       border-radius: 10px;
       padding: 0 1.35rem;
       font-weight: 600;
+    }
+    .swm-buttons .button.is-dark {
+      background: var(--swm-ink); color: #fff; border-color: var(--swm-ink);
     }
 
     .swm-buttons .button .icon { margin-right: 0.45em; }
@@ -192,6 +210,7 @@
     .swm-table-note { font-size: 0.85rem; color: #79818e; margin-top: 0.7rem; }
     .swm-hl td { background: #f6f9ff; font-weight: 700; }
     .swm-table td, .swm-table th { font-size: 0.9rem; }
+    .swm-table tbody tr:nth-child(even) { background: #fafbfc; }
 
     .swm-bibtex {
       background: #10141f; color: #d7dee9; border-radius: 12px;
@@ -213,6 +232,7 @@
 <body>
   <!-- ================= HERO ================= -->
   <section class="swm-hero">
+    <div class="conf-badge">ICLR 2027 · under review</div>
     <h1 class="title">
       <b class="accent-red">State</b> World Models: Execute the Rules,
       Generate the <b class="accent-blue">Pixels</b>
