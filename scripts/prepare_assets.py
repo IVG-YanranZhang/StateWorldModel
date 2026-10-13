@@ -6,7 +6,7 @@ Run prepare_showcase.py separately to rebuild the ten-pair showcase.
 import argparse
 from pathlib import Path
 import pymupdf as fitz
-from PIL import Image
+from PIL import Image, ImageOps
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
@@ -24,6 +24,7 @@ def main():
     pdf.save(str(ROOT/'static/pdfs/state-world-models.pdf'),garbage=4,deflate=True)
     for name in ['duel_moon_dragon','romance','openworld']:
         image=Image.open(ROOT/f'static/images/games/{name}.png').convert('RGB')
+        ImageOps.fit(image,(180,120),method=Image.Resampling.LANCZOS).save(ROOT/f'static/images/games/{name}-thumb.webp',quality=80,method=6)
         image.thumbnail((1440,900))
         image.save(ROOT/f'static/images/games/{name}.webp',quality=82 if name=='duel_moon_dragon' else 88)
     print('Prepared anonymous paper, Figures 4/6 and three world posters; showcase data retained.')

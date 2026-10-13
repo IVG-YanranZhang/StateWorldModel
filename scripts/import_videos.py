@@ -5,6 +5,7 @@ and local path. Optional judge metadata must belong to this exact recording.
 Omitting judge removes its badge rather than copying a prior clip's decision.
 Keep manifests outside the public repository because paths may be private.
 """
+from site_data import sync_example_posters
 import argparse
 import hashlib
 import json
@@ -52,6 +53,7 @@ def main():
         record=dict(src=video.relative_to(ROOT).as_posix(),poster=poster.relative_to(ROOT).as_posix(),duration=round(float(info['format']['duration']),2),judge=public_judge)
         by_id[entry['id']]['recordings'][entry['modelKey']][entry['probe']][entry['twin']]=record
     data_path.write_text('window.SWM_MODELS = '+json.dumps(models,ensure_ascii=False,separators=(',',':'))+';\nwindow.SWM_SAMPLES = '+json.dumps(samples,ensure_ascii=False,separators=(',',':'))+';\n')
+    sync_example_posters(ROOT, samples)
     print(f'Imported {len(entries)} recordings; prior judgments are never assigned to new clips.')
 
 if __name__=='__main__':main()

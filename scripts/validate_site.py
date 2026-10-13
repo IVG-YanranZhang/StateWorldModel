@@ -43,6 +43,11 @@ args=parser.parse_args()
 models_text,samples_text=(ROOT/'static/data/benchmark.js').read_text().split('\nwindow.SWM_SAMPLES = ',1)
 models=json.loads(models_text.removeprefix('window.SWM_MODELS = ').rstrip(';\n'))
 data=json.loads(samples_text.rstrip(';\n'))
+b01 = next(sample for sample in data if sample['id']=='B01')
+html = (ROOT/'index.html').read_text()
+for side in ['A','B']:
+    poster = b01['recordings']['ours']['harness'][side]['poster']
+    assert f'data-poster-{side.lower()}="{poster}"' in html, 'Runtime illustration is stale'
 assert len(data)==10
 assert len({sample['id'] for sample in data})==10
 assert len(models)==12 and len({model['key'] for model in models})==12

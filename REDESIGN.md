@@ -24,7 +24,7 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 - `static/data/showcase-descriptions.json`: downloadable case descriptions, explicitly scoped to the illustrative subset.
 - `static/fonts/`: self-hosted Manrope and its OFL license.
 
-No external fonts, runtime libraries or analytics are required. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it.
+No external fonts, runtime libraries or analytics are required. The recording inventory loads as the reader approaches the benchmark section, or immediately for a benchmark deep link. A failed inventory request exposes a retry button. The method illustration remains interactive before that request. Small dedicated scene thumbnails reduce first-screen traffic. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it. Comparisons pause when the workbench leaves view, and motion-preference changes pause automatic playback.
 
 ## Preview and verification
 
@@ -68,6 +68,8 @@ python3 scripts/import_videos.py /path/to/local-manifest.json
 python3 scripts/validate_site.py
 ```
 
+The builder and importer also synchronize the static B01 overview/method posters with the selected harness recordings. The validator checks that the runtime example matches the recording inventory.
+
 Models accept registry keys or exact display names. Baseline probes are `rule` and `ending`; the harness uses `harness`. Optional `judge` metadata must belong to the exact new recording and contain consistent boolean `outcomeOk`, `counterOk`, `strictOk`, plus textual `observedEnding` and `evidence`. Omitting it removes the badge. The importer never transfers a prior clip's judgment to a replacement.
 
 ## Facts corrected from the previous page
@@ -75,3 +77,7 @@ Models accept registry keys or exact display names. Baseline probes are `rule` a
 Table 1 in the supplied PDF gives MiniMax-H3 EndFollow 66, Echo-WM Flash TwinContrast 42, and the model name Astra. The previous page had 60, 43, and Asra. The separate 32 → 64 → 92 component chain is distinguished from the six Table 1 columns. Its reported paired bootstrap intervals and exact McNemar tests are attributed to Appendix D.
 
 The page preserves anonymous authorship and avoids identity links. The citation remains provisional while the paper is under review.
+
+## Publishable export
+
+`python3 scripts/export_site.py --output /path/to/new-empty-directory` packages only the current page and referenced runtime assets, including the dynamic recording inventory. Historical templates, unrelated PDFs and internal handoff documents are excluded. The exported artifact has been checked with real mobile browser playback.

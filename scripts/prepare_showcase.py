@@ -3,6 +3,7 @@
 The showcase is illustrative. Aggregate scores stay sourced from the paper.
 Inputs: --cases /path/to/benchmark/out/cases --runs /path/to/casebench/runs
 """
+from site_data import sync_example_posters
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
@@ -85,6 +86,7 @@ def main():
             if count%20==0 or count==len(jobs):print(f'Encoded {count}/{len(jobs)} clips.',flush=True)
     public_models=[{key:value for key,value in model.items() if key!='run'} for model in MODELS]
     (ROOT/'static/data/benchmark.js').write_text('window.SWM_MODELS = '+json.dumps(public_models,ensure_ascii=False,separators=(',',':'))+';\nwindow.SWM_SAMPLES = '+json.dumps(samples,ensure_ascii=False,separators=(',',':'))+';\n')
+    sync_example_posters(ROOT, samples)
     print('Showcase complete: 10 pairs, 11 baselines + Stateful Harness, both twins, both baseline probes.',flush=True)
 
 if __name__=='__main__':main()
