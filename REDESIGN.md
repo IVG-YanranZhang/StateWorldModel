@@ -85,3 +85,7 @@ The page preserves anonymous authorship and avoids identity links. The citation 
 ## Reading refinement
 
 The mobile header has a native six-chapter popover with keyboard/Escape behavior, focus return and active chapter indication. The author's subsequent feedback requested larger type and less empty space: body copy is now 14–15px, captions/controls 11–13px, the reading width increases to 1240px, and section padding decreases from104/66px to78/50px on desktop/mobile. Caption contrast and variable-font weight also increase slightly.
+
+## Source and mobile-table refinement
+
+Direct references now open the actual submission pages for Table1 (page7), the full both-probe grid/Table4 (page21), WBench/Table2 (page9), and the human-audit results (page19). The preference text specifies four Rule-only opponents and split auditor votes. The table note makes clear that both metric groups use one deployed harness condition. On mobile, a fixed-width metric grid keeps backend names and category labels visible while scrolling; metric headings wrap and the direction symbols are omitted because the caption already says higher is better.

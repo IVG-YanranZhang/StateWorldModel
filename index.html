@@ -630,7 +630,17 @@ else:
         </details>
         <div class="table-heading">
           <h3>WorldState-Bench · Main results</h3>
-          <span>Table 1 · All scores in % · Higher is better</span>
+          <span
+            ><a
+              class="source-reference"
+              href="static/pdfs/state-world-models.pdf#page=7"
+              target="_blank"
+              rel="noopener"
+              aria-label="Read Table 1 in the submission PDF"
+              >Table 1 ↗</a
+            >
+            · All scores in % · Higher is better</span
+          >
         </div>
         <div
           class="table-scroll"
@@ -646,50 +656,76 @@ else:
             <thead>
               <tr>
                 <th rowspan="2" scope="col">Backend</th>
-                <th colspan="3" scope="colgroup">A / Rule-only probe</th>
-                <th colspan="3" scope="colgroup">B / Rule+end probe</th>
+                <th colspan="3" scope="colgroup">
+                  <span class="probe-group-label">A / Rule-only probe</span>
+                </th>
+                <th colspan="3" scope="colgroup">
+                  <span class="probe-group-label">B / Rule+end probe</span>
+                </th>
               </tr>
               <tr>
                 <th scope="col">
                   <abbr
                     title="Clip-level: the final frames show the prescribed ending."
-                    >EndFollow ↑</abbr
+                    >End<wbr />Follow
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
                 <th scope="col">
                   <abbr
                     title="Pair-level: both twins show their required endings."
-                    >PairFollow ↑</abbr
+                    >Pair<wbr />Follow
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
                 <th scope="col">
                   <abbr
                     title="Pair-level: the judged endings differ between twins."
-                    >TwinContrast ↑</abbr
+                    >Twin<wbr />Contrast
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
                 <th scope="col">
                   <abbr
                     title="Clip-level: the required ending appears and the forbidden ending never appears."
-                    >Strict ↑</abbr
+                    >Strict
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
                 <th scope="col">
                   <abbr
                     title="Clip-level: the forbidden outcome is absent throughout the clip."
-                    >CntAbsent ↑</abbr
+                    >Cnt<wbr />Absent
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
                 <th scope="col">
                   <abbr title="Pair-level: both twins satisfy Strict."
-                    >PairStrict ↑</abbr
+                    >Pair<wbr />Strict
+                    <span class="metric-direction" aria-hidden="true"
+                      >↑</span
+                    ></abbr
                   >
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr class="group-row">
-                <th colspan="7" scope="rowgroup">Image-to-video generators</th>
+                <th colspan="7" scope="rowgroup">
+                  <span class="model-group-label"
+                    >Image-to-video generators</span
+                  >
+                </th>
               </tr>
               <tr>
                 <th scope="row">Wan2.2 A14B</th>
@@ -728,7 +764,11 @@ else:
                 <td>4</td>
               </tr>
               <tr class="group-row">
-                <th colspan="7" scope="rowgroup">Interactive world models</th>
+                <th colspan="7" scope="rowgroup">
+                  <span class="model-group-label"
+                    >Interactive world models</span
+                  >
+                </th>
               </tr>
               <tr>
                 <th scope="row">LingBot-World v2</th>
@@ -805,11 +845,18 @@ else:
             </tbody>
           </table>
         </div>
+        <p class="table-scroll-hint">Swipe to see all metrics.</p>
         <p class="fine-print">
-          Bold: full harness. Underlined: best unwrapped baseline. The harness
-          row uses text and first-frame reference inputs; its matched comparison
-          is the same backbone under Rule+end (Appendix Table 4). Scores are
-          transcribed from the submission PDF.
+          Bold: full harness. Underlined: best unwrapped baseline. Both metric
+          groups report the same deployed harness condition, using text and
+          first-frame references. Its matched comparison is the same MiniMax-H3
+          backbone under Rule+end (<a
+            class="source-reference"
+            href="static/pdfs/state-world-models.pdf#page=21"
+            target="_blank"
+            rel="noopener"
+            >Appendix Table 4 ↗</a
+          >). Scores are transcribed from the submission PDF.
         </p>
         <div class="metric-definitions">
           <p><b>PairFollow</b> Both clips show the required endings.</p>
@@ -826,7 +873,16 @@ else:
           </summary>
           <div class="secondary-grid">
             <article>
-              <p class="eyebrow">WBench · Table 2</p>
+              <p class="eyebrow">
+                WBench ·
+                <a
+                  class="source-reference"
+                  href="static/pdfs/state-world-models.pdf#page=9"
+                  target="_blank"
+                  rel="noopener"
+                  >Table 2 ↗</a
+                >
+              </p>
               <h3>87.2 setting adherence</h3>
               <p>
                 Up from 71.1 under the official MiniMax-H3 protocol. The harness
@@ -836,12 +892,21 @@ else:
               </p>
             </article>
             <article>
-              <p class="eyebrow">Blind comparison · Appendix C</p>
+              <p class="eyebrow">
+                Blind comparison ·
+                <a
+                  class="source-reference"
+                  href="static/pdfs/state-world-models.pdf#page=19"
+                  target="_blank"
+                  rel="noopener"
+                  >Appendix C ↗</a
+                >
+              </p>
               <h3>98% human preference</h3>
               <p>
-                Preferred against four unwrapped baselines in blind pairwise
-                comparisons. These preferences complement the rule-compliance
-                metrics; they measure a different outcome.
+                The harness is preferred in 98% of blinded comparisons against
+                four Rule-only baselines; 2% split the two auditor votes. These
+                preferences complement the ending-compliance metrics.
               </p>
             </article>
           </div>
