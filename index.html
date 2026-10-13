@@ -1,470 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>State World Models: Execute the Rules, Generate the Pixels</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='22' y='22' width='56' height='56' rx='12' transform='rotate(45 50 50)' fill='%23b8860b'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23e2574c'/%3E%3C/svg%3E" />
-
-  <meta name="description"
-    content="Stateful Harness separates world evolution from video rendering: a deterministic rule program settles each turn over explicit state, and a frozen video model renders the settled event. Evaluated on WorldState-Bench, 50 counterfactual twin pairs." />
-  <meta name="keywords"
-    content="world models, video generation, game rules, explicit state, counterfactual twins, benchmark, ICLR" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title"
-    content="State World Models: Execute the Rules, Generate the Pixels" />
-  <meta property="og:description"
-    content="A runtime that separates world evolution from video rendering: rules settle each turn over explicit state, a frozen video model renders the settled event." />
-  <meta property="og:image" content="static/images/swm_teaser.png" />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap"
-    rel="stylesheet" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="static/css/bulma.min.css" />
-  <link rel="stylesheet" href="static/css/fontawesome.all.min.css" />
-
-  <style>
-    /* ---- 页面专属微调(不污染模板) ---- */
-    :root {
-      --swm-gold: #b8860b;
-      --swm-red: #e2574c;
-      --swm-blue: #4c7fe2;
-      --swm-ink: #2a2f3a;
-    }
-
-    .swm-hero {
-      max-width: 880px;
-      margin: 0 auto;
-      text-align: center;
-      padding-top: 3.2rem;
-    }
-
-    .swm-hero .title {
-      font-family: "Noto Serif SC", serif;
-      font-size: 2.35rem;
-      color: var(--swm-ink);
-    }
-
-    .swm-hero .title .accent-red { color: var(--swm-red); }
-    .swm-hero .title .accent-blue { color: var(--swm-blue); }
-
-    .conf-badge {
-      display: inline-block; font-size: 0.78rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--swm-blue);
-      border: 1px solid rgba(76, 127, 226, 0.35); border-radius: 999px;
-      padding: 5px 16px; margin-bottom: 1.1rem;
-      background: rgba(76, 127, 226, 0.05);
-    }
-    .hero-rule {
-      max-width: 240px; height: 3px; margin: 2.4rem auto 0;
-      border-radius: 2px;
-      background: linear-gradient(90deg, transparent, var(--swm-red), var(--swm-blue), transparent);
-      opacity: 0.65;
-    }
-
-    .swm-authors {
-      color: #5a6270;
-      font-size: 1.02rem;
-      margin-top: 1.1rem;
-    }
-
-    .swm-authors .inst { font-size: 0.92rem; color: #8a919e; }
-
-    .swm-buttons { margin-top: 1.4rem; }
-
-    .swm-buttons .button {
-      border-radius: 10px;
-      padding: 0 1.35rem;
-      font-weight: 600;
-    }
-    .swm-buttons .button.is-dark {
-      background: var(--swm-ink); color: #fff; border-color: var(--swm-ink);
-    }
-
-    .swm-buttons .button .icon { margin-right: 0.45em; }
-
-    .swm-teaser {
-      max-width: 920px;
-      margin: 2.2rem auto 0.6rem;
-    }
-
-    .swm-teaser img { border-radius: 10px; width: 100%; }
-
-    .swm-caption {
-      font-size: 0.88rem;
-      color: #6a7280;
-      max-width: 860px;
-      margin: 0.6rem auto 0;
-      line-height: 1.55;
-    }
-
-    .swm-caption b { color: var(--swm-ink); }
-
-    .swm-section { max-width: 920px; margin: 0 auto; padding: 2.6rem 1rem 0; }
-
-    .swm-section .title.is-4 {
-      font-family: "Noto Serif SC", serif;
-      font-size: 1.55rem;
-      color: var(--swm-ink);
-      text-align: center;
-      margin-bottom: 1.4rem;
-    }
-
-    .swm-abstract {
-      font-size: 1.02rem;
-      line-height: 1.85;
-      color: #3c4250;
-      background: #f7f8fa;
-      border-radius: 12px;
-      padding: 1.6rem 1.9rem;
-    }
-
-    .swm-abstract b { color: var(--swm-ink); }
-
-    .swm-numbers {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
-      margin: 1.8rem auto 0.4rem;
-    }
-
-    .swm-num {
-      min-width: 168px;
-      background: linear-gradient(180deg, #fbfcfe, #f2f4f8);
-      border: 1px solid #e3e7ee;
-      border-radius: 12px;
-      padding: 0.9rem 1rem;
-    }
-
-    .swm-num .n { font-size: 1.65rem; font-weight: 800; color: var(--swm-ink); }
-    .swm-num .n.gold { color: var(--swm-gold); }
-    .swm-num .n.red { color: var(--swm-red); }
-    .swm-num .n.blue { color: var(--swm-blue); }
-    .swm-num .d { font-size: 0.78rem; color: #79818e; margin-top: 2px; line-height: 1.4; }
-
-    .swm-contrib {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-      margin-top: 1.4rem;
-    }
-    .swm-contrib .card-c {
-      background: #f7f8fa; border-radius: 12px; padding: 1.2rem 1.3rem;
-      border: 1px solid #e8ebf1;
-    }
-    .swm-contrib .card-c .h {
-      font-weight: 700; color: var(--swm-ink); margin-bottom: 0.5rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .swm-contrib .card-c .h .icon { color: var(--swm-gold); }
-    .swm-contrib .card-c p { font-size: 0.9rem; color: #5a6270; line-height: 1.65; }
-
-    .swm-loop {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem;
-      margin: 1.5rem 0 0.8rem;
-    }
-    .swm-loop .step {
-      background: #fff; border: 1px solid #e3e7ee; border-radius: 12px;
-      padding: 1rem; text-align: center;
-    }
-    .swm-loop .step .icon {
-      font-size: 1.5rem; color: var(--swm-blue); margin-bottom: 0.45rem;
-    }
-    .swm-loop .step .t { font-weight: 700; font-size: 0.92rem; color: var(--swm-ink); }
-    .swm-loop .step .s { font-size: 0.78rem; color: #79818e; margin-top: 0.3rem; line-height: 1.45; }
-    .swm-loop-note {
-      text-align: center; font-size: 0.85rem; color: #8a919e; margin-bottom: 0.6rem;
-    }
-
-    /* 游戏画廊 */
-    .swm-games {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem;
-      margin-top: 1.3rem;
-    }
-    .swm-game {
-      background: #10141f; border-radius: 14px; overflow: hidden;
-      border: 1px solid #232a3a;
-    }
-    .swm-game video, .swm-game img {
-      width: 100%; aspect-ratio: 864 / 480; object-fit: cover; display: block;
-      background: #05070c;
-    }
-    .swm-game .body { padding: 0.85rem 1rem 1rem; }
-    .swm-game .body .n { font-weight: 700; font-size: 0.98rem; color: #f0f2f6; }
-    .swm-game .body .d {
-      font-size: 0.82rem; color: #a7afc0; margin-top: 0.35rem; line-height: 1.55;
-    }
-    .swm-game .tag {
-      display: inline-block; font-size: 0.68rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--swm-gold);
-      border: 1px solid rgba(222, 186, 96, 0.45); border-radius: 999px;
-      padding: 1px 9px; margin-bottom: 0.45rem;
-    }
-
-    .swm-table-note { font-size: 0.85rem; color: #79818e; margin-top: 0.7rem; }
-    .swm-hl td { background: #f6f9ff; font-weight: 700; }
-    .swm-table td, .swm-table th { font-size: 0.9rem; }
-    .swm-table tbody tr:nth-child(even) { background: #fafbfc; }
-
-    .swm-bibtex {
-      background: #10141f; color: #d7dee9; border-radius: 12px;
-      padding: 1.2rem 1.4rem; font-family: monospace; font-size: 0.82rem;
-      line-height: 1.6; overflow-x: auto; white-space: pre;
-    }
-
-    .swm-footer {
-      text-align: center; color: #9aa3b5; font-size: 0.85rem;
-      padding: 3rem 1rem 2.6rem;
-    }
-
-    @media (max-width: 900px) {
-      .swm-contrib, .swm-loop, .swm-games { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>State World Models — Execute the Rules, Generate the Pixels</title>
+<meta name="description" content="Stateful Harness executes world rules before a frozen video model renders them. Explore WorldState-Bench, 50 counterfactual twin pairs, and multi-turn generated worlds.">
+<meta property="og:title" content="State World Models: Execute the Rules, Generate the Pixels"><meta property="og:description" content="Explicit state. Executable rules. Generative worlds."><meta property="og:type" content="website"><meta property="og:image" content="static/images/games/duel_moon_dragon.webp">
+<meta name="theme-color" content="#f8f8f4">
+<link rel="icon" href="static/images/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="static/css/project.css">
+<script src="static/data/benchmark.js" defer></script><script src="static/js/project.js" defer></script>
 </head>
-
 <body>
-  <!-- ================= HERO ================= -->
-  <section class="swm-hero">
-    <div class="conf-badge">ICLR 2027 · under review</div>
-    <h1 class="title">
-      <b class="accent-red">State</b> World Models: Execute the Rules,
-      Generate the <b class="accent-blue">Pixels</b>
-    </h1>
-
-    <div class="swm-authors">
-      Anonymous Authors
-      <div class="inst">Paper under double-blind review at ICLR 2027</div>
-    </div>
-
-    <div class="swm-buttons buttons is-centered">
-      <!-- TODO(相机就绪后填链接):论文 PDF / 匿名仓库 / 视频 -->
-      <a class="button is-light" href="#" aria-disabled="true">
-        <span class="icon"><svg viewBox="0 0 384 512" width="15" fill="#c0392b"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm102.1 330.7L273 414c-4.5 4.5-11.8 4.5-16.3-.1l-64-64.4c-4.5-4.5-4.5-11.8.1-16.3l15.4-15.3c4.5-4.5 11.8-4.5 16.3.1l38.3 38.5 89.7-90c4.5-4.5 11.8-4.5 16.3.1l15.3 15.4c4.5 4.5 4.5 11.8-.1 16.3l-138.6 138.3zM377 105L279 7c-4.5-4.5-10.6-7-17-7H256v128h128v-17c0-8.8-3.2-13.9-7-17z"/></svg></span>Paper
-      </a>
-      <a class="button is-light" href="#games">
-        <span class="icon"><svg viewBox="0 0 640 512" width="17" fill="currentColor"><path d="M480 96H160C71.6 96 0 167.6 0 256s71.6 160 160 160c44.5 0 84.8-18.2 113.9-47.6h92.3C395.2 397.8 435.5 416 480 416c88.4 0 160-71.6 160-160S568.4 96 480 96zM192 208v32h-32v48h-48v-48H80v-32h32v-48h48v48h32zm240 0a24 24 0 1 1 48 0 24 24 0 0 1-48 0zm80-48a24 24 0 1 1-48 0 24 24 0 0 1 48 0z"/></svg></span>Demos
-      </a>
-      <a class="button is-light" href="#bibtex">
-        <span class="icon"><svg viewBox="0 0 512 512" width="14" fill="currentColor"><path d="M464 32H336c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48zM16 208v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48H48C21.5 32 0 53.5 0 80v128z"/></svg></span>BibTeX
-      </a>
-    </div>
-  </section>
-
-  <!-- ================= TEASER ================= -->
-  <div class="swm-teaser">
-    <img src="static/images/swm_teaser.png" alt="Stateful Harness overview" />
-    <p class="swm-caption">
-      <b>State World Models with the Stateful Harness.</b> The same initial frame and the
-      same action can lead to different outcomes under different world states. The harness
-      executes predefined rules to determine the event <i>before</i> a frozen video model
-      renders it — illustrated by the red and blue elemental states — and the generated clip
-      becomes the visual anchor for the next turn.
-    </p>
-  </div>
-
-  <!-- ================= ABSTRACT ================= -->
-  <section class="swm-section">
-    <h2 class="title is-4">Abstract</h2>
-    <div class="swm-abstract">
-      Existing world models can generate action-conditioned video from a single image. Many
-      focus on camera motion, allowing users to move through the generated scene. However,
-      navigation alone does not ensure that an action follows persistent rules when its
-      outcome depends on state that is invisible in the current frame. We present
-      <b>Stateful Harness</b>, a framework that separates world evolution from video
-      rendering to support stateful and rule-governed interaction. It maintains an evolving
-      world state under specified rules, renders each resulting event with a frozen video
-      model, and uses the generated clip to update the world state for the next turn. At
-      each turn, the harness resolves the action selected by the user and compiles the
-      resulting event into an instruction, while a preview clip from an editable 3D scene
-      provides spatial and camera guidance. To evaluate rule compliance, we build
-      <b>WorldState-Bench</b>, a benchmark of 50 counterfactual twin pairs that share an
-      initial frame and action but differ in hidden state and required outcome. Under
-      rule-only prompting, the best of the 11 evaluated video backends produces the required
-      endings for both cases in 32% of pairs. For MiniMax-H3, specifying the required endings
-      raises this rate from 32% to 64%, while the full harness reaches <b>92%</b> with the
-      same frozen model. These results support separating rule execution from video rendering
-      for world interactions with hidden state.
-    </div>
-
-    <div class="swm-numbers">
-      <div class="swm-num"><div class="n gold">92%</div>
-        <div class="d">PairFollow with the full harness (same frozen MiniMax-H3 weights)</div></div>
-      <div class="swm-num"><div class="n red">32% → 64%</div>
-        <div class="d">MiniMax-H3 PairFollow: rule-only → ending supplied</div></div>
-      <div class="swm-num"><div class="n blue">90%</div>
-        <div class="d">PairStrict: forbidden endings absent from both clips</div></div>
-      <div class="swm-num"><div class="n">50 pairs</div>
-        <div class="d">WorldState-Bench · 21 themes · 49 hidden variables</div></div>
-      <div class="swm-num"><div class="n">11</div>
-        <div class="d">video backends evaluated under the same probe and judge</div></div>
-    </div>
-  </section>
-
-  <!-- ================= CONTRIBUTIONS ================= -->
-  <section class="swm-section">
-    <h2 class="title is-4">Contributions</h2>
-    <div class="swm-contrib">
-      <div class="card-c">
-        <div class="h"><span class="icon"><svg viewBox="0 0 384 512" width="22" fill="#b8860b"><path d="M72 64h240v32h-16v167.1c0 10.6 2.6 21 7.7 30.3l62.3 114.3c14.9 27.4 4.9 61.7-22.5 76.6-8.4 4.6-17.8 7-27.4 7H75.9c-31.4 0-56.9-25.5-56.9-56.9 0-9.6 2.4-19 7-27.4l62.3-114.3c5.1-9.3 7.7-19.7 7.7-30.3V96H80V64zM193.3 362.7L155.1 293.2c-1.9-3.6-6.5-4.9-10.1-3s-4.9 6.5-3 10.1l27.6 50.6c1.9 3.6 6.5 4.9 10.1 3s4.9-6.5 3-10.1l-27.6-50.6 30.2 55.4z"/></svg></span>A diagnostic for rule compliance</div>
-        <p>Counterfactual twins hold the visible input and action fixed while changing hidden
-           state. WorldState-Bench contains 50 such pairs across 21 themes, with outcomes
-           derived from typed rule programs.</p>
-      </div>
-      <div class="card-c">
-        <div class="h"><span class="icon"><svg viewBox="0 0 640 512" width="22" fill="#b8860b"><path d="M308.5 135.3l7.2-32.5c1.5-6.8 8.4-11.1 15.2-9.6l30.9 6.9c5.9 1.3 11.9 2 18 2s12.1-.7 18-2l30.9-6.9c6.8-1.5 13.7 2.8 15.2 9.6l7.2 32.5c2.7 12.2 11.6 22 23.4 26.2 11.6 4.1 21.8 11 30 20l27.4 16.4c6 3.6 8.1 11.2 4.6 17.3l-15.5 27.2c-3 5.3-4.3 11.4-3.6 17.4.6 5.9.6 11.9 0 17.8-1.4 11.7 3.3 23.4 12.8 30.6l25.9 19.7c5.5 4.2 6.9 11.9 3.4 17.8l-28.5 49.4c-3.6 6.2-11.2 8.6-17.6 5.5l-29.1-14.8c-5.2-2.7-11.2-3.4-16.9-1.9-5.8 1.5-11.9 1.5-17.7 0-5.7-1.5-11.7-1.4-17.4.1-5.7 1.5-11.7 1.4-17.4-.1-5.7-1.5-11.7-1.4-17.4.1-5.7 1.5-11.7 1.4-17.4-.1-5.8-1.5-11.8-.8-17 1.9l-29.1 14.8c-6.4 3.1-14 1.6-17.6-5.5l-15.5-27.2c-3.6-6.2-1.4-14.1 4.6-17.8l25.9-19.7c9.5-7.2 14.2-18.9 12.8-30.6-.6-5.9-.6-11.9 0-17.8.7-6-0.6-12.1-3.6-17.4l-15.5-27.2c-3.6-6.2-1.4-14.1 4.6-17.8l27.4-16.4c8.2-9 18.4-15.9 30-20 11.8-4.2 20.7-14 23.4-26.2zM400 240a48 48 0 1 0-96 0 48 48 0 0 0 96 0zM96 480h96V368c0-17.7-14.3-32-32-32H128c-17.7 0-32 14.3-32 32v112zM0 352c0-11.1 5.7-21.4 15.1-27.3l32-20.3V224H0V96h96z"/></svg></span>A runtime for explicit state</div>
-        <p>The Stateful Harness settles actions in code, maintains semantic and spatial state,
-           and sends the resulting event through text and spatial-reference channels to a
-           compatible frozen video backend.</p>
-      </div>
-      <div class="card-c">
-        <div class="h"><span class="icon"><svg viewBox="0 0 640 512" width="22" fill="#b8860b"><path d="M256 32h128v32h64c17.7 0 32 14.3 32 32s-14.3 32-32 32h-41.9l105.1 226.9c9.3 20.1-5.3 43.1-27.4 43.1H336v64h64c35.3 0 64 28.7 64 64s-28.7 64-64 64H240c-35.3 0-64-28.7-64-64s28.7-64 64-64h64v-64H90.2c-22.1 0-36.7-23-27.4-43.1L167.9 128H128c-17.7 0-32-14.3-32-32s14.3-32 32-32h64V32h128v64z"/></svg></span>A controlled comparison</div>
-        <p>On the same MiniMax-H3 weights, the full harness improves twin-joint accuracy from
-           32% with rule-only prompting and 64% with the ending supplied to 92%.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= HOW IT WORKS ================= -->
-  <section class="swm-section">
-    <h2 class="title is-4">How a Turn Works</h2>
-    <div class="swm-loop">
-      <div class="step">
-        <div class="icon"><svg viewBox="0 0 640 512" width="26" fill="#4c7fe2"><path d="M384 96v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h256c35.3 0 64 28.7 64 64zM480 416V96c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64h-32c-35.3 0-64-28.7-64-64z"/></svg></div>
-        <div class="t">1 · Action selected</div>
-        <div class="s">The player observes the current scene and picks an action; free-form
-            input is also supported.</div>
-      </div>
-      <div class="step">
-        <div class="icon"><svg viewBox="0 0 512 512" width="24" fill="#b8860b"><path d="M504.971 239.529l-135.5-135.5c-9.373-9.373-24.569-9.373-33.941 0l-17.071 17.071c-9.373 9.373-9.373 24.569 0 33.941L357.755 194.5L198.576 353.679l-39.598-39.598c-6.248-6.248-16.379-6.248-22.627 0l-58.666 58.664c-18.746 18.746-18.746 49.138 0 67.882l122.417 122.417c18.746 18.746 49.138 18.746 67.882 0l58.664-58.664c6.248-6.248 6.248-16.379 0-22.627l-39.598-39.598L445.794 202.744l38.747 38.746c9.373 9.373 24.569 9.373 33.941 0l17.071-17.071c9.372-9.372 9.372-24.568 0-33.941z"/></svg></div>
-        <div class="t">2 · Rules settle it</div>
-        <div class="s">A deterministic rule program resolves the action against explicit
-            semantic and spatial state — before any rendering.</div>
-      </div>
-      <div class="step">
-        <div class="icon"><svg viewBox="0 0 640 512" width="26" fill="#4c7fe2"><path d="M96 96l220.5-55.12L341.5 96H96zM0 128v64h611.5c14.3 0 22.5-10 19.8-23.2L607.8 63.5C604 45.4 589.7 32 570 32H96v96zm608 96H64v192c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64V288c0-35.3-28.7-64-64-64z"/></svg></div>
-        <div class="t">3 · Event compiled</div>
-        <div class="s">The settled outcome is compiled into a VisualScript instruction; a
-            preview clip from an editable 3D scene guides camera and layout.</div>
-      </div>
-      <div class="step">
-        <div class="icon"><svg viewBox="0 0 512 512" width="26" fill="#e2574c"><path d="M48 32h416v64H48zm-16 96v32h64v-32H32zm80 0v32h96v-32h-96zm128 0v32h128v-32H240zm160 0v32h96v-32h-96zm96 64v256H32V192h32v32h64v-32h96v32h128v-32h96v32h96v-32h-32zM112 224v64h48v-64h-48zm96 0v64h48v-64h-48zm96 0v64h48v-64h-48zm96 0v64h48v-64h-48z"/></svg></div>
-        <div class="t">4 · Pixels rendered</div>
-        <div class="s">A frozen video model renders the event; a VLM reads the clip back and
-            the state advances to the next turn.</div>
-      </div>
-    </div>
-    <p class="swm-loop-note">
-      Rule execution, video generation, and visual observation form a closed loop that yields
-      <i>state world models</i>.
-    </p>
-    <div class="swm-teaser" style="margin-top:1.2rem">
-      <img src="static/images/paper/swm_multiturn.png"
-           alt="Multi-turn duel episode rendered by the harness" />
-      <p class="swm-caption">
-        A multi-turn duel rendered by the harness on the same frozen weights: every turn is
-        settled by rules first, then compiled into a per-turn instruction with a four-beat
-        timeline — one action, one sentence — before the frozen video model renders it.
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= GAME DEMOS ================= -->
-  <section class="swm-section" id="games">
-    <h2 class="title is-4">Three Worlds, One Runtime</h2>
-    <p class="swm-caption" style="max-width:100%">
-      Every world below is a JSON definition: typed rules, hidden variables, and a fixed
-      camera. The same runtime settles actions, compiles a four-beat VisualScript, and
-      renders with a frozen video model. Click a card to play its highlight reel —
-      all clips are raw harness outputs, unedited.
-    </p>
-    <div class="swm-games" id="games-grid"></div>
-  </section>
-
-  <!-- ================= RESULTS ================= -->
-  <section class="swm-section">
-    <h2 class="title is-4">WorldState-Bench: Main Results</h2>
-    <p class="swm-caption" style="max-width:100%">
-      PairFollow requires both counterfactual clips to show their required endings;
-      PairStrict additionally requires the forbidden ending to be absent. Rule-only prompting
-      describes the rules; Rule+end also reveals the required outcome. The highlighted row is
-      the full harness — the same frozen MiniMax-H3 weights, text and first-frame reference.
-    </p>
-    <table class="table is-fullwidth swm-table">
-      <thead>
-        <tr>
-          <th>Backend</th>
-          <th colspan="3" style="text-align:center">A. Rule-only probe</th>
-          <th colspan="3" style="text-align:center">B. Rule+end probe</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="text-align:center">EndFollow↑</th>
-          <th style="text-align:center">PairFollow↑</th>
-          <th style="text-align:center">TwinContrast↑</th>
-          <th style="text-align:center">Strict↑</th>
-          <th style="text-align:center">CntAbsent↑</th>
-          <th style="text-align:center">PairStrict↑</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="7" style="font-weight:600;color:#8a919e">Image-to-video generators</td></tr>
-        <tr><td>Wan2.2-A14B</td><td class="has-text-centered">65%</td><td class="has-text-centered">32%</td><td class="has-text-centered">38%</td><td class="has-text-centered">54%</td><td class="has-text-centered">63%</td><td class="has-text-centered">26%</td></tr>
-        <tr><td>LongCat-Video 13.6B</td><td class="has-text-centered">47%</td><td class="has-text-centered">8%</td><td class="has-text-centered">24%</td><td class="has-text-centered">46%</td><td class="has-text-centered">62%</td><td class="has-text-centered">8%</td></tr>
-        <tr><td>Hunyuan-Video 1.5</td><td class="has-text-centered">57%</td><td class="has-text-centered">20%</td><td class="has-text-centered">26%</td><td class="has-text-centered">29%</td><td class="has-text-centered">30%</td><td class="has-text-centered">4%</td></tr>
-        <tr><td>MiniMax-H3</td><td class="has-text-centered">60%</td><td class="has-text-centered">32%</td><td class="has-text-centered">32%</td><td class="has-text-centered">29%</td><td class="has-text-centered">30%</td><td class="has-text-centered">4%</td></tr>
-        <tr><td colspan="7" style="font-weight:600;color:#8a919e">Interactive world models</td></tr>
-        <tr><td>LingBot-World v2</td><td class="has-text-centered">48%</td><td class="has-text-centered">16%</td><td class="has-text-centered">38%</td><td class="has-text-centered">44%</td><td class="has-text-centered">76%</td><td class="has-text-centered">14%</td></tr>
-        <tr><td>Echo-WM Flash</td><td class="has-text-centered">57%</td><td class="has-text-centered">26%</td><td class="has-text-centered">43%</td><td class="has-text-centered">43%</td><td class="has-text-centered">60%</td><td class="has-text-centered">8%</td></tr>
-        <tr><td>FantasyWorld</td><td class="has-text-centered">34%</td><td class="has-text-centered">8%</td><td class="has-text-centered">30%</td><td class="has-text-centered">35%</td><td class="has-text-centered">81%</td><td class="has-text-centered">8%</td></tr>
-        <tr><td>AlayaWorld</td><td class="has-text-centered">37%</td><td class="has-text-centered">12%</td><td class="has-text-centered">28%</td><td class="has-text-centered">33%</td><td class="has-text-centered">85%</td><td class="has-text-centered">6%</td></tr>
-        <tr><td>InSpatio-World</td><td class="has-text-centered">19%</td><td class="has-text-centered">2%</td><td class="has-text-centered">14%</td><td class="has-text-centered">17%</td><td class="has-text-centered">92%</td><td class="has-text-centered">4%</td></tr>
-        <tr><td>Asra</td><td class="has-text-centered">11%</td><td class="has-text-centered">0%</td><td class="has-text-centered">14%</td><td class="has-text-centered">16%</td><td class="has-text-centered">96%</td><td class="has-text-centered">0%</td></tr>
-        <tr><td>HY-WorldPlay</td><td class="has-text-centered">9%</td><td class="has-text-centered">0%</td><td class="has-text-centered">4%</td><td class="has-text-centered">7%</td><td class="has-text-centered">94%</td><td class="has-text-centered">0%</td></tr>
-        <tr class="swm-hl"><td>Stateful Harness (ours)</td><td class="has-text-centered">96%</td><td class="has-text-centered">92%</td><td class="has-text-centered">96%</td><td class="has-text-centered">95%</td><td class="has-text-centered">98%</td><td class="has-text-centered">90%</td></tr>
-      </tbody>
-    </table>
-    <p class="swm-table-note">
-      Under review — numbers transcribed from the submission; the benchmark, judge prompts,
-      and per-clip verdicts will be released with the camera-ready version.
-    </p>
-  </section>
-
-  <!-- ================= BIBTEX ================= -->
-  <section class="swm-section" id="bibtex">
-    <h2 class="title is-4">BibTeX</h2>
-    <div class="swm-bibtex">@inproceedings{
-  stateworldmodels2027,
-  title     = {State World Models: Execute the Rules, Generate the Pixels},
-  author    = {Anonymous Authors},
-  booktitle = {Under review at the International Conference on Learning Representations (ICLR)},
-  year      = {2027},
-  note      = {Paper under double-blind review. Citation will be updated upon acceptance.}
-}</div>
-  </section>
-
-  <footer class="swm-footer">
-    This page is part of the anonymous ICLR 2027 submission. Web template adapted from the
-    Bulma academic project page pattern.
-  </footer>
-
-  <script>
-    /* 游戏画廊数据:首帧 + 亮点片段(均为 harness 原始输出) */
-    const SWM_GAMES = [
-      { id: "duel_moon_dragon",   name: "Boss Duel: Moon Dragon",  tag: "boss duel",
-        d: "A multi-turn boss duel on one frozen model: counter cycles, a charged eclipse release, and an eleven-turn arc from first probe to the final blow — every beat settled by rules before rendering." },
-      { id: "romance",            name: "Quiet Hours: A Café Story",  tag: "romance",
-        d: "A narrative date driven by free-form dialogue: type anything, the LLM speaks for both sides, and the rules track affection and scene beats — every line settles before the frozen model renders the moment." },
-      { id: "openworld",          name: "Open World: The Wanted",  tag: "open world",
-        d: "A main quest line (The Blackthorn) with free exploration: talk, gather, and advance three chapters while the runtime keeps the world ledger consistent across every turn." },
-    ];
-
-    const grid = document.getElementById("games-grid");</script>
-</body>
-</html>
+<a class="skip" href="#overview">Skip to research</a>
+<header class="site-header"><nav class="nav wrap" aria-label="Main navigation"><a class="brand" href="#top"><img src="static/images/mark.svg" width="24" height="24" alt="">SWM<span class="brand-sub"> / State World Models</span></a><div class="nav-links"><a href="#worlds">Worlds</a><a href="#method">Method</a><a href="#results">Results</a><a href="#benchmark">Benchmark</a></div><a class="nav-paper" href="static/pdfs/state-world-models.pdf" target="_blank" rel="noopener">Read paper <span aria-hidden="true">↗</span></a></nav></header>
+<main id="top">
+<section class="hero wrap">
+<div class="eyebrow"><span class="status-dot"></span> ICLR 2027 · Under review</div>
+<h1>State World Models<span class="hero-subtitle">Execute the Rules,<br class="mobile-break"> <em>Generate the Pixels.</em></span></h1>
+<p class="hero-description">Give generative worlds an explicit state and executable rules.<br>A shared runtime settles what happens. A frozen video model brings it to life.</p>
+<p class="authors">Anonymous Authors <span>·</span> Paper under double-blind review</p>
+<div class="hero-actions"><a class="button primary" href="static/pdfs/state-world-models.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a><a class="button" href="#benchmark">Explore the benchmark <span aria-hidden="true">↓</span></a></div>
+<div class="hero-stage" id="worlds">
+<video id="hero-video" controls playsinline preload="none" poster="static/images/games/duel_moon_dragon.webp" aria-label="Boss Duel: Moon Dragon, generated by Stateful Harness"><source src="static/videos/duel_moon_dragon.mp4" type="video/mp4"></video>
+<div class="stage-caption"><span>Generated with Stateful Harness</span><span>Frozen weights · Real episode footage</span></div>
+</div>
+<div class="world-selector" role="group" aria-label="Choose a generated world">
+<button class="world-choice active" data-world="0" aria-pressed="true"><img src="static/images/games/duel_moon_dragon.webp" alt="" width="90" height="60"><span><small>01 / Turn-based duel</small><strong>Moon Dragon</strong></span><span class="choice-arrow" aria-hidden="true">↗</span></button>
+<button class="world-choice" data-world="1" aria-pressed="false"><img src="static/images/games/romance.webp" alt="" width="90" height="60"><span><small>02 / Dating narrative</small><strong>Quiet Hours</strong></span><span class="choice-arrow" aria-hidden="true">↗</span></button>
+<button class="world-choice" data-world="2" aria-pressed="false"><img src="static/images/games/openworld.webp" alt="" width="90" height="60"><span><small>03 / Town exploration</small><strong>The Wanted</strong></span><span class="choice-arrow" aria-hidden="true">↗</span></button>
+</div>
+<p id="world-description" class="world-description" aria-live="polite">A multi-turn boss duel: counter cycles, a charged eclipse release, and an eleven-turn arc. Each action is settled by rules before rendering.</p>
+</section>
+<div class="proof-strip wrap"><div><strong>92<span>%</span></strong><span>PairFollow with the harness</span></div><div><strong>90<span>%</span></strong><span>PairStrict with the harness</span></div><div><strong>50</strong><span>Counterfactual twin pairs</span></div><div><strong>11</strong><span>Frozen video backends evaluated</span></div></div>
+<section class="section wrap" id="overview"><div class="section-heading"><div><p class="eyebrow">01 / The question</p><h2>A plausible video.<br>But did the world <em>follow its rules?</em></h2></div><p>Two worlds can look identical and still require different outcomes. A key, a resource, or a hidden mode must matter even when it is invisible in the frame.</p></div>
+<div class="overview-grid"><div class="overview-copy"><h3>Same frame. Same action.<br>Different hidden state.</h3><p>WorldState-Bench holds the visible input and action fixed, then changes one hidden value. The rule program determines two different required endings.</p><p>The Stateful Harness maintains a semantic ledger and an editable spatial scene. It executes the rules before requesting video, so the renderer receives a settled event.</p><a class="text-link" href="#benchmark">Inspect the counterfactual twins <span aria-hidden="true">↗</span></a></div><figure class="paper-figure"><a href="static/images/swm_teaser.png" target="_blank" rel="noopener" aria-label="Open the framework illustration"><img src="static/images/swm_teaser.png" alt="The same wand action produces red or blue flames according to hidden state. The harness settles the event and passes it to a frozen video renderer." width="842" height="226" loading="lazy"></a><figcaption>State determines the event; the frozen model renders it. The generated clip provides the next visual anchor.</figcaption></figure></div>
+<details class="abstract"><summary>Read the abstract <span aria-hidden="true">+</span></summary><p>Video world models can generate action-conditioned footage from a single image, but camera motion alone does not establish that their actions obey persistent rules. An interactive world must also retain facts that may be invisible in a frame, such as possession or progress, and use them to determine what an action does. We introduce the Stateful Harness, a runtime around a frozen video model that maintains explicit semantic and spatial state. A deterministic rule program settles each turn before rendering. A compiled text instruction communicates the outcome, while a preview clip from an editable 3D scene supplies layout and camera motion. We test rule following with counterfactual twins: each pair shares a first frame and action but differs in hidden state, so its required endings differ. In WorldState-Bench (50 twin pairs), the best of 11 unwrapped backends reaches 32% twin-joint accuracy under rule-only prompting. For MiniMax-H3, explicitly giving the ending raises this score from 32% to 64%. The full harness reaches 92% with the same frozen weights. These results support separating rule execution from video rendering, while leaving render fidelity and longer-term persistence as open challenges.</p></details>
+</section>
+<section class="method-section" id="method"><div class="wrap section"><div class="section-heading"><div><p class="eyebrow">02 / Stateful Harness</p><h2>Settle the event.<br><em>Then render the world.</em></h2></div><p>A new game changes the executable definition. The shared runtime and video model weights stay the same.</p></div>
+<div class="method-flow"><article><span class="step-number">01</span><h3>Select an action</h3><p>Player intent becomes a structured action against the current world state.</p><code>action + current state</code></article><article class="authoritative"><span class="step-number">02</span><h3>Execute the rules</h3><p>The fixed program settles the event and updates semantic and spatial state.</p><code>rules → settled outcome</code></article><article><span class="step-number">03</span><h3>Compile the event</h3><p>VisualScript carries the outcome; an editable 3D preview guides layout and camera.</p><code>text + spatial reference</code></article><article><span class="step-number">04</span><h3>Generate the pixels</h3><p>A frozen video model renders the event. Validated visual observations inform the next state.</p><code>frozen renderer → clip</code></article></div><div class="loop-caption"><span aria-hidden="true">↳</span> Observe the clip · Validate against the rules · Update state and visual anchor · Begin the next turn <span aria-hidden="true">↵</span></div>
+<figure class="multiturn paper-figure"><a href="static/images/paper/swm_multiturn.png" target="_blank" rel="noopener"><img src="static/images/paper/swm_multiturn.png" alt="Multi-turn duel sequence: explicit state changes condition later generated turns" loading="lazy"></a><figcaption>A multi-turn duel on the same frozen model. Each turn is settled first, then compiled into a per-turn visual instruction.</figcaption></figure></div></section>
+<section class="section wrap" id="results"><div class="section-heading"><div><p class="eyebrow">03 / Quantitative evidence</p><h2>Same frozen model.<br><em>Stronger rule compliance.</em></h2></div><p>MiniMax-H3 improves from 32% to 92% PairFollow as outcome specification and the full harness are introduced.</p></div>
+<div class="results-story"><div class="chain-chart" role="img" aria-label="MiniMax-H3 PairFollow: rule-only 32%, ending supplied 64%, full Stateful Harness 92%. Axis 0 to 100 percent."><div class="chart-top"><span>MiniMax-H3 · PairFollow ↑</span><span>50 twin pairs</span></div><div class="bar-row"><span>Rule-only</span><div class="bar-track"><div class="bar" style="--value:32%"><b>32%</b></div></div></div><div class="bar-row"><span>Ending supplied</span><div class="bar-track"><div class="bar mid" style="--value:64%"><b>64%</b></div></div></div><div class="bar-row"><span>Full harness</span><div class="bar-track"><div class="bar ours" style="--value:92%"><b>92%</b></div></div></div><div class="chart-axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div><p class="fine-print">Component-chain comparison on the same frozen weights. The 64% condition supplies the ending; it is a separate comparison from the six main-table columns.</p></div><aside class="result-callout"><span class="eyebrow">Both twins must succeed</span><strong>+60<span>pp</span></strong><p>PairFollow gain over rule-only prompting on the same MiniMax-H3 weights.</p><div class="result-rule"></div><b>90% PairStrict</b><p>Both required endings appear, and neither forbidden ending appears in either clip.</p></aside></div>
+<div class="table-heading"><h3>WorldState-Bench · Main results</h3><span>Table 1 · All scores in % · Higher is better</span></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Main benchmark results, scroll horizontally on small screens"><table id="results-table"><caption class="sr-only">Table 1. Eleven unwrapped backends and Stateful Harness, scored with Rule-only and Rule+end probes.</caption><thead><tr><th rowspan="2" scope="col">Backend</th><th colspan="3" scope="colgroup">A / Rule-only probe</th><th colspan="3" scope="colgroup">B / Rule+end probe</th></tr><tr><th scope="col">EndFollow ↑</th><th scope="col">PairFollow ↑</th><th scope="col">TwinContrast ↑</th><th scope="col">Strict ↑</th><th scope="col">CntAbsent ↑</th><th scope="col">PairStrict ↑</th></tr></thead><tbody>
+<tr class="group-row"><th colspan="7" scope="rowgroup">Image-to-video generators</th></tr>
+<tr><th scope="row">Wan2.2 A14B</th><td>65</td><td class="baseline-best">32</td><td>38</td><td class="baseline-best">54</td><td>63</td><td class="baseline-best">26</td></tr>
+<tr><th scope="row">LongCat-Video 13.6B</th><td>47</td><td>8</td><td>24</td><td>46</td><td>62</td><td>8</td></tr>
+<tr><th scope="row">HunyuanVideo 1.5</th><td>57</td><td>20</td><td>26</td><td>29</td><td>30</td><td>4</td></tr>
+<tr><th scope="row">MiniMax-H3</th><td class="baseline-best">66</td><td class="baseline-best">32</td><td>32</td><td>29</td><td>30</td><td>4</td></tr>
+<tr class="group-row"><th colspan="7" scope="rowgroup">Interactive world models</th></tr>
+<tr><th scope="row">LingBot-World v2</th><td>48</td><td>16</td><td>38</td><td>44</td><td>76</td><td>14</td></tr>
+<tr><th scope="row">Echo-WM Flash</th><td>57</td><td>26</td><td class="baseline-best">42</td><td>43</td><td>60</td><td>8</td></tr>
+<tr><th scope="row">FantasyWorld</th><td>34</td><td>8</td><td>30</td><td>35</td><td>81</td><td>8</td></tr>
+<tr><th scope="row">AlayaWorld</th><td>37</td><td>12</td><td>28</td><td>33</td><td>85</td><td>6</td></tr>
+<tr><th scope="row">InSpatio-World</th><td>19</td><td>2</td><td>14</td><td>17</td><td>92</td><td>4</td></tr>
+<tr><th scope="row">Astra</th><td>11</td><td>0</td><td>14</td><td>16</td><td class="baseline-best">96</td><td>0</td></tr>
+<tr><th scope="row">HY-WorldPlay</th><td>9</td><td>0</td><td>4</td><td>7</td><td>94</td><td>0</td></tr>
+<tr class="ours-row"><th scope="row">Stateful Harness <span>Ours</span></th><td>96</td><td>92</td><td>96</td><td>95</td><td>98</td><td>90</td></tr>
+</tbody></table></div><p class="fine-print">Bold: full harness. Underlined: best unwrapped baseline. The harness row uses text and first-frame reference inputs; its matched comparison is the same backbone under Rule+end (Appendix Table 4). Scores are transcribed from the submission PDF.</p>
+<div class="metric-definitions"><p><b>PairFollow</b> Both clips show the required endings.</p><p><b>PairStrict</b> Both clips follow their endings and exclude forbidden outcomes throughout.</p><p><b>TwinContrast</b> The judged endings differ between twins.</p></div>
+<details class="secondary-results"><summary>Additional evidence · external benchmark & human evaluation <span aria-hidden="true">+</span></summary><div class="secondary-grid"><article><p class="eyebrow">WBench · Table 2</p><h3>87.2 setting adherence</h3><p>Up from 71.1 under the official MiniMax-H3 protocol. The harness also reports 77.7 interaction, 78.0 video quality, and 68.8 physical plausibility. Protocol splits differ across model classes.</p></article><article><p class="eyebrow">Blind comparison · Appendix C</p><h3>98% human preference</h3><p>Preferred against four unwrapped baselines in blind pairwise comparisons. These preferences complement the rule-compliance metrics; they measure a different outcome.</p></article></div></details>
+</section>
+<section class="benchmark-section" id="benchmark"><div class="section wrap"><div class="section-heading"><div><p class="eyebrow">04 / Explore WorldState-Bench</p><h2>One visible world.<br><em>Two required futures.</em></h2></div><p>Explore the shared first frames, hidden values, rules, and gold endings across all 50 counterfactual pairs.</p></div>
+<div class="bench-toolbar"><label for="sample-select">Counterfactual pair <select id="sample-select"><option value="B01">B01 · Magic Academy / element_mode</option></select></label><label for="theme-filter">Scenario theme <select id="theme-filter"><option value="all">All 21 themes</option></select></label><span class="sample-count" id="sample-count">50 pairs · 49 hidden variables</span></div>
+<div id="sample-detail" aria-live="polite"><article class="sample-grid"><div class="sample-visual"><div class="frame-label"><span>B01 / Magic Academy</span><span>Shared first frame · A = B</span></div><img src="static/images/benchmark/B01.webp" alt="B01 shared first frame: a wizard and an unlit white orb" width="960" height="540" loading="lazy"><div class="action"><small>Shared action · unchanged across twins</small><p>The wizard stays in place and raises the wand clearly above the head.</p></div></div><div class="sample-state"><h3>Hidden state selects the ending.</h3><div class="rule-content"><small>One shared rule</small><p>If the element_mode is RED_FLAME, the magic orb erupts with large red flames; if it is BLUE_FLAME, the magic orb erupts with large blue flames.</p></div><div class="twin a"><div class="twin-label"><span>TWIN A</span><code>element_mode = RED_FLAME</code></div><p><strong>Required</strong> the magic orb erupts with large red flames.</p><p class="forbidden"><strong>Forbidden</strong> the orb erupts with large bright blue flames.</p></div><div class="twin b"><div class="twin-label"><span>TWIN B</span><code>element_mode = BLUE_FLAME</code></div><p><strong>Required</strong> the magic orb erupts with large blue flames.</p><p class="forbidden"><strong>Forbidden</strong> the orb erupts with large bright red flames.</p></div></div></article></div>
+<div class="sample-gallery" id="sample-gallery" role="group" aria-label="Featured benchmark samples"></div>
+<div class="comparison-heading"><div><p class="eyebrow">Rendered model comparison</p><h3>Do both endings follow the rule?</h3></div><a class="text-link" href="static/images/paper/benchmark-comparison.png" target="_blank" rel="noopener">Open full-resolution figure ↗</a></div>
+<figure class="comparison-figure paper-figure"><a href="static/images/paper/benchmark-comparison.png" target="_blank" rel="noopener"><img src="static/images/paper/benchmark-comparison.png" alt="Paper Figure 4 compares MiniMax-H3, LingBot-World v2, Echo-WM Flash, and the full harness. Four sampled frames per clip show required and forbidden endings for both twins under Rule-only and Rule+end." loading="lazy"></a><figcaption>Figure 4 · Four sampled frames per clip from the submission. ✓ Only the required ending appears. × Forbidden content or a missing required ending. These are published comparison frames; the player above separately identifies available local recordings.</figcaption></figure>
+</div></section>
+<section class="section wrap closing" id="resources"><div class="section-heading"><div><p class="eyebrow">05 / Paper & resources</p><h2>World evolution in code.<br><em>Visual realization in pixels.</em></h2></div><p>Rendered fidelity and longer-term persistence remain open challenges. The benchmark measures whether generated clips depict the rule-mandated outcomes.</p></div><div class="resource-row"><a class="resource-link" href="static/pdfs/state-world-models.pdf" target="_blank" rel="noopener"><span><small>36 pages · Anonymous submission</small><b>Read the full paper</b></span><span aria-hidden="true">↗</span></a><a class="resource-link" href="#benchmark"><span><small>50 pairs · 21 themes</small><b>Explore benchmark samples</b></span><span aria-hidden="true">↗</span></a></div>
+<div class="citation" id="bibtex"><div class="citation-top"><h3>Citation</h3><button id="copy-citation" class="small-button">Copy BibTeX</button></div><pre tabindex="0" aria-label="BibTeX citation"><code id="citation-text">@misc{stateworldmodels2027,
+  title = {State World Models: Execute the Rules, Generate the Pixels},
+  author = {Anonymous Authors},
+  year = {2027},
+  note = {Under review at ICLR. Anonymous submission.}
+}</code></pre><p class="fine-print" id="copy-status" role="status">Provisional citation · will be updated after review.</p></div>
+</section>
+</main><footer class="wrap footer"><a class="brand" href="#top">SWM / State World Models</a><p>Anonymous ICLR 2027 submission</p><a href="#top">Back to top ↑</a></footer>
+<noscript><p class="wrap">Enable JavaScript to switch worlds and explore the 50 benchmark pairs. The paper, figures, and main results remain available above.</p></noscript>
+</body></html>
