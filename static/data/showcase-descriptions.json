@@ -1,0 +1,331 @@
+{
+  "title": "WorldState-Bench: Curated Project-Page Examples",
+  "scope": "Ten illustrative pairs. This showcase does not replace the full benchmark or its reported aggregate scores.",
+  "fullBenchmark": {
+    "pairs": 50,
+    "themes": 21,
+    "hiddenVariables": 49
+  },
+  "cases": [
+    {
+      "id": "B01",
+      "name": "Elemental Orb",
+      "theme": "magic academy",
+      "variable": "element_mode",
+      "values": [
+        "RED_FLAME",
+        "BLUE_FLAME"
+      ],
+      "action": "The wizard stays in place and raises the wand clearly above the head.",
+      "rule": "If the element_mode is RED_FLAME, the magic orb erupts with large red flames; if it is BLUE_FLAME, the magic orb erupts with large blue flames.",
+      "endings": [
+        "the magic orb erupts with large red flames",
+        "the magic orb erupts with large blue flames"
+      ],
+      "forbidden": [
+        "the orb erupts with large bright blue flames",
+        "the orb erupts with large bright red flames"
+      ],
+      "program": {
+        "text": "If the element_mode is RED_FLAME, the magic orb erupts with large red flames; if it is BLUE_FLAME, the magic orb erupts with large blue flames.",
+        "precondition": "element_mode == 'RED_FLAME'",
+        "effect": "orb.flame = 'red'",
+        "else_effect": "orb.flame = 'blue'",
+        "mapping": {
+          "RED_FLAME": "orb.flame = 'red'",
+          "BLUE_FLAME": "orb.flame = 'blue'"
+        }
+      },
+      "image": "static/images/benchmark/B01.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B02",
+      "name": "Gate or Brazier",
+      "theme": "dungeon",
+      "variable": "shrine_mode",
+      "values": [
+        "GATE",
+        "BRAZIER"
+      ],
+      "action": "The player stays in place and clearly raises the right arm.",
+      "rule": "If the shrine_mode is GATE, the stone door rises fully open; if it is BRAZIER, the large brazier bursts into tall flames.",
+      "endings": [
+        "the stone door rises fully open",
+        "the large brazier bursts into tall flames"
+      ],
+      "forbidden": [
+        "the large brazier burns with tall bright flames",
+        "the stone door is raised fully open, the passage clear"
+      ],
+      "program": {
+        "text": "If the shrine_mode is GATE, the stone door rises fully open; if it is BRAZIER, the large brazier bursts into tall flames.",
+        "precondition": "shrine_mode == 'GATE'",
+        "effect": "door.up = true",
+        "else_effect": "brazier.lit = true",
+        "mapping": {
+          "GATE": "door.up = true",
+          "BRAZIER": "brazier.lit = true"
+        }
+      },
+      "image": "static/images/benchmark/B02.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B08",
+      "name": "Signal at the Camp",
+      "theme": "survival",
+      "variable": "signal_mode",
+      "values": [
+        "FIRE",
+        "FLAG"
+      ],
+      "action": "The player stays in place and raises both arms into a clear V shape.",
+      "rule": "If the signal_mode is FIRE, the campfire bursts into tall flames; if it is FLAG, the red signal flag rises high on its pole.",
+      "endings": [
+        "the campfire bursts into tall flames",
+        "the red signal flag rises high on its pole"
+      ],
+      "forbidden": [
+        "the large red signal flag is raised high on its pole",
+        "the campfire burns with tall bright flames"
+      ],
+      "program": {
+        "text": "If the signal_mode is FIRE, the campfire bursts into tall flames; if it is FLAG, the red signal flag rises high on its pole.",
+        "precondition": "signal_mode == 'FIRE'",
+        "effect": "fire.lit = true",
+        "else_effect": "flag.up = true",
+        "mapping": {
+          "FIRE": "fire.lit = true",
+          "FLAG": "flag.up = true"
+        }
+      },
+      "image": "static/images/benchmark/B08.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B19",
+      "name": "Ice or Fire",
+      "theme": "magic academy",
+      "variable": "element",
+      "values": [
+        "ICE",
+        "FIRE"
+      ],
+      "action": "The wizard stays in place and makes one clear wand-casting sweep.",
+      "rule": "If the element is ICE, the stone fountain freezes over with blue ice; if it is FIRE, the iron brazier bursts into red flames.",
+      "endings": [
+        "the stone fountain freezes over with blue ice",
+        "the iron brazier bursts into red flames"
+      ],
+      "forbidden": [
+        "the heavy iron brazier burns with large bright red flames",
+        "the wide fountain is frozen over with solid blue ice"
+      ],
+      "program": {
+        "text": "If the element is ICE, the stone fountain freezes over with blue ice; if it is FIRE, the iron brazier bursts into red flames.",
+        "precondition": "element == 'ICE'",
+        "effect": "fountain.frozen = true",
+        "else_effect": "brazier.lit = true",
+        "mapping": {
+          "ICE": "fountain.frozen = true",
+          "FIRE": "brazier.lit = true"
+        }
+      },
+      "image": "static/images/benchmark/B19.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B20",
+      "name": "Shield or Armor",
+      "theme": "turn combat",
+      "variable": "enemy_reaction",
+      "values": [
+        "SHIELD",
+        "ARMOR"
+      ],
+      "action": "The player stays in place and performs one large, clear sword-swing attack.",
+      "rule": "If the enemy_reaction is SHIELD, the enemy's large shield cracks apart and breaks; if it is ARMOR, the enemy's armor is covered by thick blue ice.",
+      "endings": [
+        "the enemy's large shield cracks apart and breaks",
+        "the enemy's armor is covered by thick blue ice"
+      ],
+      "forbidden": [
+        "the enemy's plate armor is covered with a thick layer of blue ice",
+        "the enemy's large round shield is cracked apart and broken"
+      ],
+      "program": {
+        "text": "If the enemy_reaction is SHIELD, the enemy's large shield cracks apart and breaks; if it is ARMOR, the enemy's armor is covered by thick blue ice.",
+        "precondition": "enemy_reaction == 'SHIELD'",
+        "effect": "shield.state = 'broken'",
+        "else_effect": "armor.state = 'frozen'",
+        "mapping": {
+          "SHIELD": "shield.state = 'broken'",
+          "ARMOR": "armor.state = 'frozen'"
+        }
+      },
+      "image": "static/images/benchmark/B20.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B26",
+      "name": "Guard or Alarm",
+      "theme": "stealth",
+      "variable": "security_mode",
+      "values": [
+        "GUARD",
+        "ALARM"
+      ],
+      "action": "The player stays behind the cover and performs one clear whistling gesture.",
+      "rule": "If the security_mode is GUARD, the guard walks up to the near foreground; if it is ALARM, the alarm lamp flashes bright red.",
+      "endings": [
+        "the guard walks up to the near foreground",
+        "the alarm lamp flashes bright red"
+      ],
+      "forbidden": [
+        "the large alarm lamp flashes bright red",
+        "the guard stands in the near foreground beside the cover"
+      ],
+      "program": {
+        "text": "If the security_mode is GUARD, the guard walks up to the near foreground; if it is ALARM, the alarm lamp flashes bright red.",
+        "precondition": "security_mode == 'GUARD'",
+        "effect": "guard.near = true",
+        "else_effect": "alarm.red = true",
+        "mapping": {
+          "GUARD": "guard.near = true",
+          "ALARM": "alarm.red = true"
+        }
+      },
+      "image": "static/images/benchmark/B26.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B29",
+      "name": "A Kitchen Trigger",
+      "theme": "cooking",
+      "variable": "kitchen_mode",
+      "values": [
+        "OVEN",
+        "POT"
+      ],
+      "action": "The player presses the large kitchen service bell once.",
+      "rule": "If the kitchen_mode is OVEN, the big oven door swings wide open; if it is POT, the broth in the pot turns vivid red.",
+      "endings": [
+        "the big oven door swings wide open",
+        "the broth in the pot turns vivid red"
+      ],
+      "forbidden": [
+        "the broth in the large pot is vivid fresh red",
+        "the big oven door is wide open"
+      ],
+      "program": {
+        "text": "If the kitchen_mode is OVEN, the big oven door swings wide open; if it is POT, the broth in the pot turns vivid red.",
+        "precondition": "kitchen_mode == 'OVEN'",
+        "effect": "oven.open = true",
+        "else_effect": "soup.red = true",
+        "mapping": {
+          "OVEN": "oven.open = true",
+          "POT": "soup.red = true"
+        }
+      },
+      "image": "static/images/benchmark/B29.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B41",
+      "name": "A Garden Encounter",
+      "theme": "dating",
+      "variable": "date_mode",
+      "values": [
+        "NPC",
+        "FOUNTAIN"
+      ],
+      "action": "The player stays in place and gives one clear wave.",
+      "rule": "If the date_mode is NPC, the NPC sits down on the bench; if it is FOUNTAIN, the fountain jets a tall plume of water.",
+      "endings": [
+        "the NPC sits down on the bench",
+        "the fountain jets a tall plume of water"
+      ],
+      "forbidden": [
+        "the fountain jets a tall plume of water",
+        "the NPC sits down on the bench"
+      ],
+      "program": {
+        "text": "If the date_mode is NPC, the NPC sits down on the bench; if it is FOUNTAIN, the fountain jets a tall plume of water.",
+        "precondition": "date_mode == 'NPC'",
+        "effect": "npc.seated = true",
+        "else_effect": "fountain.running = true",
+        "mapping": {
+          "NPC": "npc.seated = true",
+          "FOUNTAIN": "fountain.running = true"
+        }
+      },
+      "image": "static/images/benchmark/B41.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B50",
+      "name": "Left or Right",
+      "theme": "magic academy",
+      "variable": "target_route",
+      "values": [
+        "VIEWER_LEFT",
+        "VIEWER_RIGHT"
+      ],
+      "action": "The wizard stays in place, raises the wand high, and makes one clear forward casting sweep.",
+      "rule": "If the target_route is VIEWER_LEFT, the brazier on the viewer's left burns with large green flames while the right one stays dark; if it is VIEWER_RIGHT, the brazier on the viewer's right burns with large green flames while the left one stays dark.",
+      "endings": [
+        "the brazier on the viewer's left burns with large green flames while the right one stays dark",
+        "the brazier on the viewer's right burns with large green flames while the left one stays dark"
+      ],
+      "forbidden": [
+        "the viewer's right brazier burns with large green flames",
+        "the viewer's left brazier burns with large green flames"
+      ],
+      "program": {
+        "text": "If the target_route is VIEWER_LEFT, the brazier on the viewer's left burns with large green flames while the right one stays dark; if it is VIEWER_RIGHT, the brazier on the viewer's right burns with large green flames while the left one stays dark.",
+        "precondition": "target_route == 'VIEWER_LEFT'",
+        "effect": "left.lit = true",
+        "else_effect": "right.lit = true",
+        "mapping": {
+          "VIEWER_LEFT": "left.lit = true",
+          "VIEWER_RIGHT": "right.lit = true"
+        }
+      },
+      "image": "static/images/benchmark/B50.webp",
+      "failureCase": false
+    },
+    {
+      "id": "B35",
+      "name": "The Gallery · Failure Case",
+      "theme": "museum",
+      "variable": "gallery_mode",
+      "values": [
+        "STATUE",
+        "CURTAIN"
+      ],
+      "action": "The player takes one short step forward onto the large gallery floor marker.",
+      "rule": "If the gallery_mode is STATUE, the statue rotates a quarter turn; if it is CURTAIN, the back curtain pulls fully open.",
+      "endings": [
+        "the statue rotates a quarter turn",
+        "the back curtain pulls fully open"
+      ],
+      "forbidden": [
+        "the curtain is pulled fully open to the sides",
+        "the statue is rotated a quarter turn to the side"
+      ],
+      "program": {
+        "text": "If the gallery_mode is STATUE, the statue rotates a quarter turn; if it is CURTAIN, the back curtain pulls fully open.",
+        "precondition": "gallery_mode == 'STATUE'",
+        "effect": "statue.turned = true",
+        "else_effect": "curtain.open = true",
+        "mapping": {
+          "STATUE": "statue.turned = true",
+          "CURTAIN": "curtain.open = true"
+        }
+      },
+      "image": "static/images/benchmark/B35.webp",
+      "failureCase": true
+    }
+  ]
+}
