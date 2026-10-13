@@ -33,7 +33,7 @@ def main():
     paths = page.paths | {'index.html', 'static/data/benchmark.js', 'static/data/showcase-descriptions.json', 'static/fonts/Manrope.woff2', 'static/fonts/OFL-Manrope.txt'}
     samples = json.loads((ROOT / 'static/data/benchmark.js').read_text().split('\nwindow.SWM_SAMPLES = ', 1)[1].rstrip(';\n'))
     for sample in samples:
-        paths.add(sample['image'])
+        paths.update([sample['image'],sample['thumbnail']])
         for tracks in sample['recordings'].values():
             for twins in tracks.values():
                 for record in twins.values():

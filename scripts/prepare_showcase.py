@@ -55,8 +55,10 @@ def main():
     for cid in SELECTED:
         folder=args.cases/cid
         a=json.loads((folder/'case_A.json').read_text());b=json.loads((folder/'case_B.json').read_text())
-        Image.open(folder/'input.png').convert('RGB').resize((960,540)).save(ROOT/f'static/images/benchmark/{cid}.webp',quality=88)
-        samples.append(dict(id=cid,name=NAMES[cid],theme=a['genre'].replace('_',' '),variable=a['hidden_state']['variable'],values=[a['hidden_state']['A'],a['hidden_state']['B']],action=a['shared_action'],rule=a['rule']['text'],endings=[a['gold_A'],a['gold_B']],forbidden=[a['terminal_visual_states']['not_occurs']['phrase'],b['terminal_visual_states']['not_occurs']['phrase']],program=a['rule'],image=f'static/images/benchmark/{cid}.webp',failureCase=cid=='B35',recordings={}))
+        image=Image.open(folder/'input.png').convert('RGB')
+        image.resize((960,540),Image.Resampling.LANCZOS).save(ROOT/f'static/images/benchmark/{cid}.webp',quality=88)
+        image.resize((320,180),Image.Resampling.LANCZOS).save(ROOT/f'static/images/benchmark/{cid}-thumb.webp',quality=82,method=6)
+        samples.append(dict(id=cid,name=NAMES[cid],theme=a['genre'].replace('_',' '),variable=a['hidden_state']['variable'],values=[a['hidden_state']['A'],a['hidden_state']['B']],action=a['shared_action'],rule=a['rule']['text'],endings=[a['gold_A'],a['gold_B']],forbidden=[a['terminal_visual_states']['not_occurs']['phrase'],b['terminal_visual_states']['not_occurs']['phrase']],program=a['rule'],image=f'static/images/benchmark/{cid}.webp',thumbnail=f'static/images/benchmark/{cid}-thumb.webp',failureCase=cid=='B35',recordings={}))
     by_id={sample['id']:sample for sample in samples}
     for model in MODELS:
         tracks=['harness'] if model['key']=='ours' else ['rule','ending']

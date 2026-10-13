@@ -422,6 +422,15 @@
         button.classList.toggle("active", active);
         button.setAttribute("aria-pressed", String(active));
       });
+      const selectedThumb = gallery.querySelector(`[data-sample="${id}"]`);
+      if (selectedThumb) {
+        const thumbBounds = selectedThumb.getBoundingClientRect();
+        const galleryBounds = gallery.getBoundingClientRect();
+        if (thumbBounds.left < galleryBounds.left)
+          gallery.scrollLeft += thumbBounds.left - galleryBounds.left - 8;
+        else if (thumbBounds.right > galleryBounds.right)
+          gallery.scrollLeft += thumbBounds.right - galleryBounds.right + 8;
+      }
       $("#baseline-select", detail).addEventListener("change", (event) => {
         baseline = event.target.value;
         renderPlayers();
@@ -472,7 +481,7 @@
       gallery.innerHTML = filtered
         .map(
           (sample) =>
-            `<button class="sample-thumb" data-sample="${escape(sample.id)}" aria-pressed="false"><img src="${escape(sample.image)}" alt="" width="160" height="90" loading="lazy"><span>${escape(sample.id)} / ${escape(sample.name || sample.theme)}</span></button>`,
+            `<button class="sample-thumb" data-sample="${escape(sample.id)}" aria-pressed="false"><img src="${escape(sample.thumbnail || sample.image)}" alt="" width="160" height="90" loading="lazy"><span>${escape(sample.id)} / ${escape(sample.name || sample.theme)}</span></button>`,
         )
         .join("");
       $$("button", gallery).forEach((button) =>

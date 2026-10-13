@@ -24,7 +24,7 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 - `static/data/showcase-descriptions.json`: downloadable case descriptions, explicitly scoped to the illustrative subset.
 - `static/fonts/`: self-hosted Manrope and its OFL license.
 
-No external fonts, runtime libraries or analytics are required. The recording inventory loads as the reader approaches the benchmark section, or immediately for a benchmark deep link. A failed inventory request exposes a retry button. The method illustration remains interactive before that request. Small dedicated scene thumbnails reduce first-screen traffic. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it. Comparisons pause when the workbench leaves view, and motion-preference changes pause automatic playback.
+No external fonts, runtime libraries or analytics are required. The recording inventory loads as the reader approaches the benchmark section, or immediately for a benchmark deep link. A failed inventory request exposes a retry button. The method illustration remains interactive before that request. Small dedicated scene thumbnails reduce first-screen traffic. The benchmark strip also uses independent 320px thumbnails (65,680 bytes for all ten, compared with 509,628 bytes for the full shared frames). The selected thumbnail stays horizontally visible without moving the reading position. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it. Comparisons pause when the workbench leaves view, and motion-preference changes pause automatic playback.
 
 ## Preview and verification
 
@@ -36,7 +36,7 @@ python3 scripts/validate_site.py --media
 
 The default validator checks anchors/assets, ten curated cases, twelve model configurations, both probes/twins, judge-flag consistency, all 72 submission-table scores, JavaScript syntax and the anonymous PDF. `--media` additionally probes all 466 video files. Validation requires Python with Pillow and PyMuPDF, Node and FFmpeg.
 
-Real Chromium verification covers 1440px, 820px, 390px and 320px viewports; all 220 case/model/probe combinations; paired play/pause; rapid selection during loading; theme deep links; dialog loading and Escape close; clipboard copying; runtime-state switching; and reduced-motion/manual playback. Screenshot and test reports are review artifacts outside the public repository.
+Real Firefox and WebKit engine checks cover paired playback and controls at desktop/mobile sizes. Linux WebKit requires headless GStreamer test-environment settings; this is not verification on an Apple device. Real Chromium verification covers 1440px, 820px, 390px and 320px viewports; all 220 case/model/probe combinations; paired play/pause; rapid selection during loading; theme deep links; dialog loading and Escape close; clipboard copying; runtime-state switching; and reduced-motion/manual playback. Screenshot and test reports are review artifacts outside the public repository.
 
 ## Regenerate assets
 

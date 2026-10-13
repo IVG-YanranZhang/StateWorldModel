@@ -59,6 +59,7 @@ for sample in data:
     assert sample['rule'] and sample['action']
     assert sample['program']['precondition'] and sample['program']['effect'] and sample['program']['else_effect']
     assert Image.open(ROOT/sample['image']).size==(960,540)
+    assert Image.open(ROOT/sample['thumbnail']).size==(320,180)
     assert set(sample['recordings'])=={model['key'] for model in models}
     for model,tracks in sample['recordings'].items():
         assert set(tracks)==({'harness'} if model=='ours' else {'rule','ending'})
