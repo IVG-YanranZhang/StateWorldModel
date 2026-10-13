@@ -56,6 +56,59 @@
           <a href="#worlds">Worlds</a><a href="#method">Method</a
           ><a href="#results">Results</a><a href="#benchmark">Benchmark</a>
         </div>
+        <button
+          class="nav-menu-button"
+          id="nav-menu-button"
+          popovertarget="mobile-nav"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          Sections
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 5h10M3 11h10"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+          </svg>
+        </button>
+        <nav
+          id="mobile-nav"
+          class="mobile-nav"
+          popover
+          aria-label="Research page sections"
+        >
+          <p class="eyebrow">State World Models / Contents</p>
+          <a href="#worlds"
+            ><span>01</span> Generated worlds
+            <span aria-hidden="true">↗</span></a
+          >
+          <a href="#overview"
+            ><span>02</span> The research question
+            <span aria-hidden="true">↗</span></a
+          >
+          <a href="#method"
+            ><span>03</span> Stateful Harness
+            <span aria-hidden="true">↗</span></a
+          >
+          <a href="#results"
+            ><span>04</span> Main results <span aria-hidden="true">↗</span></a
+          >
+          <a href="#benchmark"
+            ><span>05</span> Benchmark explorer
+            <span aria-hidden="true">↗</span></a
+          >
+          <a href="#resources"
+            ><span>06</span> Paper & resources
+            <span aria-hidden="true">↗</span></a
+          >
+        </nav>
         <a
           class="nav-paper"
           href="static/pdfs/state-world-models.pdf"
@@ -139,7 +192,10 @@
                   width="90"
                   height="60"
                 /><span
-                  ><small>01 / Turn-based duel</small
+                  ><small
+                    >01 /
+                    <span class="world-genre-desktop">Turn-based duel</span
+                    ><span class="world-genre-mobile">Duel</span></small
                   ><strong>Moon Dragon</strong></span
                 >
               </button>
@@ -150,7 +206,10 @@
                   width="90"
                   height="60"
                 /><span
-                  ><small>02 / Dating narrative</small
+                  ><small
+                    >02 /
+                    <span class="world-genre-desktop">Dating narrative</span
+                    ><span class="world-genre-mobile">Dating</span></small
                   ><strong>Quiet Hours</strong></span
                 >
               </button>
@@ -161,7 +220,10 @@
                   width="90"
                   height="60"
                 /><span
-                  ><small>03 / Town exploration</small
+                  ><small
+                    >03 /
+                    <span class="world-genre-desktop">Town exploration</span
+                    ><span class="world-genre-mobile">Open world</span></small
                   ><strong>The Wanted</strong></span
                 >
               </button>
@@ -1009,10 +1071,16 @@ else:
     <noscript
       ><style>
         .runtime-twins,
+        .nav-menu-button,
         .bench-toolbar,
         .sample-gallery,
         #hero-play {
           display: none;
+        }
+        @media (max-width: 720px) {
+          .nav-links {
+            display: flex;
+          }
         }
       </style>
       <p class="wrap">

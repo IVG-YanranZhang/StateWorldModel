@@ -91,7 +91,7 @@
 }
 .cinematic .eyebrow {
   color: #c9ddcd;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   display: flex;
   gap: 10px;
@@ -132,7 +132,7 @@
 }
 .cinematic .authors {
   color: #b9c6bd;
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 17px;
 }
 .cinematic .hero-actions {
@@ -166,7 +166,7 @@
 }
 .hero-evidence {
   position: absolute;
-  right: max(40px, calc((100vw - 1180px) / 2));
+  right: max(40px, calc((100vw - 1240px) / 2));
   bottom: 172px;
   width: 210px;
   border-top: 1px solid #d3e5d366;
@@ -174,7 +174,7 @@
   text-shadow: 0 1px 8px #0008;
 }
 .hero-evidence .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
 }
 .hero-evidence > strong {
@@ -192,7 +192,7 @@
   margin-left: 2px;
 }
 .evidence-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.04em;
   color: #d2ddd2;
   display: block;
@@ -203,11 +203,11 @@
   justify-content: space-between;
   border-top: 1px solid #d3e5d33b;
   padding-top: 11px;
-  font-size: 10px;
+  font-size: 11px;
   color: #ccd8ca;
 }
 .hero-evidence > a {
-  font-size: 10px;
+  font-size: 11px;
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
@@ -281,7 +281,7 @@
 }
 .cinematic .world-choice small {
   color: #aebfb3;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.05em;
 }
 .cinematic .world-choice strong {
@@ -303,7 +303,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 10px;
+  font-size: 11px;
   white-space: nowrap;
 }
 .media-control > span:first-child {
@@ -320,7 +320,7 @@
   align-items: center;
   gap: 50px;
   padding-top: 22px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
 }
 .world-context p {
@@ -328,13 +328,13 @@
   line-height: 1.8;
 }
 .world-context > span {
-  font-size: 9px;
+  font-size: 11px;
   white-space: nowrap;
   color: #718071;
 }
 .proof-strip {
   margin-top: 28px;
-  padding-block: 31px;
+  padding-block: 25px;
 }
 .proof-strip strong {
   font-family: var(--sans);
@@ -342,7 +342,7 @@
   letter-spacing: -0.065em;
 }
 .proof-strip div > span {
-  font-size: 10px;
+  font-size: 11px;
 }
 .proof-strip > div {
   padding-inline: 34px;
@@ -352,14 +352,14 @@ h2 {
   letter-spacing: -0.047em;
 }
 .section {
-  padding-block: 104px;
+  padding-block: 78px;
 }
 .section-heading > p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.9;
 }
 .overview-copy p {
-  font-size: 14px;
+  font-size: 15px;
 }
 .sample-visual img {
   height: auto;
@@ -397,7 +397,7 @@ h2 {
     height: 40px;
   }
   .cinematic .world-choice small {
-    font-size: 8px;
+    font-size: 11px;
   }
   .cinematic .world-choice strong {
     font-size: 12px;
@@ -440,7 +440,7 @@ h2 {
     justify-content: center;
   }
   .cinematic .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 0.14em;
   }
   .cinematic h1 {
@@ -454,11 +454,11 @@ h2 {
     margin-top: 22px;
   }
   .cinematic .hero-description {
-    font-size: 11px;
+    font-size: 13px;
     margin-top: 20px;
   }
   .cinematic .authors {
-    font-size: 8px;
+    font-size: 11px;
     max-width: 300px;
     line-height: 1.8;
   }
@@ -467,7 +467,7 @@ h2 {
     gap: 8px;
   }
   .cinematic .button {
-    font-size: 9px;
+    font-size: 11px;
     gap: 10px;
     padding: 10px 15px;
     min-height: 42px;
@@ -479,7 +479,7 @@ h2 {
     padding-top: 11px;
   }
   .hero-evidence .eyebrow {
-    font-size: 7px;
+    font-size: 11px;
     letter-spacing: 0.04em;
   }
   .hero-evidence > strong {
@@ -491,7 +491,7 @@ h2 {
     font-size: 20px;
   }
   .evidence-label {
-    font-size: 8px;
+    font-size: 11px;
     margin-bottom: 0;
   }
   .hero-evidence > div,
@@ -515,7 +515,7 @@ h2 {
     display: none;
   }
   .cinematic .world-choice small {
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.6;
     letter-spacing: 0.02em;
   }
@@ -535,7 +535,7 @@ h2 {
     gap: 25px;
   }
   .media-control {
-    font-size: 9px;
+    font-size: 11px;
   }
   .hero-media-tools > a {
     font-size: 20px;
@@ -545,12 +545,12 @@ h2 {
     padding-top: 17px;
   }
   .world-context p {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.8;
   }
   .world-context > span {
     display: block;
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 9px;
     text-align: left;
   }
@@ -561,14 +561,14 @@ h2 {
     font-size: 33px;
   }
   .proof-strip div > span {
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.7;
   }
   .section {
-    padding-block: 66px;
+    padding-block: 50px;
   }
   .section-heading > p {
-    font-size: 14px;
+    font-size: 15px;
   }
   h2 {
     font-size: 35px;
@@ -583,13 +583,13 @@ h2 {
   }
   .cinematic .button {
     padding-inline: 11px;
-    font-size: 8px;
+    font-size: 11px;
   }
   .hero-evidence {
     width: 128px;
   }
   .cinematic .world-choice small {
-    font-size: 8px;
+    font-size: 11px;
   }
   .cinematic .world-choice strong {
     font-size: 12px;
@@ -633,7 +633,7 @@ h2 {
     border-color 0.15s;
 }
 .sample-thumb span {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.55;
   min-height: 27px;
 }
@@ -662,17 +662,17 @@ h2 {
   margin-top: 20px;
 }
 .sample-visual .action p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
 }
 .frame-label {
-  font-size: 9px;
+  font-size: 11px;
 }
 .sample-state {
   padding: 24px 25px;
 }
 .sample-state > .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   margin-bottom: 11px;
 }
@@ -699,13 +699,13 @@ h2 {
   margin: 0;
 }
 .twin-label > span {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.13em;
 }
 .twin > code {
   display: block;
   margin-top: 9px;
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.7;
   overflow-wrap: anywhere;
   padding: 6px 9px;
@@ -713,18 +713,18 @@ h2 {
   min-height: 42px;
 }
 .twin p {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.85;
   margin-top: 12px;
 }
 .twin p strong {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.05em;
   display: block;
   margin-bottom: 5px;
 }
 .twin .forbidden {
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 12px;
   line-height: 1.8;
 }
@@ -732,18 +732,18 @@ h2 {
   margin-top: 22px;
 }
 .sample-program summary {
-  font-size: 10px;
+  font-size: 12px;
   padding: 13px 0 4px;
   gap: 20px;
 }
 .sample-program > p {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.85;
   color: var(--muted);
   margin-top: 10px;
 }
 .sample-program pre {
-  font-size: 10px;
+  font-size: 11px;
   padding: 12px;
 }
 .comparison-workbench {
@@ -757,7 +757,7 @@ h2 {
   margin-bottom: 22px;
 }
 .workbench-top .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   margin-bottom: 11px;
 }
 .workbench-top h3 {
@@ -774,7 +774,7 @@ h2 {
 .probe-control > span {
   display: block;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.04em;
 }
 .workbench-controls select {
@@ -795,7 +795,7 @@ h2 {
   border: 0;
   background: transparent;
   padding: 8px 12px;
-  font-size: 10px;
+  font-size: 11px;
   white-space: nowrap;
   border-radius: 2px;
 }
@@ -812,14 +812,14 @@ h2 {
   border-top: 1px solid #ccd6c5;
 }
 .workbench-actions > p {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
   max-width: 820px;
 }
 .workbench-actions .small-button {
   white-space: nowrap;
-  font-size: 10px;
+  font-size: 11px;
   min-width: 142px;
   border-color: #9fb498;
   background: #f9fbf6;
@@ -841,11 +841,11 @@ h2 {
 }
 .twin-row-title p > span {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   margin-right: 7px;
 }
 .twin-chip {
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 1px solid #cda78f;
@@ -886,13 +886,13 @@ h2 {
   background: #e6eedf;
 }
 .player-heading b {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
   display: block;
 }
 .player-heading small {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 5px;
 }
@@ -904,7 +904,7 @@ h2 {
   background: #13211a;
 }
 .judge-badge {
-  font-size: 8px;
+  font-size: 11px;
   white-space: nowrap;
   margin-top: 2px;
   border: 1px solid;
@@ -927,7 +927,7 @@ h2 {
   align-items: center;
   padding: 11px 18px;
   gap: 15px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 .player-footer > a {
@@ -947,7 +947,7 @@ h2 {
   margin-top: 22px;
 }
 .recorded-judgments summary {
-  font-size: 11px;
+  font-size: 12px;
   gap: 15px;
   padding: 16px 0;
 }
@@ -958,18 +958,18 @@ h2 {
   padding: 8px 0 20px;
 }
 .recorded-judgments article p {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.85;
 }
 .recorded-judgments article .evidence-title {
   color: var(--ink);
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11px;
   margin-bottom: 6px;
 }
 .recorded-judgments article small {
-  font-size: 9px;
+  font-size: 11px;
   display: block;
   color: var(--green);
   margin-top: 8px;
@@ -978,7 +978,7 @@ h2 {
   margin-top: 0;
   padding-bottom: 18px;
   max-width: 900px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .failure-case-note {
   font-size: 11px;
@@ -1011,7 +1011,7 @@ h2 {
     padding-left: 10px;
   }
   .twin > code {
-    font-size: 8px;
+    font-size: 11px;
   }
   .workbench-top {
     gap: 25px;
@@ -1028,7 +1028,7 @@ h2 {
   }
   .probe-control button {
     padding: 8px 9px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .paired-video-row {
     gap: 15px;
@@ -1038,7 +1038,7 @@ h2 {
     padding-inline: 14px;
   }
   .player-heading b {
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 @media (max-width: 720px) {
@@ -1050,7 +1050,7 @@ h2 {
     flex: 0 0 110px;
   }
   .sample-thumb span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .sample-grid {
     grid-template-columns: 1fr;
@@ -1069,16 +1069,16 @@ h2 {
     gap: 18px;
   }
   .twin > code {
-    font-size: 8px;
+    font-size: 11px;
   }
   .twin p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .twin .forbidden {
-    font-size: 8px;
+    font-size: 12px;
   }
   .sample-visual .action p {
-    font-size: 11px;
+    font-size: 14px;
   }
   .workbench-top {
     display: block;
@@ -1097,18 +1097,18 @@ h2 {
   .workbench-controls select {
     min-width: 0;
     width: 100%;
-    font-size: 9px;
+    font-size: 11px;
     padding-right: 20px;
     padding-block: 10px;
   }
   .workbench-controls label,
   .probe-control > span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .probe-control button {
     flex: 1;
     padding: 8px 4px;
-    font-size: 8px;
+    font-size: 11px;
     min-height: 29px;
   }
   .workbench-actions {
@@ -1117,11 +1117,11 @@ h2 {
     padding-top: 14px;
   }
   .workbench-actions > p {
-    font-size: 9px;
+    font-size: 11px;
   }
   .workbench-actions .small-button {
     min-width: 110px;
-    font-size: 8px;
+    font-size: 11px;
     padding: 9px;
   }
   .twin-row-title {
@@ -1129,15 +1129,15 @@ h2 {
     margin-top: 23px;
   }
   .twin-row-title p {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.75;
   }
   .twin-row-title p > span {
     display: block;
-    font-size: 8px;
+    font-size: 11px;
   }
   .twin-chip {
-    font-size: 8px;
+    font-size: 11px;
     padding: 4px 7px;
   }
   .paired-video-row {
@@ -1148,18 +1148,18 @@ h2 {
     padding: 12px 14px;
   }
   .player-heading b {
-    font-size: 12px;
+    font-size: 14px;
   }
   .player-heading small {
-    font-size: 11px;
+    font-size: 12px;
   }
   .judge-badge {
-    font-size: 8px;
+    font-size: 11px;
     padding: 3px 6px;
   }
   .player-footer {
     padding: 10px 13px;
-    font-size: 11px;
+    font-size: 12px;
     gap: 10px;
   }
   .recorded-judgments > div {
@@ -1167,19 +1167,19 @@ h2 {
     gap: 20px;
   }
   .recorded-judgments article p {
-    font-size: 10px;
+    font-size: 13px;
   }
   .recorded-judgments summary {
-    font-size: 10px;
+    font-size: 12px;
   }
   .comparison-workbench {
     margin-top: 30px;
   }
   .failure-case-note {
-    font-size: 10px;
+    font-size: 11px;
   }
   .sample-program summary {
-    font-size: 9px;
+    font-size: 12px;
   }
   .comparison-heading h3 {
     font-size: 27px;
@@ -1208,7 +1208,7 @@ h2 {
   margin-bottom: 22px;
 }
 .episode-dialog-heading .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   margin-bottom: 8px;
 }
 .episode-dialog-heading h3 {
@@ -1223,7 +1223,7 @@ h2 {
   border-radius: 3px;
 }
 .episode-dialog > .fine-print {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 15px;
 }
 .dialog-open {
@@ -1245,7 +1245,7 @@ h2 {
     font-size: 23px;
   }
   .episode-dialog > .fine-print {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 /* Research architecture: state and rules retain authority over rendering. */
@@ -1298,11 +1298,11 @@ h2 {
   margin-bottom: 25px;
 }
 .runtime-demo-top .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.08em;
 }
 .runtime-demo-top > div > p:last-child {
-  font-size: 10px;
+  font-size: 11px;
   color: #a8c2ac;
   margin-top: 7px;
 }
@@ -1318,7 +1318,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
+  font-size: 11px;
   padding: 9px 13px;
   border: 0;
   border-radius: 2px;
@@ -1366,7 +1366,7 @@ h2 {
 .runtime-node-number {
   display: block;
   color: #a7c99f;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.065em;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -1387,7 +1387,7 @@ h2 {
   letter-spacing: -0.025em;
 }
 .runtime-node > p {
-  font-size: 12px;
+  font-size: 13px;
   color: #b3c8b4;
   line-height: 1.85;
   margin-top: 15px;
@@ -1398,13 +1398,13 @@ h2 {
   padding-top: 13px;
 }
 .ledger-line > span {
-  font-size: 10px;
+  font-size: 11px;
   color: #a3bf9e;
   display: block;
   margin-bottom: 7px;
 }
 .ledger-line code {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.8;
   overflow-wrap: anywhere;
   display: block;
@@ -1421,7 +1421,7 @@ h2 {
   margin-top: 15px;
 }
 .runtime-node pre {
-  font-size: 10px;
+  font-size: 11px;
   color: #bfd4b7;
   line-height: 1.9;
   white-space: pre-wrap;
@@ -1439,7 +1439,7 @@ h2 {
 }
 .settled-fact small {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   color: #bfd2b9;
   margin-bottom: 5px;
 }
@@ -1464,12 +1464,12 @@ h2 {
   border-bottom: 1px solid #6889623d;
 }
 .visualscript-fields span {
-  font-size: 10px;
+  font-size: 11px;
   color: #adc5a8;
   display: block;
 }
 .visualscript-fields b {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   margin-top: 4px;
   display: block;
@@ -1486,12 +1486,12 @@ h2 {
   flex: 0 0 78px;
 }
 .spatial-channel > span {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.8;
 }
 .spatial-channel small {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   color: #8ead85;
 }
 .runtime-renderer {
@@ -1501,7 +1501,7 @@ h2 {
   font-size: 11px;
 }
 .frozen-tag {
-  font-size: 10px;
+  font-size: 11px;
   display: inline-block;
   color: #b4d4a5;
   border: 1px solid #6f8d5e7a;
@@ -1522,7 +1522,7 @@ h2 {
   color: #bad5ab;
 }
 .runtime-feedback p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.85;
   color: #b7cdb4;
 }
@@ -1532,7 +1532,7 @@ h2 {
   margin-right: 5px;
 }
 .runtime-reference-note {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.85;
   color: #8eac8a;
   max-width: 970px;
@@ -1551,7 +1551,7 @@ h2 {
     font-size: 14px;
   }
   .runtime-node-number {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.7;
   }
   .runtime-node:not(:last-child):after {
@@ -1559,10 +1559,10 @@ h2 {
     font-size: 15px;
   }
   .runtime-node pre {
-    font-size: 10px;
+    font-size: 11px;
   }
   .settled-fact strong {
-    font-size: 10px;
+    font-size: 11px;
   }
   .spatial-channel {
     display: block;
@@ -1572,13 +1572,13 @@ h2 {
   }
   .runtime-twins button {
     padding-inline: 9px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .runtime-demo-top {
     gap: 20px;
   }
   .runtime-demo-top .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 @media (max-width: 720px) {
@@ -1591,18 +1591,18 @@ h2 {
     margin-bottom: 20px;
   }
   .runtime-demo-top .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.9;
   }
   .runtime-demo-top > div > p:last-child {
-    font-size: 9px;
+    font-size: 11px;
   }
   .runtime-twins {
     margin-top: 17px;
     width: fit-content;
   }
   .runtime-twins button {
-    font-size: 10px;
+    font-size: 11px;
     padding: 9px 14px;
   }
   .runtime-nodes {
@@ -1625,46 +1625,46 @@ h2 {
     left: calc(100% + 2px);
   }
   .runtime-node-number {
-    font-size: 10px;
+    font-size: 11px;
     margin-bottom: 13px;
     min-height: 24px;
   }
   .runtime-node > p {
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.8;
   }
   .runtime-node pre {
-    font-size: 10px;
+    font-size: 11px;
     margin: 17px 0;
     line-height: 1.85;
     padding: 9px 7px;
   }
   .ledger-line code {
-    font-size: 10px;
+    font-size: 11px;
   }
   .ledger-line > span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .settled-fact {
     padding: 9px;
   }
   .settled-fact strong {
-    font-size: 9px;
-  }
-  .settled-fact small {
-    font-size: 10px;
-  }
-  .visualscript-fields b {
     font-size: 11px;
   }
+  .settled-fact small {
+    font-size: 11px;
+  }
+  .visualscript-fields b {
+    font-size: 12px;
+  }
   .visualscript-fields span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .spatial-channel > span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .frozen-tag {
-    font-size: 10px;
+    font-size: 11px;
   }
   .runtime-feedback {
     gap: 12px;
@@ -1672,10 +1672,10 @@ h2 {
     padding-bottom: 13px;
   }
   .runtime-feedback p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .runtime-reference-note {
-    font-size: 11px;
+    font-size: 12px;
   }
   .runtime-feedback > span {
     font-size: 20px;
@@ -1708,13 +1708,13 @@ h2 {
     font-size: 16px;
   }
   .runtime-node pre {
-    font-size: 10px;
+    font-size: 11px;
   }
   .runtime-node > p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .ledger-line code {
-    font-size: 10px;
+    font-size: 11px;
   }
   .visualscript-fields {
     margin-top: 15px;
@@ -1735,7 +1735,7 @@ h2 {
     font-size: 18px;
   }
   .runtime-node-number {
-    font-size: 10px;
+    font-size: 11px;
     min-height: 0;
     margin-bottom: 15px;
   }
@@ -1748,7 +1748,7 @@ h2 {
     line-height: 1.4;
   }
   .runtime-node > p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .runtime-node pre {
     font-size: 11px;
@@ -1757,7 +1757,7 @@ h2 {
     margin-block: 19px;
   }
   .ledger-line > span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .ledger-line code {
     font-size: 11px;
@@ -1769,10 +1769,10 @@ h2 {
     font-size: 13px;
   }
   .settled-fact small {
-    font-size: 10px;
+    font-size: 11px;
   }
   .visualscript-fields span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .visualscript-fields b {
     font-size: 12px;
@@ -1785,22 +1785,22 @@ h2 {
     gap: 13px;
   }
   .spatial-channel > span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .spatial-channel small {
-    font-size: 10px;
+    font-size: 11px;
   }
   .runtime-renderer > p {
     font-size: 11px;
   }
   .frozen-tag {
-    font-size: 10px;
+    font-size: 11px;
   }
   .runtime-feedback p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .runtime-reference-note {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 .twin-principle {
@@ -1813,7 +1813,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.09em;
   color: var(--muted);
@@ -1844,7 +1844,7 @@ h2 {
   letter-spacing: -0.025em;
 }
 .principle-input p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.8;
   color: var(--muted);
   margin-top: 7px;
@@ -1879,7 +1879,7 @@ h2 {
   color: #426989;
 }
 .principle-twin code {
-  font-size: 10px;
+  font-size: 11px;
   background: #f6eee5;
   color: #815035;
   padding: 3px 6px;
@@ -1898,14 +1898,14 @@ h2 {
   background: #0e241d;
 }
 .principle-twin p {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   margin-top: 10px;
 }
 .twin-principle figcaption {
   border-top: 1px solid var(--line);
   padding-top: 15px;
-  font-size: 11px;
+  font-size: 12px;
   margin-top: 18px;
   line-height: 1.85;
 }
@@ -1918,7 +1918,7 @@ h2 {
   padding: 17px 0;
 }
 .comparison-statistics > p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.9;
   color: var(--muted);
   max-width: 970px;
@@ -1935,13 +1935,13 @@ h2 {
   display: block;
 }
 .statistics-grid span {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
   display: block;
   margin-top: 7px;
 }
 .comparison-statistics > .text-link {
-  font-size: 10px;
+  font-size: 11px;
   margin: 20px 0 24px;
 }
 thead abbr {
@@ -1949,7 +1949,7 @@ thead abbr {
   cursor: help;
 }
 .table-heading span {
-  font-size: 10px;
+  font-size: 11px;
 }
 @media (max-width: 1000px) {
   .principle-input > img {
@@ -1965,7 +1965,7 @@ thead abbr {
     font-size: 22px;
   }
   .principle-heading {
-    font-size: 10px;
+    font-size: 11px;
     gap: 10px;
   }
   .principle-twins {
@@ -1977,7 +1977,7 @@ thead abbr {
     padding: 18px;
   }
   .principle-heading {
-    font-size: 10px;
+    font-size: 11px;
     margin-bottom: 18px;
   }
   .principle-input > img {
@@ -1995,7 +1995,7 @@ thead abbr {
     display: block;
   }
   .principle-input p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .principle-fork {
     height: 40px;
@@ -2009,17 +2009,17 @@ thead abbr {
   }
   .principle-twin code {
     display: inline-block;
-    font-size: 8px;
+    font-size: 11px;
     margin-top: 6px;
   }
   .principle-twin > div > span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .principle-twin p {
-    font-size: 12px;
+    font-size: 13px;
   }
   .twin-principle figcaption {
-    font-size: 11px;
+    font-size: 12px;
     padding-top: 13px;
     margin-top: 15px;
   }
@@ -2032,16 +2032,16 @@ thead abbr {
     margin-bottom: 30px;
   }
   .comparison-statistics summary {
-    font-size: 10px;
-  }
-  .comparison-statistics > p {
     font-size: 11px;
   }
+  .comparison-statistics > p {
+    font-size: 13px;
+  }
   .statistics-grid b {
-    font-size: 10px;
+    font-size: 11px;
   }
   .statistics-grid span {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 @media (max-width: 720px) {
@@ -2083,7 +2083,7 @@ thead abbr {
   font-size: 16px;
 }
 .resource-link small {
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.8;
 }
 .resource-link > span:last-child {
@@ -2101,7 +2101,7 @@ thead abbr {
     font-size: 14px;
   }
   .resource-link small {
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 @media (max-width: 720px) {
@@ -2116,7 +2116,7 @@ thead abbr {
     font-size: 16px;
   }
   .resource-link small {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 /* Fixed overlays remain readable over the brightest generated frame. */
@@ -2159,7 +2159,7 @@ thead abbr {
     bottom: 133px;
   }
   .hero-evidence .eyebrow {
-    font-size: 7px;
+    font-size: 11px;
     line-height: 1.8;
   }
   .hero-evidence > strong {
@@ -2169,6 +2169,179 @@ thead abbr {
     bottom: 3px;
   }
   .hero-evidence .evidence-label {
-    font-size: 8px;
+    font-size: 11px;
   }
+}
+
+/* Compact chapter navigation, using the browser's native popover behavior. */
+.nav-menu-button {
+  display: none;
+}
+.mobile-nav {
+  inset: 76px 18px auto auto;
+  margin: 0;
+  width: min(330px, calc(100vw - 36px));
+  max-height: calc(100svh - 96px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 22px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 60px #0a231c24;
+}
+.mobile-nav .eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.mobile-nav a {
+  display: grid;
+  grid-template-columns: 24px 1fr 14px;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+}
+.mobile-nav a > span:first-child {
+  color: var(--muted);
+  font-size: 11px;
+}
+.mobile-nav a > span:last-child {
+  color: var(--green);
+}
+.mobile-nav a.current {
+  color: var(--green);
+  font-weight: 650;
+}
+.mobile-nav a:hover {
+  color: var(--green);
+}
+@media (max-width: 720px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 0 8px;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font-family: var(--sans);
+    font-size: 12px;
+  }
+  .mobile-nav {
+    inset-block-start: 72px;
+  }
+}
+@media (min-width: 721px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+.world-genre-mobile {
+  display: none;
+}
+@media (max-width: 720px) {
+  .world-genre-desktop {
+    display: none;
+  }
+  .world-genre-mobile {
+    display: inline;
+  }
+}
+
+/* Reading-density refinement requested by the author. */
+.fine-print,
+figcaption {
+  font-size: 12px;
+  line-height: 1.75;
+}
+.text-link,
+summary,
+.small-button {
+  font-size: 13px;
+}
+.section-heading {
+  margin-bottom: 34px;
+}
+.overview-grid {
+  gap: 44px;
+}
+.principle-input {
+  gap: 18px;
+}
+.world-context {
+  padding-top: 18px;
+}
+.world-context p {
+  font-size: 12px;
+}
+.proof-strip {
+  margin-top: 22px;
+}
+.proof-strip div > span {
+  font-size: 12px;
+}
+.result-bars {
+  gap: 14px;
+}
+.comparison-figure {
+  margin-top: 28px;
+}
+@media (max-width: 720px) {
+  .section-heading {
+    margin-bottom: 28px;
+    gap: 22px;
+  }
+  .section-heading > p,
+  .overview-copy p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .fine-print,
+  figcaption {
+    font-size: 12px;
+  }
+  .proof-strip div > span {
+    font-size: 11px;
+  }
+  .cinematic .world-choice small {
+    font-size: 10px;
+  }
+  .hero-evidence .eyebrow {
+    font-size: 9px;
+  }
+  .hero-evidence .evidence-label {
+    font-size: 10px;
+  }
+}
+
+body {
+  font-weight: 450;
+}
+:root {
+  --muted: #536359;
+}
+.nav {
+  font-size: 12px;
+}
+#results-table {
+  font-size: 13px;
+}
+#results-table th,
+#results-table td {
+  padding-block: 12px;
+}
+#results-table thead th {
+  font-size: 12px;
+}
+#results-table .group-row th {
+  font-size: 11px;
+  padding-block: 8px;
 }

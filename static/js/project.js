@@ -155,11 +155,12 @@
   const updateHeader = () => {
     const overHero = scrollY < $(".cinematic").offsetHeight - 76;
     header.classList.toggle("over-hero", overHero);
-    let active = overHero ? "worlds" : "";
+    let active = overHero ? "worlds" : "overview";
     for (const id of ["method", "results", "benchmark"])
       if ($("#" + id).getBoundingClientRect().top <= 150) active = id;
-    if ($("#resources").getBoundingClientRect().top <= 150) active = "";
-    $$(".nav-links a").forEach((link) => {
+    if ($("#resources").getBoundingClientRect().top <= 150)
+      active = "resources";
+    $$(".nav-links a, .mobile-nav a").forEach((link) => {
       const current = link.getAttribute("href") === "#" + active;
       link.classList.toggle("current", current);
       if (current) link.setAttribute("aria-current", "location");
@@ -179,6 +180,25 @@
   );
   addEventListener("resize", updateHeader, { passive: true });
   updateHeader();
+  const mobileNav = $("#mobile-nav");
+  mobileNav.addEventListener("toggle", (event) => {
+    $("#nav-menu-button").setAttribute(
+      "aria-expanded",
+      String(event.newState === "open"),
+    );
+  });
+  $$("a", mobileNav).forEach((link) =>
+    link.addEventListener("click", () => {
+      mobileNav.hidePopover();
+      const target = $(link.getAttribute("href"));
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    }),
+  );
+  matchMedia("(max-width: 720px)").addEventListener("change", (event) => {
+    if (!event.matches && mobileNav.matches(":popover-open"))
+      mobileNav.hidePopover();
+  });
 
   function setRuntimeTwin(side) {
     const index = side === "A" ? 0 : 1;
@@ -524,7 +544,7 @@
     { rootMargin: "1000px 0px" },
   );
   benchmarkObserver.observe($("#benchmark"));
-  $$(".nav-links a, .hero-actions a, .resource-link")
+  $$(".nav-links a, .mobile-nav a, .hero-actions a, .resource-link")
     .filter((link) => link.getAttribute("href") === "#benchmark")
     .forEach((link) => link.addEventListener("click", loadBenchmark));
   if (

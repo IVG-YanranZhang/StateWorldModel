@@ -81,3 +81,7 @@ The page preserves anonymous authorship and avoids identity links. The citation 
 ## Publishable export
 
 `python3 scripts/export_site.py --output /path/to/new-empty-directory` packages only the current page and referenced runtime assets, including the dynamic recording inventory. Historical templates, unrelated PDFs and internal handoff documents are excluded. The exported artifact has been checked with real mobile browser playback.
+
+## Reading refinement
+
+The mobile header has a native six-chapter popover with keyboard/Escape behavior, focus return and active chapter indication. The author's subsequent feedback requested larger type and less empty space: body copy is now 14–15px, captions/controls 11–13px, the reading width increases to 1240px, and section padding decreases from104/66px to78/50px on desktop/mobile. Caption contrast and variable-font weight also increase slightly.
