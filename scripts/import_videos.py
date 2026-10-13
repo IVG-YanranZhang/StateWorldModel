@@ -6,6 +6,7 @@ Omitting judge removes its badge rather than copying a prior clip's decision.
 Keep manifests outside the public repository because paths may be private.
 """
 from site_data import sync_example_posters
+from media_assets import extract_final_frame
 import argparse
 import hashlib
 import json
@@ -46,7 +47,7 @@ def main():
         if not video.exists():
             subprocess.run(['ffmpeg','-y','-v','error','-i',str(source),'-vf','scale=768:-2','-c:v','libx264','-threads','2','-crf','26','-preset','medium','-pix_fmt','yuv420p','-an','-movflags','+faststart',str(video)],check=True)
         if not poster.exists():
-            subprocess.run(['ffmpeg','-y','-v','error','-sseof','-0.2','-i',str(video),'-frames:v','1',str(poster)],check=True)
+            extract_final_frame(video, poster)
         info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','json',str(video)]))
         judge=entry.get('judge')
         public_judge=None if judge is None else {key:judge.get(key) for key in ['outcomeOk','counterOk','strictOk','observedEnding','evidence']}

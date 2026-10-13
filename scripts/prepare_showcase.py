@@ -4,6 +4,7 @@ The showcase is illustrative. Aggregate scores stay sourced from the paper.
 Inputs: --cases /path/to/benchmark/out/cases --runs /path/to/casebench/runs
 """
 from site_data import sync_example_posters
+from media_assets import extract_final_frame
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
@@ -39,7 +40,7 @@ def transcode(job):
     if not video.exists():
         subprocess.run(['ffmpeg','-y','-v','error','-threads','2','-i',str(source),'-vf','scale=768:-2','-c:v','libx264','-threads','2','-crf','26','-preset','medium','-pix_fmt','yuv420p','-an','-movflags','+faststart',str(video)],check=True)
     if not poster.exists():
-        subprocess.run(['ffmpeg','-y','-v','error','-threads','1','-sseof','-0.2','-i',str(video),'-frames:v','1',str(poster)],check=True)
+        extract_final_frame(video, poster)
     info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','json',str(video)]))
     row=job['row']
     return job,dict(src=video.relative_to(ROOT).as_posix(),poster=poster.relative_to(ROOT).as_posix(),duration=round(float(info['format']['duration']),2),judge=dict(outcomeOk=row['outcome_ok'],counterOk=row['counter_ok'],strictOk=row['strict_ok'],observedEnding=row['outcome_answer'],evidence=row.get('evidence','')))
