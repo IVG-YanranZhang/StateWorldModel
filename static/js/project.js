@@ -163,15 +163,13 @@
     let active = "top";
     for (const id of ["worlds", "overview", "method", "results", "benchmark"])
       if ($("#" + id).getBoundingClientRect().top <= 150) active = id;
-    if ($("#resources").getBoundingClientRect().top <= 150)
-      active = "resources";
-    const worksTop = $("#more-works").getBoundingClientRect().top;
+    const resourcesTop = $("#resources").getBoundingClientRect().top;
     const atPageEnd =
       scrollY > 0 &&
       Math.ceil(scrollY + innerHeight) >=
         document.documentElement.scrollHeight - 2;
-    if (worksTop <= 150 || (atPageEnd && worksTop < innerHeight))
-      active = "more-works";
+    if (resourcesTop <= 150 || (atPageEnd && resourcesTop < innerHeight))
+      active = "resources";
     $$(".nav-links a, .mobile-nav a").forEach((link) => {
       const current = link.getAttribute("href") === "#" + active;
       link.classList.toggle("current", current);
@@ -192,6 +190,19 @@
   );
   addEventListener("resize", updateHeader, { passive: true });
   updateHeader();
+  const worksMenu = $("#more-works");
+  worksMenu.addEventListener("toggle", (event) => {
+    $("#more-works-button").setAttribute(
+      "aria-expanded",
+      String(event.newState === "open"),
+    );
+  });
+  const showWorksFromHash = () => {
+    if (location.hash === "#more-works" && !worksMenu.matches(":popover-open"))
+      worksMenu.showPopover();
+  };
+  addEventListener("hashchange", showWorksFromHash);
+  showWorksFromHash();
   const mobileNav = $("#mobile-nav");
   mobileNav.addEventListener("toggle", (event) => {
     $("#nav-menu-button").setAttribute(

@@ -21,7 +21,7 @@ def main():
         page.wait_for_function('document.querySelector(".scene").complete && document.querySelector(".scene").naturalWidth > 0')
         page.screenshot(path=str(ROOT / 'static/images/social-card.jpg'), type='jpeg', quality=90)
         browser.close()
-    print('Prepared anonymous 1200 × 630 sharing cover with original conceptual artwork.')
+    print('Prepared 1200 × 630 sharing cover with original conceptual artwork.')
 
 if __name__ == '__main__':
     main()

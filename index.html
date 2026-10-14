@@ -67,6 +67,7 @@
     <link rel="stylesheet" href="static/css/cover.css" />
     <link rel="stylesheet" href="static/css/benchmark-refinements.css" />
     <link rel="stylesheet" href="static/css/reading.css" />
+    <link rel="stylesheet" href="static/css/publication.css" />
     <script src="static/js/project.js" defer></script>
   </head>
   <body>
@@ -83,8 +84,7 @@
         >
         <div class="nav-links">
           <a href="#worlds">Worlds</a><a href="#method">Method</a
-          ><a href="#results">Results</a><a href="#benchmark">Benchmark</a
-          ><a href="#more-works">More Works</a>
+          ><a href="#results">Results</a><a href="#benchmark">Benchmark</a>
         </div>
         <button
           class="nav-menu-button"
@@ -138,17 +138,121 @@
             ><span>06</span> Paper & resources
             <span aria-hidden="true">↗</span></a
           >
-          <a href="#more-works"
-            ><span>07</span> More Works <span aria-hidden="true">↗</span></a
-          >
         </nav>
-        <a
-          class="nav-paper"
-          href="static/pdfs/state-world-models.pdf"
-          target="_blank"
-          rel="noopener"
-          >Read paper <span aria-hidden="true">↗</span></a
+        <button
+          class="works-menu-button"
+          id="more-works-button"
+          popovertarget="more-works"
+          aria-controls="more-works"
         >
+          More Works<svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="m3 5 4 4 4-4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div class="works-popover" id="more-works" popover>
+          <div class="works-popover-heading">
+            <h2 id="more-works-title">More Works</h2>
+            <button
+              class="works-menu-close"
+              popovertarget="more-works"
+              popovertargetaction="hide"
+              aria-label="Close More Works"
+            >
+              ×
+            </button>
+          </div>
+          <nav
+            class="more-works-grid"
+            aria-label="Previous research project pages"
+          >
+            <a
+              class="more-work-card"
+              href="https://ivg-yanranzhang.github.io/MoGe4D/"
+              target="_blank"
+              rel="noopener"
+              ><div class="more-work-title">
+                <h3>
+                  MoGe4D <span class="work-arrow" aria-hidden="true">↗</span>
+                </h3>
+                <span>ECCV 2026</span>
+              </div>
+              <p>
+                Geometry-Aware Single-Image 4D Synthesis via Dense Trajectory
+                Generation
+              </p>
+              <span class="more-work-link"
+                >Project page <span aria-hidden="true">↗</span></span
+              ></a
+            ><a
+              class="more-work-card"
+              href="https://ivg-yanranzhang.github.io/UniGenDet/"
+              target="_blank"
+              rel="noopener"
+              ><div class="more-work-title">
+                <h3>
+                  UniGenDet
+                  <span class="work-arrow" aria-hidden="true">↗</span>
+                </h3>
+                <span>CVPR 2026</span>
+              </div>
+              <p>
+                A Unified Generative-Discriminative Framework for
+                Co-Evolutionary Image Generation and Generated Image Detection
+              </p>
+              <span class="more-work-link"
+                >Project page <span aria-hidden="true">↗</span></span
+              ></a
+            ><a
+              class="more-work-card"
+              href="https://ivg-yanranzhang.github.io/D3QE/"
+              target="_blank"
+              rel="noopener"
+              ><div class="more-work-title">
+                <h3>
+                  D³QE <span class="work-arrow" aria-hidden="true">↗</span>
+                </h3>
+                <span>ICCV 2025</span>
+              </div>
+              <p>
+                Learning Discrete Distribution Discrepancy-aware Quantization
+                Error for Autoregressive-Generated Image Detection
+              </p>
+              <span class="more-work-link"
+                >Project page <span aria-hidden="true">↗</span></span
+              ></a
+            ><a
+              class="more-work-card"
+              href="https://ivg-yanranzhang.github.io/UniPre3D/"
+              target="_blank"
+              rel="noopener"
+              ><div class="more-work-title">
+                <h3>
+                  UniPre3D <span class="work-arrow" aria-hidden="true">↗</span>
+                </h3>
+                <span>CVPR 2025</span>
+              </div>
+              <p>
+                Unified Pre-training of 3D Point Cloud Models with Cross-Modal
+                Gaussian Splatting
+              </p>
+              <span class="more-work-link"
+                >Project page <span aria-hidden="true">↗</span></span
+              ></a
+            >
+          </nav>
+        </div>
       </nav>
     </header>
     <main id="top">
@@ -159,7 +263,8 @@
         <div class="cover-inner wrap">
           <div class="cover-copy">
             <p class="eyebrow">
-              <span class="status-dot"></span> ICLR 2027 / Anonymous submission
+              <span class="status-dot"></span> State World Models / Research
+              project
             </p>
             <h1>
               State World<br />Models<span class="hero-subtitle"
@@ -170,18 +275,128 @@
               Explicit state. Executable rules. Generative worlds that remember
               what matters.
             </p>
-            <p class="authors">
-              Anonymous Authors <span>·</span> Double-blind review
-            </p>
-            <div class="hero-actions">
+            <div class="publication-authors">
+              <span class="publication-author" data-author="Chan Yan Ki"
+                ><a
+                  href="https://github.com/yankeee-0411"
+                  target="_blank"
+                  rel="noopener"
+                  >Chan Yan Ki</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Yanran Zhang"
+                ><a
+                  href="https://yanran-zhang.github.io/"
+                  target="_blank"
+                  rel="noopener"
+                  >Yanran Zhang</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Wenzhao Zheng"
+                ><a href="https://wzzheng.net/" target="_blank" rel="noopener"
+                  >Wenzhao Zheng</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Xiaofeng Wang"
+                ><a
+                  href="https://github.com/JeffWang987"
+                  target="_blank"
+                  rel="noopener"
+                  >Xiaofeng Wang</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Zheng Zhu"
+                ><a
+                  href="https://www.zhengzhu.net/"
+                  target="_blank"
+                  rel="noopener"
+                  >Zheng Zhu</a
+                ><sup>2</sup></span
+              ><span class="publication-author" data-author="Lei Chen"
+                ><a
+                  href="https://scholar.google.com/citations?user=8bMh-FQAAAAJ"
+                  target="_blank"
+                  rel="noopener"
+                  >Lei Chen</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Jie Zhou"
+                ><a
+                  href="https://scholar.google.com/citations?user=6a79aPwAAAAJ"
+                  target="_blank"
+                  rel="noopener"
+                  >Jie Zhou</a
+                ><sup>1</sup></span
+              ><span class="publication-author" data-author="Jiwen Lu"
+                ><a
+                  href="https://scholar.google.com/citations?user=TN8uDQoAAAAJ"
+                  target="_blank"
+                  rel="noopener"
+                  >Jiwen Lu</a
+                ><sup>1</sup></span
+              >
+            </div>
+            <div class="publication-affiliations">
               <a
-                class="button primary"
-                href="static/pdfs/state-world-models.pdf"
+                href="https://www.tsinghua.edu.cn/"
                 target="_blank"
                 rel="noopener"
-                >Read paper <span aria-hidden="true">↗</span></a
-              ><a class="button hero-secondary" href="#benchmark"
-                >Explore benchmark <span aria-hidden="true">↓</span></a
+                ><sup>1</sup> Tsinghua University</a
+              ><a href="https://gigaai.cc/" target="_blank" rel="noopener"
+                ><sup>2</sup> GigaAI</a
+              >
+            </div>
+            <div class="hero-actions publication-resources">
+              <button
+                class="publication-resource"
+                data-resource="arxiv"
+                disabled
+              >
+                <img
+                  src="static/images/icons/arxiv.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                /><span>arXiv</span></button
+              ><button
+                class="publication-resource"
+                data-resource="github"
+                disabled
+              >
+                <img
+                  src="static/images/icons/github.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                /><span>Code</span></button
+              ><button
+                class="publication-resource"
+                data-resource="huggingface"
+                disabled
+              >
+                <img
+                  src="static/images/icons/huggingface.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                /><span>Benchmark</span></button
+              ><a
+                class="publication-resource"
+                data-resource="demo"
+                href="#worlds"
+                ><svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="3"
+                    y="4"
+                    width="18"
+                    height="16"
+                    rx="3"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  />
+                  <path d="m10 8 6 4-6 4V8Z" fill="currentColor" /></svg
+                ><span>Demo</span></a
               >
             </div>
           </div>
@@ -1340,7 +1555,7 @@ else:
             target="_blank"
             rel="noopener"
             ><span
-              ><small>36 pages · Anonymous submission</small
+              ><small>36 pages · Full paper</small
               ><b>Read the full paper</b></span
             ><span aria-hidden="true">↗</span></a
           ><a class="resource-link" href="#benchmark"
@@ -1368,96 +1583,13 @@ else:
             aria-label="BibTeX citation"
           ><code id="citation-text">@misc{stateworldmodels2027,
   title = {State World Models: Execute the Rules, Generate the Pixels},
-  author = {Anonymous Authors},
+  author = {Chan, Yan Ki and Zhang, Yanran and Zheng, Wenzhao and Wang, Xiaofeng and Zhu, Zheng and Chen, Lei and Zhou, Jie and Lu, Jiwen},
   year = {2027},
-  note = {Under review at ICLR. Anonymous submission.}
+  note = {Under review at ICLR.}
 }</code></pre>
           <p class="fine-print" id="copy-status" role="status">
             Provisional citation · will be updated after review.
           </p>
-        </div>
-      </section>
-      <section
-        class="more-works-section"
-        id="more-works"
-        aria-labelledby="more-works-title"
-      >
-        <div class="wrap">
-          <div class="more-works-heading">
-            <p class="eyebrow">Selected publications</p>
-            <h2 id="more-works-title">More Works</h2>
-            <p>Explore previous research projects.</p>
-          </div>
-          <nav
-            class="more-works-grid"
-            aria-label="Previous research project pages"
-          >
-            <a
-              class="more-work-card"
-              href="https://ivg-yanranzhang.github.io/MoGe4D/"
-              target="_blank"
-              rel="noopener"
-              ><div class="more-work-title">
-                <h3>MoGe4D</h3>
-                <span>ECCV 2026</span>
-              </div>
-              <p>
-                Geometry-Aware Single-Image 4D Synthesis via Dense Trajectory
-                Generation
-              </p>
-              <span class="more-work-link"
-                >Project page <span aria-hidden="true">↗</span></span
-              ></a
-            ><a
-              class="more-work-card"
-              href="https://ivg-yanranzhang.github.io/UniGenDet/"
-              target="_blank"
-              rel="noopener"
-              ><div class="more-work-title">
-                <h3>UniGenDet</h3>
-                <span>CVPR 2026</span>
-              </div>
-              <p>
-                A Unified Generative-Discriminative Framework for
-                Co-Evolutionary Image Generation and Generated Image Detection
-              </p>
-              <span class="more-work-link"
-                >Project page <span aria-hidden="true">↗</span></span
-              ></a
-            ><a
-              class="more-work-card"
-              href="https://ivg-yanranzhang.github.io/D3QE/"
-              target="_blank"
-              rel="noopener"
-              ><div class="more-work-title">
-                <h3>D³QE</h3>
-                <span>ICCV 2025</span>
-              </div>
-              <p>
-                Learning Discrete Distribution Discrepancy-aware Quantization
-                Error for Autoregressive-Generated Image Detection
-              </p>
-              <span class="more-work-link"
-                >Project page <span aria-hidden="true">↗</span></span
-              ></a
-            ><a
-              class="more-work-card"
-              href="https://ivg-yanranzhang.github.io/UniPre3D/"
-              target="_blank"
-              rel="noopener"
-              ><div class="more-work-title">
-                <h3>UniPre3D</h3>
-                <span>CVPR 2025</span>
-              </div>
-              <p>
-                Unified Pre-training of 3D Point Cloud Models with Cross-Modal
-                Gaussian Splatting
-              </p>
-              <span class="more-work-link"
-                >Project page <span aria-hidden="true">↗</span></span
-              ></a
-            >
-          </nav>
         </div>
       </section>
     </main>
@@ -1489,7 +1621,7 @@ else:
     </dialog>
     <footer class="wrap footer">
       <a class="brand" href="#top">SWM / State World Models</a>
-      <p>Anonymous ICLR 2027 submission</p>
+      <p>State World Models · ICLR 2027 submission</p>
       <a href="#top">Back to top ↑</a>
     </footer>
     <noscript

@@ -1,6 +1,6 @@
 # State World Models project page
 
-An anonymous, buildless paper project page for the existing GitHub Pages host. The redesign uses a cinematic introduction, precise research graphics, an interactive execution trace, the full submission results, and a curated counterfactual video workbench.
+A buildless paper project page for the existing GitHub Pages host. The redesign uses a cinematic introduction, precise research graphics, an interactive execution trace, the full submission results, and a curated counterfactual video workbench.
 
 ## Content and provenance
 
@@ -16,9 +16,11 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 
 Figure 6 is presented as three native episode disclosures with readable step, time and state captions. Each uses four original 864 × 480 frames extracted from the PDF, selecting the second published still in each paired step. The complete figure remains linked. Native disclosures work without JavaScript, and their shared name permits one episode to stay open at a time in supporting browsers. Extraction and source hashes are documented in `static/images/paper/episodes/`.
 
-At the user's request, More Works indexes the verified project pages for [MoGe4D](https://ivg-yanranzhang.github.io/MoGe4D/), [UniGenDet](https://ivg-yanranzhang.github.io/UniGenDet/), [D³QE](https://ivg-yanranzhang.github.io/D3QE/), and [UniPre3D](https://ivg-yanranzhang.github.io/UniPre3D/). Titles and venues follow those official pages. The historical MoRe4D address returns 404; the current index uses MoGe4D. Desktop navigation and the seventh mobile contents item both link to the index.
+At the user's request, More Works indexes the verified project pages for [MoGe4D](https://ivg-yanranzhang.github.io/MoGe4D/), [UniGenDet](https://ivg-yanranzhang.github.io/UniGenDet/), [D³QE](https://ivg-yanranzhang.github.io/D3QE/), and [UniPre3D](https://ivg-yanranzhang.github.io/UniPre3D/). Titles and venues follow those official pages. The historical MoRe4D address returns 404; the current index uses MoGe4D. The upper-right More Works button opens a native popover with four linked project cards. It supports keyboard opening, Escape, outside-click dismissal and JavaScript-free navigation; the mobile chapter menu retains six chapters. The previous Read Paper navigation button and footer index have been removed.
 
 Each benchmark case shows the common hidden-variable name once, followed by its two distinct values in the twin cards. Variable and value text uses 13px type without fragmenting identifiers on narrow phones. The shared rule and state transition remain available in the case disclosure, with 12px code that preserves line structure. The static B01 fallback uses the same card layout, including when the inventory request fails or JavaScript is disabled.
+
+The public page lists all eight authors in the requested order, with Chan Yan Ki linked to the user-provided GitHub profile. The two Tsinghua affiliations are merged into index 1; GigaAI is index 2. The three resource destinations for arXiv, Code and Benchmark remain intentionally unset, represented by disabled icon buttons until official URLs are supplied. Demo links to the playable worlds. The original supplied PDF remains unchanged.
 
 ## Source files
 
@@ -27,7 +29,8 @@ Each benchmark case shows the common hidden-variable name once, followed by its 
 - `static/css/cinematic.css`: final visual direction, responsive refinements and technical diagram.
 - `static/css/cover.css`: editorial cover and responsive concept artwork.
 - `static/css/benchmark-refinements.css`: recording previews and archived judgment links.
-- `static/css/reading.css`: larger research type, compact layouts and final responsive overrides; load last.
+- `static/css/reading.css`: larger research type, compact layouts and responsive overrides.
+- `static/css/publication.css`: author and affiliation links, icon resources and the upper-right More Works popover; load last.
 - `static/js/project.js`: previews, replay dialog, runtime trace, case/model/probe selection, paired playback, shareable query state and citation copy.
 - `static/data/benchmark.js`: ten curated cases, model registry and original recording metadata; private source paths are omitted.
 - `static/data/showcase-descriptions.json`: downloadable case descriptions, explicitly scoped to the illustrative subset.
@@ -85,7 +88,7 @@ Models accept registry keys or exact display names. Baseline probes are `rule` a
 
 Table 1 in the supplied PDF gives MiniMax-H3 EndFollow 66, Echo-WM Flash TwinContrast 42, and the model name Astra. The previous page had 60, 43, and Asra. The separate 32 → 64 → 92 component chain is distinguished from the six Table 1 columns. Its reported paired bootstrap intervals and exact McNemar tests are attributed to Appendix D.
 
-The page preserves anonymous authorship and avoids identity links. The citation remains provisional while the paper is under review.
+At the user’s request, the page lists the eight authors and their personal or research profiles. Tsinghua affiliations are merged as affiliation 1; GigaAI is affiliation 2. The supplied PDF remains the original 36-page submission artifact. The citation includes the full author list.
 
 ## Publishable export
 
@@ -117,13 +120,13 @@ VLM verdict labels open and focus the exact archived evidence for that model and
 
 ## Sharing cover
 
-The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the original layered-world conceptual illustration. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same anonymous title. Metadata follows the [Open Graph protocol](https://ogp.me/).
+The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the original layered-world conceptual illustration. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same research title. Metadata follows the [Open Graph protocol](https://ogp.me/).
 
 ## Editorial cover and generated worlds
 
 Cover artwork selection now uses width-based `srcset` and `sizes` matched to the actual layout. Standard-density desktops download the768px file; high-density displays can use1536px, including phones at3× density. The short landscape layout has its own size estimate. Eighteen viewport/density/browser combinations have been checked, along with WebP fallback. A local150ms/250KB/s diagnostic reduced desktop LCP from about3.0s to1.9s; this is a controlled browser observation, not a public Lighthouse score.
 
-Intermediate viewport refinement keeps the cover's action labels on one line and shortens the authorship note to “Anonymous Authors · Double-blind review”. Short landscape phones use a two-column cover so the illustration appears alongside the title; the ordinary portrait layout remains spacious enough to read. Twelve viewport/engine combinations (Chromium, Firefox and WebKit at768×1024,1024×768,667×375 and568×320) have been checked for overflow and usable chapter navigation.
+Intermediate viewport refinement keeps the cover's action labels on one line with compact metadata. The later public author block supersedes the intermediate anonymous authorship note. Short landscape phones use a two-column cover so the illustration appears alongside the title; the ordinary portrait layout remains spacious enough to read. Twelve viewport/engine combinations (Chromium, Firefox and WebKit at768×1024,1024×768,667×375 and568×320) have been checked for overflow and usable chapter navigation.
 
 The cream editorial cover uses an original architectural maquette: a generated environment above a rule plane and a structured state layer. It is explicitly captioned as a concept illustration and is separate from the real game recordings, benchmark inputs and recorded final frames. The original artwork was created with the built-in imagegen tool; a transparent-background edit isolated the maquette, followed by ordinary WebP resizing for desktop/mobile delivery. Provenance and prompt descriptions are in `static/images/concepts/README.md`.
 
