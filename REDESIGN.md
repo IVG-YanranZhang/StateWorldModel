@@ -84,7 +84,9 @@ The page preserves anonymous authorship and avoids identity links. The citation 
 
 ## Reading refinement
 
-At721–1100px, the four runtime stages use two columns, keeping rule code and state labels legible instead of squeezing them into four narrow cards. Parallel benchmark players share intrinsic heading/media/footer rows where CSS subgrid is supported, aligning the video frames even when one instruction label wraps. The ordinary mobile stack is preserved. Alignment and runtime layout have been checked in Chromium, Firefox and WebKit at768,1024 and1440px, with actual playback and a resize back to390px also verified.
+The runtime's actual code is12px, with13px ledger values and settled-state expressions. On the narrowest phones, nested card padding decreases so the original rule remains readable without breaking its condition across lines. Code whitespace is preserved, with local scrolling available for longer future examples. Five viewport sizes (320,768,1180,1280,1440px) were checked across all three browser engines, including red/blue state switching.
+
+At721–1279px, the four runtime stages use two columns, keeping rule code and state labels legible instead of squeezing them into four narrow cards. Parallel benchmark players share intrinsic heading/media/footer rows where CSS subgrid is supported, aligning the video frames even when one instruction label wraps. The ordinary mobile stack is preserved. Alignment and runtime layout have been checked in Chromium, Firefox and WebKit at768,1024 and1440px, with actual playback and a resize back to390px also verified.
 
 Mobile benchmark selectors use16px text and at least46px height. On screens up to480px wide, the model selector and instruction probe occupy separate full-width rows, preserving complete model names; the group playback button is also full-width with14px text and at least44px height. Scene thumbnail titles use12px text. Chromium, Firefox and WebKit playback checks cover390px,320px and667px layouts. The metric guide now explicitly states, as in PDFpage18, that initial-scene and action-onset checks are recorded separately and excluded from primary ending/forbidden-event scores.
 

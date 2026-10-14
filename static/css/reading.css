@@ -79,6 +79,19 @@ body {
 .comparison-statistics {
   margin-top: 25px;
 }
+.runtime-demo .runtime-node pre {
+  font-size: 12px;
+  padding-inline: 5px;
+  white-space: pre;
+  overflow-x: auto;
+}
+.runtime-demo .ledger-line code,
+.runtime-demo .settled-fact strong {
+  font-size: 13px;
+}
+.runtime-demo .spatial-channel small {
+  font-size: 12px;
+}
 .workbench-actions .small-button {
   font-size: 14px;
 }
@@ -225,6 +238,12 @@ body {
   }
 }
 @media (max-width: 360px) {
+  .runtime-demo {
+    padding-inline: 10px;
+  }
+  .runtime-demo .runtime-node {
+    padding-inline: 10px;
+  }
   .cover-copy .button {
     font-size: 12px;
     padding-inline: 11px;
@@ -256,7 +275,7 @@ body {
     min-width: 120px;
   }
 }
-@media (min-width: 721px) and (max-width: 1100px) {
+@media (min-width: 721px) and (max-width: 1279px) {
   .runtime-demo .runtime-nodes {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
