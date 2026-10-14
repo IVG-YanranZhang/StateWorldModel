@@ -250,6 +250,7 @@
     let probe = query.get("probe") === "ending" ? "ending" : "rule";
     let playbackGeneration = 0;
     let playingTogether = false;
+    let comparisonStarted = false;
     let comparisonObserver;
     pauseBench = () => {
       playbackGeneration++;
@@ -281,6 +282,7 @@
     }
     function renderPlayers() {
       pauseBench();
+      comparisonStarted = false;
       const sample = samples.find((item) => item.id === currentCase);
       const model = models.find((item) => item.key === baseline);
       if (!sample || !model) return;
@@ -359,9 +361,22 @@
             "A recording could not load. Use “Open clip” to view the original file.";
         });
         clip.addEventListener("ended", () => {
+          if (!clip.isConnected) return;
           if ($$("video", host).every((item) => item.ended || item.paused)) {
             playingTogether = false;
-            playButton.textContent = "Replay comparison";
+            playButton.textContent = comparisonStarted
+              ? "Replay comparison"
+              : "Play comparison";
+          }
+        });
+        clip.addEventListener("pause", () => {
+          if (!clip.isConnected) return;
+          if (
+            playingTogether &&
+            $$("video", host).every((item) => item.paused)
+          ) {
+            playingTogether = false;
+            playButton.textContent = "Play comparison";
           }
         });
       });
@@ -423,6 +438,7 @@
         return;
       }
       playingTogether = started.some((result) => result.status === "fulfilled");
+      comparisonStarted ||= playingTogether;
       button.disabled = false;
       button.textContent = playingTogether
         ? "Pause comparison"
@@ -431,7 +447,7 @@
         loaded.some((result) => result.status === "rejected") ||
         started.some((result) => result.status === "rejected")
           ? "Some recordings could not start. Individual video controls remain available."
-          : "Clips start together; each preserves its original duration.";
+          : "Playing all four recordings from the beginning, with their original durations.";
     }
     function renderSample(id, share = false) {
       const sample = samples.find((item) => item.id === id);

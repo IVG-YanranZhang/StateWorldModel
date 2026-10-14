@@ -94,6 +94,8 @@ Direct references now open the actual submission pages for Table1 (page7), the f
 
 ## Benchmark preview refinement
 
+Individual playback is tracked separately from a requested four-clip comparison. Ending a single clip does not mark the whole comparison as replayed. Pausing every clip through its native controls updates the group button, and changing the selection resets group playback history. These end/pause/reset sequences have been checked in Chromium, Firefox and WebKit on desktop and mobile. The playback note says that all recordings play from their beginnings with their original durations; it does not imply frame-level alignment.
+
 Each recording initially shows its verified final frame with an explicit “Play full clip” button. Native video controls activate when playback is requested, avoiding idle buffering indicators on untouched previews. Keyboard activation moves focus to the video controls. The four-clip comparison button remains available; changing the model or probe recreates clean previews. Hidden state values now accompany each twin's required ending directly above its videos. Single-clip and four-clip playback, keyboard focus transfer and model replacement have been checked on desktop/mobile in Chromium, Firefox and WebKit.
 
 VLM verdict labels open and focus the exact archived evidence for that model and twin. The disclosure state stays synchronized when the baseline changes or the native details element closes. A short note explains why a correct final frame can still fail a strict judgment when forbidden content appeared earlier; the recorded verdict is preserved. Both paper figures now reserve their intrinsic image dimensions before lazy loading, and Figure6 includes a visible link to its original-resolution image.
