@@ -30,7 +30,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="State World Models title over the real generated Moon Dragon scene. Execute the Rules, Generate the Pixels."
+      content="State World Models title beside a conceptual illustration of a generated world supported by rules and structured state."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -47,7 +47,7 @@
     />
     <meta
       name="twitter:image:alt"
-      content="State World Models title over a generated Moon Dragon scene."
+      content="State World Models title beside the original layered-world conceptual illustration."
     />
     <link
       rel="canonical"
@@ -57,12 +57,6 @@
     <link rel="icon" href="static/images/mark.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      as="image"
-      href="static/images/games/duel_moon_dragon.webp"
-      fetchpriority="high"
-    />
-    <link
-      rel="preload"
       href="static/fonts/Manrope.woff2"
       as="font"
       type="font/woff2"
@@ -70,11 +64,12 @@
     />
     <link rel="stylesheet" href="static/css/project.css" />
     <link rel="stylesheet" href="static/css/cinematic.css" />
+    <link rel="stylesheet" href="static/css/cover.css" />
     <script src="static/js/project.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#overview">Skip to research</a>
-    <header class="site-header over-hero">
+    <header class="site-header">
       <nav class="nav wrap" aria-label="Main navigation">
         <a class="brand" href="#top"
           ><img
@@ -151,7 +146,85 @@
       </nav>
     </header>
     <main id="top">
-      <section class="cinematic" aria-label="State World Models introduction">
+      <section
+        class="publication-cover"
+        aria-label="State World Models introduction"
+      >
+        <div class="cover-inner wrap">
+          <div class="cover-copy">
+            <p class="eyebrow">
+              <span class="status-dot"></span> ICLR 2027 / Anonymous submission
+            </p>
+            <h1>
+              State World<br />Models<span class="hero-subtitle"
+                >Execute the Rules,<br /><em>Generate the Pixels.</em></span
+              >
+            </h1>
+            <p class="hero-description">
+              Explicit state. Executable rules. Generative worlds that remember
+              what matters.
+            </p>
+            <p class="authors">
+              Anonymous Authors <span>·</span> Paper under double-blind review
+            </p>
+            <div class="hero-actions">
+              <a
+                class="button primary"
+                href="static/pdfs/state-world-models.pdf"
+                target="_blank"
+                rel="noopener"
+                >Read the paper <span aria-hidden="true">↗</span></a
+              ><a class="button hero-secondary" href="#benchmark"
+                >Explore the benchmark <span aria-hidden="true">↓</span></a
+              >
+            </div>
+          </div>
+          <figure class="cover-art">
+            <picture>
+              <source
+                media="(max-width: 720px)"
+                srcset="static/images/concepts/state-world-layers-768.webp"
+              />
+              <img
+                src="static/images/concepts/state-world-layers-1536.webp"
+                alt="Conceptual illustration: a generated world rests above an executable rule layer and a structured state ledger."
+                width="1536"
+                height="1024"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+            <figcaption>
+              Concept illustration <span aria-hidden="true">·</span> State →
+              Rules → Pixels
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <div class="proof-strip wrap">
+        <div>
+          <strong>92<span>%</span></strong
+          ><span>PairFollow · 46 of 50 pairs</span>
+        </div>
+        <div>
+          <strong>90<span>%</span></strong
+          ><span>PairStrict · 45 of 50 pairs</span>
+        </div>
+        <div><strong>50</strong><span>Counterfactual twin pairs</span></div>
+        <div>
+          <strong>11</strong><span>Frozen video backends evaluated</span>
+        </div>
+      </div>
+      <section
+        class="cinematic generated-worlds"
+        id="worlds"
+        aria-labelledby="worlds-title"
+      >
+        <div class="worlds-heading wrap">
+          <p class="eyebrow">Generated worlds / Actual harness outputs</p>
+          <h2 id="worlds-title">One runtime. Different worlds.</h2>
+          <p>Rules settle each action before the frozen model renders it.</p>
+        </div>
         <div class="cinematic-media">
           <video
             id="hero-video"
@@ -169,44 +242,7 @@
           </video>
         </div>
         <div class="cinematic-shade" aria-hidden="true"></div>
-        <div class="hero-content wrap">
-          <p class="eyebrow">
-            <span class="status-dot"></span> ICLR 2027 / Anonymous submission
-          </p>
-          <h1>
-            State World<br />Models<span class="hero-subtitle"
-              >Execute the Rules,<br /><em>Generate the Pixels.</em></span
-            >
-          </h1>
-          <p class="hero-description">
-            Explicit state. Executable rules.<br />Generative worlds that
-            remember what matters.
-          </p>
-          <p class="authors">
-            Anonymous Authors <span>·</span> Paper under double-blind review
-          </p>
-          <div class="hero-actions">
-            <a
-              class="button primary"
-              href="static/pdfs/state-world-models.pdf"
-              target="_blank"
-              rel="noopener"
-              >Read the paper <span aria-hidden="true">↗</span></a
-            ><a class="button hero-secondary" href="#benchmark"
-              >Explore the benchmark <span aria-hidden="true">↓</span></a
-            >
-          </div>
-        </div>
-        <aside class="hero-evidence">
-          <p class="eyebrow">Same frozen MiniMax-H3</p>
-          <strong>92<span>%</span></strong
-          ><span class="evidence-label">PairFollow / Full harness</span>
-          <div><span>Rule-only</span><span>32%</span></div>
-          <a href="#results"
-            >View the evidence <span aria-hidden="true">↗</span></a
-          >
-        </aside>
-        <div class="cinematic-footer" id="worlds">
+        <div class="cinematic-footer">
           <div class="wrap cinematic-footer-inner">
             <div
               class="world-selector"
@@ -286,20 +322,6 @@
           release. Each action is settled by rules before rendering.
         </p>
         <span>Original turn preview · Frozen weights</span>
-      </div>
-      <div class="proof-strip wrap">
-        <div>
-          <strong>92<span>%</span></strong
-          ><span>PairFollow · 46 of 50 pairs</span>
-        </div>
-        <div>
-          <strong>90<span>%</span></strong
-          ><span>PairStrict · 45 of 50 pairs</span>
-        </div>
-        <div><strong>50</strong><span>Counterfactual twin pairs</span></div>
-        <div>
-          <strong>11</strong><span>Frozen video backends evaluated</span>
-        </div>
       </div>
       <section class="section wrap" id="overview">
         <div class="section-heading">

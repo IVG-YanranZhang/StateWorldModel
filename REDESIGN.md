@@ -92,4 +92,10 @@ Direct references now open the actual submission pages for Table1 (page7), the f
 
 ## Sharing cover
 
-The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the actual Moon Dragon preview. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same anonymous title. Metadata follows the [Open Graph protocol](https://ogp.me/).
+The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the original layered-world conceptual illustration. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same anonymous title. Metadata follows the [Open Graph protocol](https://ogp.me/).
+
+## Editorial cover and generated worlds
+
+The cream editorial cover uses an original architectural maquette: a generated environment above a rule plane and a structured state layer. It is explicitly captioned as a concept illustration and is separate from the real game recordings, benchmark inputs and recorded final frames. The original artwork was created with the built-in imagegen tool; a transparent-background edit isolated the maquette, followed by ordinary WebP resizing for desktop/mobile delivery. Provenance and prompt descriptions are in `static/images/concepts/README.md`.
+
+Headline metrics follow the cover, then the three actual generated worlds have their own video section. Chapter navigation tracks their position, and the video observer pauses when this section leaves view. The cover uses a 768px asset on mobile and a 1536px asset on larger screens; the smaller asset is about124KB. The export and static validators include `srcset` assets. Native typography and links remain selectable and accessible.

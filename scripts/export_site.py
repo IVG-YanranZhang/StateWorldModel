@@ -15,6 +15,9 @@ class Assets(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         for key, value in attrs:
+            if key == 'srcset' and value:
+                for candidate in value.split(','):
+                    self.paths.add(candidate.strip().split()[0])
             if key in {'src', 'href', 'poster', 'data-poster-a', 'data-poster-b'} and value:
                 url = urlsplit(value)
                 if not url.scheme and not url.netloc and url.path:

@@ -9,7 +9,7 @@ def main():
     html = (ROOT / 'scripts/social-card.html').read_text()
     assets = {
         '{{FONT_URL}}': ('font/woff2', ROOT / 'static/fonts/Manrope.woff2'),
-        '{{SCENE_IMAGE}}': ('image/webp', ROOT / 'static/images/games/duel_moon_dragon.webp'),
+        '{{SCENE_IMAGE}}': ('image/webp', ROOT / 'static/images/concepts/state-world-layers-1536.webp'),
     }
     for placeholder, (mime, path) in assets.items():
         html = html.replace(placeholder, f'data:{mime};base64,' + base64.b64encode(path.read_bytes()).decode())
@@ -21,7 +21,7 @@ def main():
         page.wait_for_function('document.querySelector(".scene").complete && document.querySelector(".scene").naturalWidth > 0')
         page.screenshot(path=str(ROOT / 'static/images/social-card.jpg'), type='jpeg', quality=90)
         browser.close()
-    print('Prepared anonymous 1200 × 630 sharing cover using the real generated scene.')
+    print('Prepared anonymous 1200 × 630 sharing cover with original conceptual artwork.')
 
 if __name__ == '__main__':
     main()

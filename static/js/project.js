@@ -40,7 +40,7 @@
   ];
   const hero = $("#hero-video");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  let heroVisible = true;
+  let heroVisible = false;
   let currentWorld = worlds[0];
   let heroManualPause = false;
   const autoHero = () =>
@@ -153,10 +153,13 @@
   const header = $(".site-header");
   let ticking = false;
   const updateHeader = () => {
-    const overHero = scrollY < $(".cinematic").offsetHeight - 76;
+    const worldsBounds = $(".cinematic").getBoundingClientRect();
+    const headerHeight = header.offsetHeight;
+    const overHero =
+      worldsBounds.top < headerHeight && worldsBounds.bottom > headerHeight;
     header.classList.toggle("over-hero", overHero);
-    let active = overHero ? "worlds" : "overview";
-    for (const id of ["method", "results", "benchmark"])
+    let active = "top";
+    for (const id of ["worlds", "overview", "method", "results", "benchmark"])
       if ($("#" + id).getBoundingClientRect().top <= 150) active = id;
     if ($("#resources").getBoundingClientRect().top <= 150)
       active = "resources";

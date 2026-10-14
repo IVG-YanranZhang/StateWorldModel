@@ -18,6 +18,8 @@ class PageParser(HTMLParser):
         if 'id' in attrs:self.ids.append(attrs['id'])
         for name in ['src','href','poster']:
             if name in attrs:self.refs.append(attrs[name])
+        if 'srcset' in attrs:
+            self.refs.extend(candidate.strip().split()[0] for candidate in attrs['srcset'].split(','))
         if tag=='table' and attrs.get('id')=='results-table':self.in_table=True
         if self.in_table and tag=='tr':self.row=[]
         if self.in_table and tag in ['th','td']:self.cell=''
