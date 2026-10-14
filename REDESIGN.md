@@ -18,7 +18,7 @@ Figure 6 is presented as three native episode disclosures with readable step, ti
 
 At the user's request, More Works indexes the verified project pages for [MoGe4D](https://ivg-yanranzhang.github.io/MoGe4D/), [UniGenDet](https://ivg-yanranzhang.github.io/UniGenDet/), [D³QE](https://ivg-yanranzhang.github.io/D3QE/), and [UniPre3D](https://ivg-yanranzhang.github.io/UniPre3D/). Titles and venues follow those official pages. The historical MoRe4D address returns 404; the current index uses MoGe4D. Desktop navigation and the seventh mobile contents item both link to the index.
 
-Each benchmark case shows the common hidden-variable name once, followed by its two distinct values in the twin cards. Variable and value text uses 13px type without fragmenting identifiers on narrow phones. The executable transition remains available in the case disclosure.
+Each benchmark case shows the common hidden-variable name once, followed by its two distinct values in the twin cards. Variable and value text uses 13px type without fragmenting identifiers on narrow phones. The shared rule and state transition remain available in the case disclosure, with 12px code that preserves line structure. The static B01 fallback uses the same card layout, including when the inventory request fails or JavaScript is disabled.
 
 ## Source files
 

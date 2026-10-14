@@ -139,6 +139,13 @@ body {
 .sample-state .twin p strong {
   font-size: 12px;
 }
+.sample-program pre {
+  font-size: 12px;
+  padding-inline: 5px;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-wrap: normal;
+}
 .metric-guide {
   margin: 25px 0;
   border-top: 1px solid var(--line);

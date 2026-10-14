@@ -1046,16 +1046,18 @@ else:
         </div>
         <p class="table-scroll-hint">Swipe to see all metrics.</p>
         <p class="fine-print">
-          Bold: full harness. Underlined: best unwrapped baseline. Both metric
-          groups report the same deployed harness condition, using text and
-          first-frame references. Its matched comparison is the same MiniMax-H3
-          backbone under Rule+end (<a
+          Bold: full harness. Underlined: best unwrapped baseline. Baselines use
+          the probe named above each group. The harness row reports one
+          condition in both groups: text and first-frame references, with
+          compiled instructions stating the required ending. The matched
+          MiniMax-H3 Rule+end comparison is in
+          <a
             class="source-reference"
             href="static/pdfs/state-world-models.pdf#page=21"
             target="_blank"
             rel="noopener"
             >Appendix Table 4 ↗</a
-          >). Scores are transcribed from the submission PDF.
+          >. Scores follow the submission PDF.
         </p>
         <div class="metric-guide" aria-label="Benchmark metric definitions">
           <p class="metric-scope">
@@ -1181,10 +1183,9 @@ else:
               <h2>Same frame.<br /><em>Different endings.</em></h2>
             </div>
             <p>
-              Each pair shares one starting image and one action. Only a hidden
-              state changes, so the rule requires a different ending. Choose one
-              of ten pairs, then compare our harness with a baseline in both
-              states.
+              The first frame and action stay the same; a different hidden state
+              requires a different ending. Choose one of ten pairs and a
+              baseline to inspect both states.
             </p>
           </div>
           <div class="bench-toolbar">
@@ -1214,17 +1215,17 @@ else:
               <div class="sample-visual">
                 <div class="frame-label">
                   <span>B01 / Magic Academy</span
-                  ><span>Shared first frame · A = B</span>
+                  ><span>Identical first frame</span>
                 </div>
                 <img
                   src="static/images/benchmark/B01.webp"
-                  alt="B01 shared first frame: a wizard and an unlit white orb"
+                  alt="Elemental Orb: the shared first frame for both twins"
                   width="960"
                   height="540"
                   loading="lazy"
                 />
                 <div class="action">
-                  <small>Shared action · unchanged across twins</small>
+                  <small>Same action in both worlds</small>
                   <p>
                     The wizard stays in place and raises the wand clearly above
                     the head.
@@ -1232,41 +1233,52 @@ else:
                 </div>
               </div>
               <div class="sample-state">
-                <h3>Hidden state selects the ending.</h3>
-                <div class="rule-content">
-                  <small>One shared rule</small>
+                <p class="eyebrow">Elemental Orb</p>
+                <h3>Hidden state changes the ending.</h3>
+                <div class="state-variable">
+                  <span>Hidden variable</span><code>element_mode</code>
+                </div>
+                <div class="twin-list">
+                  <div class="twin a">
+                    <div class="twin-label"><span>TWIN A</span></div>
+                    <code>RED_FLAME</code>
+                    <p>
+                      <strong>Required</strong> the magic orb erupts with large
+                      red flames.
+                    </p>
+                    <p class="forbidden">
+                      <strong>Must not occur</strong> the orb erupts with large
+                      bright blue flames.
+                    </p>
+                  </div>
+                  <div class="twin b">
+                    <div class="twin-label"><span>TWIN B</span></div>
+                    <code>BLUE_FLAME</code>
+                    <p>
+                      <strong>Required</strong> the magic orb erupts with large
+                      blue flames.
+                    </p>
+                    <p class="forbidden">
+                      <strong>Must not occur</strong> the orb erupts with large
+                      bright red flames.
+                    </p>
+                  </div>
+                </div>
+                <details class="sample-program">
+                  <summary>
+                    Shared rule &amp; state transition
+                    <span aria-hidden="true">+</span>
+                  </summary>
                   <p>
                     If the element_mode is RED_FLAME, the magic orb erupts with
                     large red flames; if it is BLUE_FLAME, the magic orb erupts
                     with large blue flames.
                   </p>
-                </div>
-                <div class="twin a">
-                  <div class="twin-label">
-                    <span>TWIN A</span><code>element_mode = RED_FLAME</code>
-                  </div>
-                  <p>
-                    <strong>Required</strong> the magic orb erupts with large
-                    red flames.
-                  </p>
-                  <p class="forbidden">
-                    <strong>Forbidden</strong> the orb erupts with large bright
-                    blue flames.
-                  </p>
-                </div>
-                <div class="twin b">
-                  <div class="twin-label">
-                    <span>TWIN B</span><code>element_mode = BLUE_FLAME</code>
-                  </div>
-                  <p>
-                    <strong>Required</strong> the magic orb erupts with large
-                    blue flames.
-                  </p>
-                  <p class="forbidden">
-                    <strong>Forbidden</strong> the orb erupts with large bright
-                    red flames.
-                  </p>
-                </div>
+                  <pre><code>if element_mode == 'RED_FLAME':
+    orb.flame = 'red'
+else:
+    orb.flame = 'blue'</code></pre>
+                </details>
               </div>
             </article>
           </div>
