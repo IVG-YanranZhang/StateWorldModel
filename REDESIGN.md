@@ -16,6 +16,10 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 
 Figure 6 is presented as three native episode disclosures with readable step, time and state captions. Each uses four original 864 × 480 frames extracted from the PDF, selecting the second published still in each paired step. The complete figure remains linked. Native disclosures work without JavaScript, and their shared name permits one episode to stay open at a time in supporting browsers. Extraction and source hashes are documented in `static/images/paper/episodes/`.
 
+At the user's request, More Works indexes the verified project pages for [MoGe4D](https://ivg-yanranzhang.github.io/MoGe4D/), [UniGenDet](https://ivg-yanranzhang.github.io/UniGenDet/), [D³QE](https://ivg-yanranzhang.github.io/D3QE/), and [UniPre3D](https://ivg-yanranzhang.github.io/UniPre3D/). Titles and venues follow those official pages. The historical MoRe4D address returns 404; the current index uses MoGe4D. Desktop navigation and the seventh mobile contents item both link to the index.
+
+Each benchmark case shows the common hidden-variable name once, followed by its two distinct values in the twin cards. Variable and value text uses 13px type without fragmenting identifiers on narrow phones. The executable transition remains available in the case disclosure.
+
 ## Source files
 
 - `index.html`: narrative, diagrams, main result table, benchmark controls and resources.
