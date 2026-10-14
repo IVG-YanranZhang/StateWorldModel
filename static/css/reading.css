@@ -24,6 +24,23 @@ body {
 .nav {
   font-size: 14px;
 }
+.cinematic .world-choice small {
+  font-size: 12px;
+}
+.cinematic .world-choice strong {
+  font-size: 14px;
+}
+.hero-media-tools .media-control,
+.hero-media-tools > a {
+  font-size: 14px;
+  min-height: 44px;
+}
+.hero-media-tools > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
 .fine-print,
 .paper-figure figcaption,
 .world-context p,
@@ -178,6 +195,25 @@ body {
   body {
     font-size: 16px;
   }
+  .cinematic-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .cinematic .world-selector {
+    flex: none;
+    width: 100%;
+  }
+  .cinematic .world-choice small {
+    margin-top: 0;
+  }
+  .hero-media-tools {
+    position: static;
+    border-top: 1px solid #b8cdb533;
+    padding-block: 4px 7px;
+    gap: 25px;
+  }
   .section-heading > p,
   .overview-copy p,
   .method-intro p,
@@ -281,6 +317,20 @@ body {
   }
   .runtime-node:nth-child(2)::after {
     display: none;
+  }
+}
+@media (min-width: 721px) and (max-width: 1000px) {
+  .cinematic .world-choice {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+  .cinematic .world-choice:first-child {
+    padding-left: 0;
+  }
+  .cinematic .world-choice img {
+    width: 40px;
+    height: 36px;
+    flex: none;
   }
 }
 @supports (grid-template-rows: subgrid) {

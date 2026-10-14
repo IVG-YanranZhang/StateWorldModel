@@ -19,12 +19,15 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 - `index.html`: narrative, diagrams, main result table, benchmark controls and resources.
 - `static/css/project.css`: base layouts and typography.
 - `static/css/cinematic.css`: final visual direction, responsive refinements and technical diagram.
+- `static/css/cover.css`: editorial cover and responsive concept artwork.
+- `static/css/benchmark-refinements.css`: recording previews and archived judgment links.
+- `static/css/reading.css`: larger research type, compact layouts and final responsive overrides; load last.
 - `static/js/project.js`: previews, replay dialog, runtime trace, case/model/probe selection, paired playback, shareable query state and citation copy.
 - `static/data/benchmark.js`: ten curated cases, model registry and original recording metadata; private source paths are omitted.
 - `static/data/showcase-descriptions.json`: downloadable case descriptions, explicitly scoped to the illustrative subset.
 - `static/fonts/`: self-hosted Manrope and its OFL license.
 
-No external fonts, runtime libraries or analytics are required. The recording inventory loads as the reader approaches the benchmark section, or immediately for a benchmark deep link. A failed inventory request exposes a retry button. The method illustration remains interactive before that request. Small dedicated scene thumbnails reduce first-screen traffic. The benchmark strip also uses independent 320px thumbnails (65,680 bytes for all ten, compared with 509,628 bytes for the full shared frames). The selected thumbnail stays horizontally visible without moving the reading position. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it. Comparisons pause when the workbench leaves view, and motion-preference changes pause automatic playback.
+No external fonts, runtime libraries or analytics are required. The recording inventory loads as the reader approaches the benchmark section, or immediately for a benchmark deep link. A failed inventory request exposes a retry button. The method illustration remains interactive before that request. Small dedicated scene thumbnails reduce first-screen traffic. The benchmark strip also uses independent 320px thumbnails (65,680 bytes for all ten, compared with 509,628 bytes for the full shared frames). The selected thumbnail stays horizontally visible without moving the reading position. Video requests are deferred until playback, except the desktop background preview; reduced-motion and mobile visitors receive a still poster until they explicitly play it. Comparisons pause when the workbench leaves view, and motion-preference changes pause automatic playback. The world preview stays paused throughout a full replay, including viewport and motion-preference changes. Closing the replay restores eligible desktop autoplay while preserving an explicit manual pause.
 
 ## Preview and verification
 

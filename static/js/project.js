@@ -39,11 +39,14 @@
     },
   ];
   const hero = $("#hero-video");
+  const episodeDialog = $("#episode-dialog");
+  const episodeVideo = $("#episode-video");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let heroVisible = false;
   let currentWorld = worlds[0];
   let heroManualPause = false;
   const autoHero = () =>
+    !episodeDialog.open &&
     innerWidth >= 768 &&
     !reduceMotion.matches &&
     !navigator.connection?.saveData;
@@ -55,8 +58,8 @@
     $("#hero-play").setAttribute(
       "aria-label",
       hero.paused
-        ? "Play the generated world video"
-        : "Pause the generated world video",
+        ? `Play scene: ${currentWorld.name}`
+        : `Pause scene: ${currentWorld.name}`,
     );
   }
   hero.addEventListener("play", reflectHero);
@@ -89,7 +92,7 @@
       $("#hero-video-link").href = `static/videos/${world.id}.mp4`;
       $("#hero-video-link").setAttribute(
         "aria-label",
-        `Open the ${world.name} highlight video`,
+        `View replay: ${world.name}, recorded excerpt`,
       );
       $("#world-description").textContent = world.description;
       $$("[data-world]").forEach((item) => {
@@ -98,6 +101,7 @@
         item.setAttribute("aria-pressed", String(active));
       });
       hero.load();
+      reflectHero();
       if (continuePlaying)
         try {
           await hero.play();
@@ -106,8 +110,6 @@
         }
     }),
   );
-  const episodeDialog = $("#episode-dialog");
-  const episodeVideo = $("#episode-video");
   $("#hero-video-link").addEventListener("click", (event) => {
     event.preventDefault();
     hero.pause();
@@ -278,7 +280,7 @@
         strict === undefined
           ? ""
           : `<button type="button" class="judge-badge ${strict ? "pass" : "fail"}" data-judgment-target="judgment-${isOurs ? "ours" : "baseline"}-${side}" aria-controls="judge-evidence" aria-expanded="false" aria-label="Read the recorded VLM strict ${strict ? "pass" : "fail"} decision for ${escape(modelName)}, twin ${side}">${strict ? "✓" : "×"} Strict ${strict ? "pass" : "fail"}<span aria-hidden="true"> ↗</span></button>`;
-      return `<article class="compare-player ${isOurs ? "our-player" : ""}"><div class="player-heading"><span><b>${escape(modelName)}</b><small>Twin ${side} · ${isOurs ? "Text + first-frame reference" : probe === "rule" ? "Rule-only probe" : "Rule+end probe"}</small></span>${badge}</div><div class="player-media"><video playsinline preload="none" poster="${escape(record.poster)}" aria-label="${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><source src="${escape(record.src)}" type="video/mp4"></video><button class="clip-preview" aria-label="Play the complete ${escape(modelName)} recording for ${escape(currentCase)}, twin ${side}"><span class="clip-preview-icon" aria-hidden="true">▷</span><span>Play full clip<small>Recorded final frame</small></span></button></div><div class="player-footer"><span>${record.duration.toFixed(1)} s · Original generated recording</span><a href="${escape(record.src)}" target="_blank" rel="noopener" aria-label="Open ${escape(modelName)} twin ${side} video">Open clip ↗</a></div></article>`;
+      return `<article class="compare-player ${isOurs ? "our-player" : ""}"><div class="player-heading"><span><b>${escape(modelName)}</b><small>Twin ${side} · ${isOurs ? "Text + first-frame reference" : probe === "rule" ? "Rule-only probe" : "Rule+end probe"}</small></span>${badge}</div><div class="player-media"><video playsinline preload="none" poster="${escape(record.poster)}" aria-label="${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><source src="${escape(record.src)}" type="video/mp4"></video><button class="clip-preview" aria-label="Play full clip Recorded final frame: ${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><span class="clip-preview-icon" aria-hidden="true">▷</span><span>Play full clip <small>Recorded final frame</small></span></button></div><div class="player-footer"><span>${record.duration.toFixed(1)} s · Original generated recording</span><a href="${escape(record.src)}" target="_blank" rel="noopener" aria-label="Open clip: ${escape(modelName)}, twin ${side}">Open clip <span aria-hidden="true">↗</span></a></div></article>`;
     }
     function renderPlayers() {
       pauseBench();
