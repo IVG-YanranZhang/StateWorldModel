@@ -588,30 +588,224 @@ else:
               uses text and first-frame reference inputs.
             </p>
           </div>
-          <figure class="multiturn paper-figure">
-            <a
-              href="static/images/paper/swm_multiturn.png"
-              target="_blank"
-              rel="noopener"
-              ><img
-                src="static/images/paper/swm_multiturn.webp"
-                width="1584"
-                height="644"
-                alt="Paper Figure 6: town exploration, dating narrative and turn-based duel episodes show ledger updates across multiple turns"
-                loading="lazy"
-            /></a>
+          <figure class="multiturn paper-figure episode-figure">
+            <div class="episode-figure-heading">
+              <p class="eyebrow">Multi-turn world state</p>
+              <h3>State persists across turns.</h3>
+              <p>Sampled steps from three real episodes in Figure 6.</p>
+            </div>
+            <details
+              class="paper-episode"
+              name="paper-episodes"
+              data-episode="town"
+              open
+            >
+              <summary>
+                <b>Town exploration</b><small>15 acts</small
+                ><span class="episode-expand" aria-hidden="true">+</span>
+              </summary>
+              <ol class="episode-steps" role="list">
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Act 1 · Sunlit street</b
+                    ><time datetime="PT2S">t = 2 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/town-1.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Town exploration, Act 1 · Sunlit street"
+                  />
+                  <p>Stamina 28/100 · Quest 1/3</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Act 4 · Exhausted</b
+                    ><time datetime="PT18S">t = 18 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/town-2.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Town exploration, Act 4 · Exhausted"
+                  />
+                  <p>Stamina 0/100 · Slow walk only</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Act 6 · Walking on</b
+                    ><time datetime="PT28S">t = 28 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/town-3.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Town exploration, Act 6 · Walking on"
+                  />
+                  <p>Stamina 60/100 · Rested</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Episode ends</b><time datetime="PT81S">t = 81 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/town-4.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Town exploration, Episode ends"
+                  />
+                  <p>The episode reaches its ending</p>
+                </li>
+              </ol>
+            </details>
+            <details
+              class="paper-episode"
+              name="paper-episodes"
+              data-episode="dating"
+            >
+              <summary>
+                <b>Dating narrative</b><small>29 turns</small
+                ><span class="episode-expand" aria-hidden="true">+</span>
+              </summary>
+              <ol class="episode-steps" role="list">
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 1 · Corner café</b
+                    ><time datetime="PT3S">t = 3 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/dating-1.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Dating narrative, Turn 1 · Corner café"
+                  />
+                  <p>Affection 47/100 · Friends · Shy</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 8 · Old library</b
+                    ><time datetime="PT42S">t = 42 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/dating-2.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Dating narrative, Turn 8 · Old library"
+                  />
+                  <p>Affection 54/100 · Friends</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 29 · Neon platform</b
+                    ><time datetime="PT152S">t = 152 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/dating-3.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Dating narrative, Turn 29 · Neon platform"
+                  />
+                  <p>Affection 75/100 · Lovers</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Confession accepted</b
+                    ><time datetime="PT158S">t = 158 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/dating-4.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Dating narrative, Confession accepted"
+                  />
+                  <p>The episode reaches its ending</p>
+                </li>
+              </ol>
+            </details>
+            <details
+              class="paper-episode"
+              name="paper-episodes"
+              data-episode="duel"
+            >
+              <summary>
+                <b>Turn-based duel</b><small>11 turns</small
+                ><span class="episode-expand" aria-hidden="true">+</span>
+              </summary>
+              <ol class="episode-steps" role="list">
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 4 · Falling red sun</b
+                    ><time datetime="PT31S">t = 31 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/duel-1.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Turn-based duel, Turn 4 · Falling red sun"
+                  />
+                  <p>Arbiter HP 83/160 · Eve HP 63/90</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 6 · First sentence</b
+                    ><time datetime="PT61S">t = 61 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/duel-2.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Turn-based duel, Turn 6 · First sentence"
+                  />
+                  <p>Arbiter HP 59/160 · Eve HP 63/90</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Turn 10 · First sentence</b
+                    ><time datetime="PT92S">t = 92 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/duel-3.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Turn-based duel, Turn 10 · First sentence"
+                  />
+                  <p>Arbiter HP 6/160 · Eve HP 24/90</p>
+                </li>
+                <li class="episode-step">
+                  <div class="episode-step-label">
+                    <b>Victory</b><time datetime="PT122S">t = 122 s</time>
+                  </div>
+                  <img
+                    src="static/images/paper/episodes/duel-4.webp"
+                    width="864"
+                    height="480"
+                    loading="lazy"
+                    alt="Published Figure 6 still: Turn-based duel, Victory"
+                  />
+                  <p>Arbiter HP 0/160 · Felled</p>
+                </li>
+              </ol>
+            </details>
             <figcaption>
               <a
                 class="figure-original"
                 href="static/images/paper/swm_multiturn.png"
                 target="_blank"
                 rel="noopener"
-                >View original figure <span aria-hidden="true">↗</span></a
-              >
-              Figure 6 · Three real harness episodes from the paper: town
-              exploration (15 turns), dating narrative (29 turns), and a
-              turn-based duel (11 turns). The visible HUDs record the evolving
-              world state.
+                >View original Figure 6 <span aria-hidden="true">↗</span></a
+              >Selected published stills and recorded state. Times are elapsed
+              episode time. The world previews above show separate runs.
             </figcaption>
           </figure>
         </div>

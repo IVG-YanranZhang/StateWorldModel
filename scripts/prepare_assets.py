@@ -7,6 +7,7 @@ import argparse
 from pathlib import Path
 import pymupdf as fitz
 from PIL import Image, ImageOps
+from prepare_episode_frames import prepare_episode_frames
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
@@ -20,6 +21,7 @@ def main():
     pdf[8].get_pixmap(matrix=fitz.Matrix(4,4),clip=fitz.Rect(109,236,505,397)).save(str(ROOT/'static/images/paper/swm_multiturn.png'))
     for name in ['swm_multiturn','benchmark-comparison']:
         Image.open(ROOT/f'static/images/paper/{name}.png').convert('RGB').save(ROOT/f'static/images/paper/{name}.webp',quality=92,method=6)
+    prepare_episode_frames(pdf, ROOT/'static/images/paper/episodes')
     pdf.set_metadata({})
     pdf.save(str(ROOT/'static/pdfs/state-world-models.pdf'),garbage=4,deflate=True)
     for name in ['duel_moon_dragon','romance','openworld']:

@@ -1,0 +1,151 @@
+{
+  "figure": 6,
+  "pdfPage": 9,
+  "selection": "Second published still in each sampled step",
+  "frames": [
+    {
+      "file": "town-1.webp",
+      "sourceRect": [
+        164.2003,
+        262.2801,
+        205.3978,
+        285.171
+      ],
+      "sourceImageSha256": "daf5de61c37d8d5cd157ed64899a1b1f647d4d657b9caf2ff3d0bcdc515a5641",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "town-2.webp",
+      "sourceRect": [
+        258.6622,
+        262.2801,
+        299.8597,
+        285.171
+      ],
+      "sourceImageSha256": "ecab549b7d01b70a54928e6c2c4e0d2e665c85589c77f3941c02011cb5a6cd84",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "town-3.webp",
+      "sourceRect": [
+        353.1249,
+        262.2801,
+        394.3224,
+        285.171
+      ],
+      "sourceImageSha256": "2f070536f08872f76eeaf95880a9a17a548ce2baa552c658b38db261d52c9723",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "town-4.webp",
+      "sourceRect": [
+        447.5875,
+        262.2801,
+        488.785,
+        285.171
+      ],
+      "sourceImageSha256": "d2afae056d25ce26fd71c7e75f52b27e5f00cd0bbdf28c25bc75a71dbf7f5607",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "dating-1.webp",
+      "sourceRect": [
+        164.2003,
+        316.5457,
+        205.3978,
+        339.4366
+      ],
+      "sourceImageSha256": "c587ad6245a95223838a36e1b35a50abe1f1b3856e2bad8978319880a34b8346",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "dating-2.webp",
+      "sourceRect": [
+        258.6622,
+        316.5457,
+        299.8597,
+        339.4366
+      ],
+      "sourceImageSha256": "d222454fc7f896aa70b69f239d4e2bbfbce88c75cdd3672a1b5dc43de75bfc54",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "dating-3.webp",
+      "sourceRect": [
+        353.1249,
+        316.5457,
+        394.3224,
+        339.4366
+      ],
+      "sourceImageSha256": "6d61a51ad4645a6488d3603f286ed3007c822d42cab688d1f9259fdbfb5c23ef",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "dating-4.webp",
+      "sourceRect": [
+        447.5875,
+        316.5457,
+        488.785,
+        339.4366
+      ],
+      "sourceImageSha256": "697f506b769f141b6aa161d3ffc8db5558c8eb1146ea33939bd1a2333e1662fd",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "duel-1.webp",
+      "sourceRect": [
+        164.2003,
+        370.8113,
+        205.3978,
+        393.7022
+      ],
+      "sourceImageSha256": "75d2a3ff26577916074aa2ddb148d03a1895a486d8cf3b8736aaff57d12b9654",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "duel-2.webp",
+      "sourceRect": [
+        258.6622,
+        370.8113,
+        299.8597,
+        393.7022
+      ],
+      "sourceImageSha256": "9cfea93013a75eba2bf4c59c306a9375f6cc27bf02076a7c8666c3017be5fe78",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "duel-3.webp",
+      "sourceRect": [
+        353.1249,
+        370.8113,
+        394.3224,
+        393.7022
+      ],
+      "sourceImageSha256": "aa4403ab8707ca6340a778fe2f5294fb484ec13c2239b3bcd025654cc3064fa6",
+      "width": 864,
+      "height": 480
+    },
+    {
+      "file": "duel-4.webp",
+      "sourceRect": [
+        447.5875,
+        370.8113,
+        488.785,
+        393.7022
+      ],
+      "sourceImageSha256": "4189f18e72aa2db67e79b7b5d27f00dff43df82ab81ac29d44e8b94569722e9e",
+      "width": 864,
+      "height": 480
+    }
+  ]
+}

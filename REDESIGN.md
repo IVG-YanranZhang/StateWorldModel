@@ -14,6 +14,8 @@ Three additional worlds appear in the introduction. Clean original turn clips fo
 
 The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the published multi-model comparison, and Figure 6 supplies the paper's 15-act exploration, 29-turn dating and 11-turn duel episodes. The previous `swm_multiturn.png` was an incorrect table crop and has been replaced.
 
+Figure 6 is presented as three native episode disclosures with readable step, time and state captions. Each uses four original 864 × 480 frames extracted from the PDF, selecting the second published still in each paired step. The complete figure remains linked. Native disclosures work without JavaScript, and their shared name permits one episode to stay open at a time in supporting browsers. Extraction and source hashes are documented in `static/images/paper/episodes/`.
+
 ## Source files
 
 - `index.html`: narrative, diagrams, main result table, benchmark controls and resources.

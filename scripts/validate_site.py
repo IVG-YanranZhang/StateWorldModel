@@ -1,5 +1,6 @@
 """Validate project-page assets, data integrity and submission table values."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -95,7 +96,21 @@ if args.media:
 pdf=fitz.open(ROOT/'static/pdfs/state-world-models.pdf')
 assert len(pdf)==36 and not pdf.metadata.get('author')
 assert 'Anonymous' in pdf[0].get_text()
+episode_root = ROOT/'static/images/paper/episodes'
+episodes = json.loads((episode_root/'provenance.json').read_text())
+assert episodes['figure']==6 and episodes['pdfPage']==9
+assert {frame['file'] for frame in episodes['frames']}=={
+    f'{episode}-{step}.webp' for episode in ['town','dating','duel'] for step in range(1,5)
+}
+source_images = {}
+for info in pdf[8].get_images(full=True):
+    digest = hashlib.sha256(pdf.extract_image(info[0])['image']).hexdigest()
+    source_images[digest] = [[round(value,4) for value in rect] for rect in pdf[8].get_image_rects(info[0])]
+assert len({frame['sourceImageSha256'] for frame in episodes['frames']})==12
+for frame in episodes['frames']:
+    assert frame['sourceRect'] in source_images.get(frame['sourceImageSha256'],[]), 'Episode still is not from the declared paper placement'
+    assert Image.open(episode_root/frame['file']).size==(864,480)
 subprocess.run(['node','--check',str(ROOT/'static/js/project.js')],check=True)
 subprocess.run(['node','--check',str(ROOT/'static/data/benchmark.js')],check=True)
-print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 6 world videos; anonymous 36-page PDF; JS syntax.')
+print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 6 world videos; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
 print('Full video probes: '+('completed' if args.media else 'not requested')+'. Browser rendering and playback are checked separately.')
