@@ -1,0 +1,85 @@
+/* Preview the actual final frame without an idle native buffering indicator. */
+.player-media {
+  position: relative;
+}
+.player-media video:focus-visible {
+  outline-offset: -4px;
+}
+.clip-preview {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 15px;
+  min-height: 48px;
+  border: 1px solid #ffffff70;
+  border-radius: 4px;
+  background: #10261fed;
+  color: #f2f6ed;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 2px 14px #06171335;
+}
+.clip-preview[hidden] {
+  display: none;
+}
+.clip-preview:hover {
+  background: #264d3ef5;
+  border-color: #eef5dc;
+}
+.clip-preview-icon {
+  font-size: 25px;
+  line-height: 1;
+}
+.clip-preview small {
+  display: block;
+  color: #d1e0d3;
+  font-size: 11px;
+  margin-top: 3px;
+}
+.twin-row-title {
+  display: block;
+}
+.twin-row-state {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 9px;
+}
+.twin-row-state code {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  color: #365645;
+}
+.twin-row-title p {
+  font-size: 13px;
+  line-height: 1.65;
+}
+@media (max-width: 720px) {
+  .clip-preview {
+    left: 12px;
+    bottom: 12px;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+  .clip-preview small {
+    font-size: 10px;
+  }
+  .twin-row-state {
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .twin-row-state code {
+    font-size: 11px;
+    padding-top: 4px;
+  }
+  .twin-row-state .twin-chip {
+    flex-shrink: 0;
+  }
+  .twin-row-title p {
+    font-size: 12px;
+  }
+}

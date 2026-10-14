@@ -90,6 +90,10 @@ The mobile header has a native six-chapter popover with keyboard/Escape behavior
 
 Direct references now open the actual submission pages for Table1 (page7), the full both-probe grid/Table4 (page21), WBench/Table2 (page9), and the human-audit results (page19). The preference text specifies four Rule-only opponents and split auditor votes. The table note makes clear that both metric groups use one deployed harness condition. On mobile, a fixed-width metric grid keeps backend names and category labels visible while scrolling; metric headings wrap and the direction symbols are omitted because the caption already says higher is better.
 
+## Benchmark preview refinement
+
+Each recording initially shows its verified final frame with an explicit “Play full clip” button. Native video controls activate when playback is requested, avoiding idle buffering indicators on untouched previews. Keyboard activation moves focus to the video controls. The four-clip comparison button remains available; changing the model or probe recreates clean previews. Hidden state values now accompany each twin's required ending directly above its videos. Single-clip and four-clip playback, keyboard focus transfer and model replacement have been checked on desktop/mobile in Chromium, Firefox and WebKit.
+
 ## Sharing cover
 
 The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the original layered-world conceptual illustration. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same anonymous title. Metadata follows the [Open Graph protocol](https://ogp.me/).

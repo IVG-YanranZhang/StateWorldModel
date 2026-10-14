@@ -277,7 +277,7 @@
         strict === undefined
           ? ""
           : `<span class="judge-badge ${strict ? "pass" : "fail"}" title="Recorded VLM strict decision">${strict ? "✓" : "×"} VLM ${strict ? "pass" : "fail"}</span>`;
-      return `<article class="compare-player ${isOurs ? "our-player" : ""}"><div class="player-heading"><span><b>${escape(modelName)}</b><small>Twin ${side} · ${isOurs ? "Text + first-frame reference" : probe === "rule" ? "Rule-only probe" : "Rule+end probe"}</small></span>${badge}</div><video controls playsinline preload="none" poster="${escape(record.poster)}" aria-label="${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><source src="${escape(record.src)}" type="video/mp4"></video><div class="player-footer"><span>${record.duration.toFixed(1)} s · Original generated recording</span><a href="${escape(record.src)}" target="_blank" rel="noopener" aria-label="Open ${escape(modelName)} twin ${side} video">Open clip ↗</a></div></article>`;
+      return `<article class="compare-player ${isOurs ? "our-player" : ""}"><div class="player-heading"><span><b>${escape(modelName)}</b><small>Twin ${side} · ${isOurs ? "Text + first-frame reference" : probe === "rule" ? "Rule-only probe" : "Rule+end probe"}</small></span>${badge}</div><div class="player-media"><video playsinline preload="none" poster="${escape(record.poster)}" aria-label="${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><source src="${escape(record.src)}" type="video/mp4"></video><button class="clip-preview" aria-label="Play the complete ${escape(modelName)} recording for ${escape(currentCase)}, twin ${side}"><span class="clip-preview-icon" aria-hidden="true">▷</span><span>Play full clip<small>Recorded final frame</small></span></button></div><div class="player-footer"><span>${record.duration.toFixed(1)} s · Original generated recording</span><a href="${escape(record.src)}" target="_blank" rel="noopener" aria-label="Open ${escape(modelName)} twin ${side} video">Open clip ↗</a></div></article>`;
     }
     function renderPlayers() {
       pauseBench();
@@ -290,7 +290,7 @@
       host.innerHTML = ["A", "B"]
         .map(
           (side, index) =>
-            `<div class="twin-row-title"><span class="twin-chip ${side.toLowerCase()}">Twin ${side}</span><p><span>Required ending</span> ${escape(sample.endings[index])}.</p></div><div class="paired-video-row">${videoCard(ours[side], "Stateful Harness", side, true)}${videoCard(theirs[side], model.name, side, false)}</div>`,
+            `<div class="twin-row-title"><div class="twin-row-state"><span class="twin-chip ${side.toLowerCase()}">Twin ${side}</span><code>${escape(sample.variable)} = ${escape(sample.values[index])}</code></div><p><span>Required ending</span> ${escape(sample.endings[index])}.</p></div><div class="paired-video-row">${videoCard(ours[side], "Stateful Harness", side, true)}${videoCard(theirs[side], model.name, side, false)}</div>`,
         )
         .join("");
       const evidence = ["A", "B"]
@@ -318,8 +318,26 @@
       playButton.disabled = false;
       playButton.textContent = "Play comparison";
       $("#comparison-status", detail).textContent =
-        "Posters show actual final frames. Use the video controls to inspect each complete clip.";
+        "Posters show actual final frames. Play a full clip or start all four together.";
       $$("video", host).forEach((clip) => {
+        const preview = $(".clip-preview", clip.closest(".player-media"));
+        preview.addEventListener("click", async () => {
+          hero.pause();
+          clip.controls = true;
+          try {
+            await clip.play();
+          } catch {
+            if (!clip.isConnected) return;
+            $("#comparison-status", detail).textContent =
+              "This recording could not start. Try its video controls or open the clip.";
+          }
+        });
+        clip.addEventListener("play", () => {
+          clip.controls = true;
+          if (document.activeElement === preview)
+            clip.focus({ preventScroll: true });
+          preview.hidden = true;
+        });
         clip.addEventListener("error", () => {
           if (!clip.isConnected) return;
           clip.closest("article").classList.add("media-failed");
@@ -346,6 +364,9 @@
       button.disabled = true;
       button.textContent = "Loading recordings…";
       hero.pause();
+      clips.forEach((clip) => {
+        clip.controls = true;
+      });
       const ready = clips.map((clip) =>
         clip.readyState >= 1
           ? Promise.resolve()
@@ -419,7 +440,7 @@
         .join("");
       detail.innerHTML = `<article class="sample-grid"><div class="sample-visual"><div class="frame-label"><span>${escape(sample.id)} / ${escape(title(sample.theme))}</span><span>Identical first frame</span></div><img src="${escape(sample.image)}" alt="${escape(sample.name)}: the shared first frame for both twins" width="960" height="540" loading="lazy"><div class="action"><small>Same action in both worlds</small><p>${escape(sample.action)}</p></div></div><div class="sample-state"><p class="eyebrow">${escape(sample.name)}</p><h3>Hidden state changes the ending.</h3><div class="twin-list">${twins}</div><details class="sample-program"><summary>Shared rule & executable transition <span aria-hidden="true">+</span></summary><p>${escape(sample.rule)}</p><pre><code>if ${escape(sample.program.precondition)}:\n    ${escape(sample.program.effect)}\nelse:\n    ${escape(sample.program.else_effect)}</code></pre></details></div></article>
     ${sample.failureCase ? '<p class="failure-case-note"><b>A rendering failure.</b> This example includes a missed required ending from our harness. Executing a valid transition does not guarantee that the video model depicts it faithfully.</p>' : ""}
-    <div class="comparison-workbench"><div class="workbench-top"><div><p class="eyebrow">Actual model recordings</p><h3>Two hidden states. Four clips.</h3></div><div class="workbench-controls"><label for="baseline-select">Compare against<select id="baseline-select">${modelOptions}</select></label><div class="probe-control"><span>Baseline probe</span><div role="group" aria-label="Baseline instruction condition"><button data-probe="rule" aria-pressed="${probe === "rule"}" class="${probe === "rule" ? "active" : ""}">Rule-only</button><button data-probe="ending" aria-pressed="${probe === "ending"}" class="${probe === "ending" ? "active" : ""}">Rule + end</button></div></div></div></div><div class="workbench-actions"><p id="comparison-caption"></p><button class="small-button" id="bench-play">Play comparison</button></div><div id="comparison-players"></div><p id="comparison-status" class="fine-print" role="status">Posters show actual final frames. Use the video controls to inspect each complete clip.</p><details class="recorded-judgments"><summary>Recorded VLM judgments & evidence <span aria-hidden="true">+</span></summary><div id="judge-evidence"></div><p class="fine-print">Labels are the archived automatic judgments for these recordings. The ten examples are curated illustrations; the main table reports the full submission benchmark, not this showcase subset.</p></details></div>`;
+    <div class="comparison-workbench"><div class="workbench-top"><div><p class="eyebrow">Actual model recordings</p><h3>Two hidden states. Four clips.</h3></div><div class="workbench-controls"><label for="baseline-select">Compare against<select id="baseline-select">${modelOptions}</select></label><div class="probe-control"><span>Baseline probe</span><div role="group" aria-label="Baseline instruction condition"><button data-probe="rule" aria-pressed="${probe === "rule"}" class="${probe === "rule" ? "active" : ""}">Rule-only</button><button data-probe="ending" aria-pressed="${probe === "ending"}" class="${probe === "ending" ? "active" : ""}">Rule + end</button></div></div></div></div><div class="workbench-actions"><p id="comparison-caption"></p><button class="small-button" id="bench-play">Play comparison</button></div><div id="comparison-players"></div><p id="comparison-status" class="fine-print" role="status">Posters show actual final frames. Play a full clip or start all four together.</p><details class="recorded-judgments"><summary>Recorded VLM judgments & evidence <span aria-hidden="true">+</span></summary><div id="judge-evidence"></div><p class="fine-print">Labels are the archived automatic judgments for these recordings. The ten examples are curated illustrations; the main table reports the full submission benchmark, not this showcase subset.</p></details></div>`;
       gallery.querySelectorAll("button").forEach((button) => {
         const active = button.dataset.sample === id;
         button.classList.toggle("active", active);
