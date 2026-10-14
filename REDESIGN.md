@@ -16,7 +16,7 @@ The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the publis
 
 ## Source files
 
-- `index.html`: narrative, diagrams, chart/table, benchmark controls and resources.
+- `index.html`: narrative, diagrams, main result table, benchmark controls and resources.
 - `static/css/project.css`: base layouts and typography.
 - `static/css/cinematic.css`: final visual direction, responsive refinements and technical diagram.
 - `static/js/project.js`: previews, replay dialog, runtime trace, case/model/probe selection, paired playback, shareable query state and citation copy.
@@ -84,7 +84,7 @@ The page preserves anonymous authorship and avoids identity links. The citation 
 
 ## Reading refinement
 
-The mobile header has a native six-chapter popover with keyboard/Escape behavior, focus return and active chapter indication. The author's subsequent feedback requested larger type and less empty space: body copy is now 14–15px, captions/controls 11–13px, the reading width increases to 1240px, and section padding decreases from104/66px to78/50px on desktop/mobile. Caption contrast and variable-font weight also increase slightly.
+The mobile header has a native six-chapter popover with keyboard/Escape behavior, focus return and active chapter indication. The author's subsequent feedback requested larger type and less empty space: primary body copy is now 17px on desktop and16px on mobile, captions/controls13–14px, the reading width increases to 1240px, and section padding decreases from104/66px to78/50px on desktop/mobile. Caption contrast and variable-font weight also increase slightly. Main-table scores are16px on desktop and15px on mobile. The standalone +60pp chart/callout has been removed at the user’s request: main results lead the chapter, with the32→64→92 controlled comparison in a compact disclosure after the table. Method explanations use direct state/rule/render steps, and the workbench explains that Rule+end adds an explicit final-state sentence to the original case-card instruction.
 
 ## Source and mobile-table refinement
 

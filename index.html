@@ -66,6 +66,7 @@
     <link rel="stylesheet" href="static/css/cinematic.css" />
     <link rel="stylesheet" href="static/css/cover.css" />
     <link rel="stylesheet" href="static/css/benchmark-refinements.css" />
+    <link rel="stylesheet" href="static/css/reading.css" />
     <script src="static/js/project.js" defer></script>
   </head>
   <body>
@@ -344,9 +345,9 @@
             </h2>
           </div>
           <p>
-            Two worlds can look identical and still require different outcomes.
-            A key, a resource, or a hidden mode must matter even when it is
-            invisible in the frame.
+            The same image and action can require different endings when an
+            invisible state changes. WorldState-Bench tests whether a model
+            follows that state-dependent rule.
           </p>
         </div>
         <div class="overview-grid">
@@ -358,9 +359,10 @@
               different required endings.
             </p>
             <p>
-              The Stateful Harness maintains a semantic ledger and an editable
-              spatial scene. It executes the rules before requesting video, so
-              the renderer receives a settled event.
+              Stateful Harness stores the world state, applies the action to
+              that state, and executes the rule. It then asks the frozen video
+              model to render the resolved outcome. An editable spatial scene
+              can supply layout and camera motion.
             </p>
             <a class="text-link" href="#benchmark"
               >Inspect the counterfactual twins
@@ -451,11 +453,15 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">02 / Stateful Harness</p>
-              <h2>Settle the event.<br /><em>Then render the world.</em></h2>
+              <h2>
+                Execute the rules.<br /><em>Render the resolved outcome.</em>
+              </h2>
             </div>
             <p>
-              A new game changes the executable definition. The shared runtime
-              and video model weights stay the same.
+              The runtime executes a rule against the current state, then tells
+              the frozen video model which outcome to render. Different games
+              supply different rules; the runtime and model weights stay the
+              same.
             </p>
           </div>
           <div
@@ -499,7 +505,7 @@
                   height="540"
                   loading="lazy"
                 />
-                <h3>What the pixels cannot tell you.</h3>
+                <h3>Read the hidden state.</h3>
                 <div class="ledger-line">
                   <span>Semantic ledger z<sub>t</sub></span
                   ><code id="runtime-ledger">element_mode = RED_FLAME</code>
@@ -510,7 +516,7 @@
                 <span class="runtime-node-number"
                   >02 / Deterministic rule program</span
                 >
-                <h3>Decide what happens.</h3>
+                <h3>Execute the rule.</h3>
                 <pre><code>if element_mode == 'RED_FLAME':
   orb.flame = 'red'
 else:
@@ -527,7 +533,7 @@ else:
                 <span class="runtime-node-number"
                   >03 / Compiled references</span
                 >
-                <h3>Tell the renderer what to depict.</h3>
+                <h3>Compile the render instruction.</h3>
                 <div class="visualscript-fields">
                   <div><span>Actor</span><b>Wizard</b></div>
                   <div><span>Action</span><b>Raise the wand</b></div>
@@ -615,93 +621,15 @@ else:
         <div class="section-heading">
           <div>
             <p class="eyebrow">03 / Quantitative evidence</p>
-            <h2>Same frozen model.<br /><em>Stronger rule compliance.</em></h2>
+            <h2>WorldState-Bench.<br /><em>Main results.</em></h2>
           </div>
           <p>
-            MiniMax-H3 improves from 32% to 92% PairFollow as outcome
-            specification and the full harness are introduced.
+            On all 50 counterfactual pairs, the full harness achieves 92%
+            PairFollow and 90% PairStrict with frozen MiniMax-H3. Both twins
+            must show their required endings; PairStrict also excludes forbidden
+            events throughout both clips.
           </p>
         </div>
-        <div class="results-story">
-          <div
-            class="chain-chart"
-            role="img"
-            aria-label="MiniMax-H3 PairFollow: rule-only 32%, ending supplied 64%, full Stateful Harness 92%. Axis 0 to 100 percent."
-          >
-            <div class="chart-top">
-              <span>MiniMax-H3 · PairFollow ↑</span><span>50 twin pairs</span>
-            </div>
-            <div class="bar-row">
-              <span>Rule-only</span>
-              <div class="bar-track">
-                <div class="bar" style="--value: 32%"><b>32%</b></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <span>Ending supplied</span>
-              <div class="bar-track">
-                <div class="bar mid" style="--value: 64%"><b>64%</b></div>
-              </div>
-            </div>
-            <div class="bar-row">
-              <span>Full harness</span>
-              <div class="bar-track">
-                <div class="bar ours" style="--value: 92%"><b>92%</b></div>
-              </div>
-            </div>
-            <div class="chart-axis">
-              <span>0</span><span>25</span><span>50</span><span>75</span
-              ><span>100%</span>
-            </div>
-            <p class="fine-print">
-              Component-chain comparison on the same frozen weights. The 64%
-              condition supplies the ending; it is a separate comparison from
-              the six main-table columns.
-            </p>
-          </div>
-          <aside class="result-callout">
-            <span class="eyebrow">Both twins must succeed</span
-            ><strong>+60<span>pp</span></strong>
-            <p>
-              PairFollow gain over rule-only prompting on the same MiniMax-H3
-              weights.
-            </p>
-            <div class="result-rule"></div>
-            <b>90% PairStrict</b>
-            <p>
-              Both required endings appear, and neither forbidden ending appears
-              in either clip.
-            </p>
-          </aside>
-        </div>
-        <details class="comparison-statistics">
-          <summary>
-            Controlled comparison & uncertainty
-            <span aria-hidden="true">+</span>
-          </summary>
-          <p>
-            All three conditions use frozen MiniMax-H3 weights and the same 50
-            twin pairs. Appendix D reports paired exact McNemar tests and paired
-            bootstrap intervals, with the pair as the sampling unit.
-          </p>
-          <div class="statistics-grid">
-            <div>
-              <b>Outcome specification / +32 pp</b
-              ><span>95% CI: [16, 48] pp · p = 4.0 × 10<sup>−4</sup></span>
-            </div>
-            <div>
-              <b>Executed state & compiled references / +28 pp</b
-              ><span>95% CI: [12, 44] pp · p = 2.6 × 10<sup>−3</sup></span>
-            </div>
-          </div>
-          <a
-            class="text-link"
-            href="static/pdfs/state-world-models.pdf#page=19"
-            target="_blank"
-            rel="noopener"
-            >Read the component-chain analysis ↗</a
-          >
-        </details>
         <div class="table-heading">
           <h3>WorldState-Bench · Main results</h3>
           <span
@@ -940,6 +868,36 @@ else:
           </p>
           <p><b>TwinContrast</b> The judged endings differ between twins.</p>
         </div>
+        <details class="comparison-statistics">
+          <summary>
+            Controlled MiniMax-H3 comparison
+            <span aria-hidden="true">+</span>
+          </summary>
+          <p>
+            PairFollow is 32% with rule-only instructions, 64% when the ending
+            is supplied, and 92% with the full harness. These conditions use
+            frozen MiniMax-H3 weights and the same 50 twin pairs. Appendix D
+            reports paired exact McNemar tests and paired bootstrap intervals,
+            with the pair as the sampling unit.
+          </p>
+          <div class="statistics-grid">
+            <div>
+              <b>Outcome specification / +32 pp</b
+              ><span>95% CI: [16, 48] pp · p = 4.0 × 10<sup>−4</sup></span>
+            </div>
+            <div>
+              <b>Executed state & compiled references / +28 pp</b
+              ><span>95% CI: [12, 44] pp · p = 2.6 × 10<sup>−3</sup></span>
+            </div>
+          </div>
+          <a
+            class="text-link"
+            href="static/pdfs/state-world-models.pdf#page=19"
+            target="_blank"
+            rel="noopener"
+            >Read the component-chain analysis ↗</a
+          >
+        </details>
         <details class="secondary-results">
           <summary>
             Additional evidence · external benchmark & human evaluation
@@ -991,12 +949,13 @@ else:
           <div class="section-heading">
             <div>
               <p class="eyebrow">04 / Explore WorldState-Bench</p>
-              <h2>One visible world.<br /><em>Two required futures.</em></h2>
+              <h2>Same frame.<br /><em>Different endings.</em></h2>
             </div>
             <p>
-              Ten curated pairs reveal how hidden state changes the required
-              outcome. Inspect the shared first frames and compare actual A/B
-              recordings from our harness and eleven video backends.
+              Each pair shares one starting image and one action. Only a hidden
+              state changes, so the rule requires a different ending. Choose one
+              of ten pairs, then compare our harness with a baseline in both
+              states.
             </p>
           </div>
           <div class="bench-toolbar">

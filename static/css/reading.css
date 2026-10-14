@@ -1,0 +1,198 @@
+/* Readable research copy and labels; main evidence leads the results chapter. */
+body {
+  font-size: 17px;
+}
+.section-heading > p,
+.overview-copy p,
+.method-intro p,
+.sample-state p,
+.sample-visual .action p,
+.secondary-results article > p:not(.eyebrow),
+.runtime-loop p {
+  font-size: 17px;
+  line-height: 1.8;
+}
+.cover-copy .hero-description {
+  font-size: 17px;
+}
+.cover-copy .authors {
+  font-size: 14px;
+}
+.cover-copy .button {
+  font-size: 14px;
+}
+.nav {
+  font-size: 14px;
+}
+.fine-print,
+.paper-figure figcaption,
+.world-context p,
+.metric-definitions p,
+.comparison-statistics p,
+.recorded-judgments article p,
+.runtime-reference-note,
+.judgment-guide {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.eyebrow,
+.frame-label,
+.sample-count,
+.sample-gallery button,
+.player-heading small,
+.player-footer,
+.table-heading > span,
+.comparison-statistics summary,
+.secondary-results summary,
+.sample-program summary,
+.recorded-judgments summary,
+.workbench-actions > p,
+.bench-toolbar label,
+.workbench-controls label,
+.probe-control > span {
+  font-size: 13px;
+}
+.bench-toolbar select,
+.workbench-controls select,
+.probe-control button,
+.small-button,
+.player-heading b,
+.twin-row-title p,
+.clip-preview {
+  font-size: 14px;
+}
+.judge-badge,
+.clip-preview small,
+.twin-row-state code,
+.recorded-judgments article small,
+.proof-strip div > span,
+.cover-art figcaption {
+  font-size: 12px;
+}
+#results-table td,
+#results-table tbody th {
+  font-size: 14px;
+}
+#results-table thead th {
+  font-size: 13px;
+}
+.comparison-statistics {
+  margin-top: 25px;
+}
+.probe-explanation {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #526757;
+  margin: 17px 0 5px;
+  max-width: 950px;
+}
+.probe-explanation b {
+  font-weight: 600;
+  color: #284b38;
+}
+.abstract p,
+.runtime-feedback p {
+  font-size: 17px;
+  line-height: 1.8;
+}
+.runtime-demo .runtime-node p,
+.twin-principle p,
+.sample-state .twin p,
+.runtime-demo .runtime-reference-note {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.runtime-demo-top p,
+.runtime-demo-top .eyebrow,
+.sample-state .eyebrow,
+.workbench-top .eyebrow,
+.recorded-judgments > .fine-print,
+.episode-dialog > .fine-print {
+  font-size: 13px;
+}
+.runtime-node-number,
+.runtime-twins button,
+.visualscript-fields span,
+.visualscript-fields b,
+.ledger-line span,
+.frozen-tag {
+  font-size: 13px;
+}
+#results-table td,
+#results-table tbody th {
+  font-size: 16px;
+}
+#results-table thead th {
+  font-size: 14px;
+}
+@media (max-width: 720px) {
+  body {
+    font-size: 16px;
+  }
+  .section-heading > p,
+  .overview-copy p,
+  .method-intro p,
+  .sample-state p,
+  .sample-visual .action p,
+  .secondary-results article > p:not(.eyebrow),
+  .runtime-loop p {
+    font-size: 16px;
+  }
+  .cover-copy .hero-description {
+    font-size: 16px;
+  }
+  .cover-copy .authors {
+    font-size: 12px;
+  }
+  .cover-copy .button {
+    font-size: 13px;
+    padding-inline: 14px;
+  }
+  .nav {
+    font-size: 13px;
+    gap: 12px;
+  }
+  .fine-print,
+  .paper-figure figcaption,
+  .world-context p,
+  .runtime-reference-note,
+  .judgment-guide {
+    font-size: 13px;
+  }
+  .sample-count,
+  .player-footer,
+  .player-heading small {
+    font-size: 12px;
+  }
+  .twin-row-state code {
+    font-size: 12px;
+  }
+  .abstract p,
+  .runtime-feedback p {
+    font-size: 16px;
+  }
+  #results-table td,
+  #results-table tbody th {
+    font-size: 15px;
+  }
+  #results-table thead th {
+    font-size: 13px;
+  }
+}
+@media (max-width: 360px) {
+  .cover-copy .button {
+    font-size: 12px;
+    padding-inline: 11px;
+  }
+  .nav {
+    font-size: 12px;
+  }
+}
+@media (min-width: 568px) and (max-width: 720px) and (max-height: 500px) and (orientation: landscape) {
+  .cover-copy .hero-description {
+    font-size: 14px;
+  }
+  .cover-copy .button {
+    font-size: 12px;
+  }
+}
