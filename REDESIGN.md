@@ -89,3 +89,7 @@ The mobile header has a native six-chapter popover with keyboard/Escape behavior
 ## Source and mobile-table refinement
 
 Direct references now open the actual submission pages for Table1 (page7), the full both-probe grid/Table4 (page21), WBench/Table2 (page9), and the human-audit results (page19). The preference text specifies four Rule-only opponents and split auditor votes. The table note makes clear that both metric groups use one deployed harness condition. On mobile, a fixed-width metric grid keeps backend names and category labels visible while scrolling; metric headings wrap and the direction symbols are omitted because the caption already says higher is better.
+
+## Sharing cover
+
+The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and the actual Moon Dragon preview. `python3 scripts/prepare_social_card.py` regenerates it with Playwright. Open Graph metadata includes the canonical page URL, absolute cover URL, dimensions and alternate description; large-image card metadata shares the same anonymous title. Metadata follows the [Open Graph protocol](https://ogp.me/).

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: Manrope;
+        src: url("{{FONT_URL}}") format("woff2");
+        font-weight: 200 800;
+        font-display: block;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        background: #0b2020;
+        color: #f3f7ef;
+        font-family: Manrope, Arial, sans-serif;
+        overflow: hidden;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 48%;
+      }
+      .shade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, #071b1ef2 0%, #071b1ed1 34%, #071b1e24 78%),
+          linear-gradient(0deg, #071b1ed9, transparent 60%);
+      }
+      .content {
+        position: absolute;
+        inset: 48px 54px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .status {
+        font-size: 14px;
+        font-weight: 550;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: #c0d7c8;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .status:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #b9ddc0;
+      }
+      h1 {
+        font-size: 88px;
+        font-weight: 650;
+        line-height: 1;
+        letter-spacing: -0.065em;
+        margin: 48px 0 24px;
+      }
+      .subtitle {
+        font-family: Georgia, serif;
+        font-size: 36px;
+        line-height: 1.25;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      .subtitle em {
+        color: #b9dbca;
+      }
+      .footer {
+        margin-top: auto;
+        font-size: 16px;
+        letter-spacing: 0.025em;
+        color: #c2d4c8;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      class="scene"
+      src="{{SCENE_IMAGE}}"
+      alt="Generated Moon Dragon world"
+    />
+    <div class="shade"></div>
+    <div class="content">
+      <div class="status">ICLR 2027 / Anonymous submission</div>
+      <h1>State World<br />Models</h1>
+      <p class="subtitle">
+        Execute the Rules,<br /><em>Generate the Pixels.</em>
+      </p>
+      <p class="footer">Stateful Harness · WorldState-Bench</p>
+    </div>
+  </body>
+</html>
