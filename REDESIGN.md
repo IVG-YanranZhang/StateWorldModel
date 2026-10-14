@@ -106,6 +106,8 @@ The page has a dedicated 1200×630 JPEG cover rendered from native HTML/CSS and 
 
 ## Editorial cover and generated worlds
 
+Cover artwork selection now uses width-based `srcset` and `sizes` matched to the actual layout. Standard-density desktops download the768px file; high-density displays can use1536px, including phones at3× density. The short landscape layout has its own size estimate. Eighteen viewport/density/browser combinations have been checked, along with WebP fallback. A local150ms/250KB/s diagnostic reduced desktop LCP from about3.0s to1.9s; this is a controlled browser observation, not a public Lighthouse score.
+
 Intermediate viewport refinement keeps the cover's action labels on one line and shortens the authorship note to “Anonymous Authors · Double-blind review”. Short landscape phones use a two-column cover so the illustration appears alongside the title; the ordinary portrait layout remains spacious enough to read. Twelve viewport/engine combinations (Chromium, Firefox and WebKit at768×1024,1024×768,667×375 and568×320) have been checked for overflow and usable chapter navigation.
 
 The cream editorial cover uses an original architectural maquette: a generated environment above a rule plane and a structured state layer. It is explicitly captioned as a concept illustration and is separate from the real game recordings, benchmark inputs and recorded final frames. The original artwork was created with the built-in imagegen tool; a transparent-background edit isolated the maquette, followed by ordinary WebP resizing for desktop/mobile delivery. Provenance and prompt descriptions are in `static/images/concepts/README.md`.

@@ -185,20 +185,19 @@
             <picture>
               <source
                 type="image/avif"
-                media="(max-width: 720px)"
-                srcset="static/images/concepts/state-world-layers-768.avif"
-              />
-              <source
-                type="image/avif"
-                media="(min-width: 721px)"
-                srcset="static/images/concepts/state-world-layers-1536.avif"
-              />
-              <source
-                media="(max-width: 720px)"
-                srcset="static/images/concepts/state-world-layers-768.webp"
+                srcset="
+                  static/images/concepts/state-world-layers-768.avif   768w,
+                  static/images/concepts/state-world-layers-1536.avif 1536w
+                "
+                sizes="(min-width: 568px) and (max-width: 720px) and (max-height: 500px) and (orientation: landscape) calc(56vw - 21px), (max-width: 720px) calc(100vw - 12px), (max-width: 1000px) calc(54vw - 2px), (max-width: 1100px) calc(54vw - 20px), (max-width: 1320px) calc(56vw - 4px), 736px"
               />
               <img
                 src="static/images/concepts/state-world-layers-1536.webp"
+                srcset="
+                  static/images/concepts/state-world-layers-768.webp   768w,
+                  static/images/concepts/state-world-layers-1536.webp 1536w
+                "
+                sizes="(min-width: 568px) and (max-width: 720px) and (max-height: 500px) and (orientation: landscape) calc(56vw - 21px), (max-width: 720px) calc(100vw - 12px), (max-width: 1000px) calc(54vw - 2px), (max-width: 1100px) calc(54vw - 20px), (max-width: 1320px) calc(56vw - 4px), 736px"
                 alt="Conceptual illustration: a generated world rests above an executable rule layer and a structured state ledger."
                 width="1536"
                 height="1024"
