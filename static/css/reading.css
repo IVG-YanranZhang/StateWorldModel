@@ -79,6 +79,12 @@ body {
 .comparison-statistics {
   margin-top: 25px;
 }
+.workbench-actions .small-button {
+  font-size: 14px;
+}
+.sample-thumb span {
+  font-size: 12px;
+}
 .metric-guide {
   margin: 25px 0;
   border-top: 1px solid var(--line);
@@ -208,6 +214,15 @@ body {
   #results-table thead th {
     font-size: 13px;
   }
+  .bench-toolbar select,
+  .workbench-controls select {
+    font-size: 16px;
+    min-height: 46px;
+  }
+  .probe-control button,
+  .small-button {
+    min-height: 44px;
+  }
 }
 @media (max-width: 360px) {
   .cover-copy .button {
@@ -216,6 +231,29 @@ body {
   }
   .nav {
     font-size: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .workbench-controls {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .probe-control > div {
+    width: 100%;
+  }
+  .probe-control button {
+    flex: 1;
+  }
+  .workbench-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .workbench-actions .small-button {
+    width: 100%;
+  }
+  .sample-thumb {
+    min-width: 120px;
   }
 }
 @media (min-width: 568px) and (max-width: 720px) and (max-height: 500px) and (orientation: landscape) {

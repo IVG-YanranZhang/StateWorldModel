@@ -84,6 +84,8 @@ The page preserves anonymous authorship and avoids identity links. The citation 
 
 ## Reading refinement
 
+Mobile benchmark selectors use16px text and at least46px height. On screens up to480px wide, the model selector and instruction probe occupy separate full-width rows, preserving complete model names; the group playback button is also full-width with14px text and at least44px height. Scene thumbnail titles use12px text. Chromium, Firefox and WebKit playback checks cover390px,320px and667px layouts. The metric guide now explicitly states, as in PDFpage18, that initial-scene and action-onset checks are recorded separately and excluded from primary ending/forbidden-event scores.
+
 The mobile header has a native six-chapter popover with keyboard/Escape behavior, focus return and active chapter indication. The author's subsequent feedback requested larger type and less empty space: primary body copy is now 17px on desktop and16px on mobile, captions/controls13–14px, the reading width increases to 1240px, and section padding decreases from104/66px to78/50px on desktop/mobile. Caption contrast and variable-font weight also increase slightly. Main-table scores are16px on desktop and15px on mobile. The standalone +60pp chart/callout has been removed at the user’s request: main results lead the chapter, with the32→64→92 controlled comparison in a compact disclosure after the table. Method explanations use direct state/rule/render steps, and the workbench explains that Rule+end adds an explicit final-state sentence to the original case-card instruction.
 
 ## Source and mobile-table refinement
