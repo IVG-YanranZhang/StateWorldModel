@@ -88,6 +88,8 @@ The mobile header has a native six-chapter popover with keyboard/Escape behavior
 
 ## Source and mobile-table refinement
 
+The main-table guide defines all six metrics, grouped into clip-level (100videos per condition) and pair-level (50counterfactual pairs) measures. EndFollow explicitly evaluates the ending shown in final frames; CntAbsent covers the entire clip; Strict requires both. The definitions were checked against AppendixB.1 on PDFpage18, which is linked directly. The compact controlled-comparison disclosure also states that the component-chain study is reported separately from the main table.
+
 Direct references now open the actual submission pages for Table1 (page7), the full both-probe grid/Table4 (page21), WBench/Table2 (page9), and the human-audit results (page19). The preference text specifies four Rule-only opponents and split auditor votes. The table note makes clear that both metric groups use one deployed harness condition. On mobile, a fixed-width metric grid keeps backend names and category labels visible while scrolling; metric headings wrap and the direction symbols are omitted because the caption already says higher is better.
 
 ## Benchmark preview refinement

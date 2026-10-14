@@ -79,6 +79,36 @@ body {
 .comparison-statistics {
   margin-top: 25px;
 }
+.metric-guide {
+  margin: 25px 0;
+  border-top: 1px solid var(--line);
+}
+.metric-scope {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 650;
+  margin-top: 20px;
+  color: #284b38;
+}
+.metric-scope span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #536859;
+}
+.metric-guide .metric-definitions {
+  margin-top: 12px;
+}
+.metric-guide .metric-definitions b {
+  font-size: 15px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+.metric-guide .metric-definitions p {
+  font-size: 14px;
+  line-height: 1.75;
+}
 .probe-explanation {
   font-size: 14px;
   line-height: 1.8;

@@ -860,14 +860,42 @@ else:
             >Appendix Table 4 ↗</a
           >). Scores are transcribed from the submission PDF.
         </p>
-        <div class="metric-definitions">
-          <p><b>PairFollow</b> Both clips show the required endings.</p>
-          <p>
-            <b>PairStrict</b> Both clips follow their endings and exclude
-            forbidden outcomes throughout.
+        <div class="metric-guide" aria-label="Benchmark metric definitions">
+          <p class="metric-scope">
+            Per clip <span>100 videos per condition</span>
           </p>
-          <p><b>TwinContrast</b> The judged endings differ between twins.</p>
+          <div class="metric-definitions">
+            <p><b>EndFollow</b> The final frames show the required ending.</p>
+            <p>
+              <b>CntAbsent</b> The forbidden outcome is absent throughout the
+              clip.
+            </p>
+            <p>
+              <b>Strict</b> The required ending appears and the forbidden
+              outcome stays absent.
+            </p>
+          </div>
+          <p class="metric-scope">
+            Per pair <span>50 counterfactual pairs</span>
+          </p>
+          <div class="metric-definitions">
+            <p><b>PairFollow</b> Both clips show their required endings.</p>
+            <p><b>PairStrict</b> Both clips meet the Strict condition.</p>
+            <p>
+              <b>TwinContrast</b> The two clips receive different ending
+              judgments.
+            </p>
+          </div>
         </div>
+        <p class="fine-print">
+          <a
+            class="source-reference"
+            href="static/pdfs/state-world-models.pdf#page=18"
+            target="_blank"
+            rel="noopener"
+            >Formal metric definitions · Appendix B.1 ↗</a
+          >
+        </p>
         <details class="comparison-statistics">
           <summary>
             Controlled MiniMax-H3 comparison
@@ -876,9 +904,10 @@ else:
           <p>
             PairFollow is 32% with rule-only instructions, 64% when the ending
             is supplied, and 92% with the full harness. These conditions use
-            frozen MiniMax-H3 weights and the same 50 twin pairs. Appendix D
-            reports paired exact McNemar tests and paired bootstrap intervals,
-            with the pair as the sampling unit.
+            frozen MiniMax-H3 weights and the same 50 twin pairs. The submission
+            reports this component-chain study separately from the main table.
+            Appendix D reports paired exact McNemar tests and paired bootstrap
+            intervals, with the pair as the sampling unit.
           </p>
           <div class="statistics-grid">
             <div>
