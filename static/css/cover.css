@@ -59,6 +59,8 @@
   font-size: 13px;
   padding-inline: 20px;
   min-height: 46px;
+  gap: 10px;
+  white-space: nowrap;
 }
 .cover-copy .hero-secondary {
   border-color: #829789;
@@ -211,5 +213,56 @@
   .cover-copy .button {
     padding-inline: 12px;
     font-size: 11px;
+  }
+}
+
+@media (min-width: 721px) and (max-height: 800px) {
+  .cover-inner {
+    min-height: 580px;
+  }
+}
+@media (min-width: 568px) and (max-width: 720px) and (max-height: 500px) and (orientation: landscape) {
+  .cover-inner {
+    grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+    gap: 16px;
+    padding-block: 24px;
+  }
+  .cover-copy .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .cover-copy h1 {
+    font-size: 46px;
+    margin-top: 14px;
+  }
+  .cover-copy .hero-subtitle {
+    font-size: 22px;
+    margin-top: 18px;
+  }
+  .cover-copy .hero-description {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 14px;
+  }
+  .cover-copy .authors {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+  .cover-copy .hero-actions {
+    flex-wrap: wrap;
+    margin-top: 17px;
+    gap: 8px;
+  }
+  .cover-copy .button {
+    font-size: 11px;
+    padding-inline: 11px;
+    min-height: 40px;
+    gap: 8px;
+  }
+  .cover-art {
+    margin: 0 -8px 0 0;
+  }
+  .cover-art figcaption {
+    font-size: 10px;
   }
 }
