@@ -276,7 +276,7 @@
       const badge =
         strict === undefined
           ? ""
-          : `<span class="judge-badge ${strict ? "pass" : "fail"}" title="Recorded VLM strict decision">${strict ? "✓" : "×"} VLM ${strict ? "pass" : "fail"}</span>`;
+          : `<button type="button" class="judge-badge ${strict ? "pass" : "fail"}" data-judgment-target="judgment-${isOurs ? "ours" : "baseline"}-${side}" aria-controls="judge-evidence" aria-expanded="false" aria-label="Read the recorded VLM strict ${strict ? "pass" : "fail"} decision for ${escape(modelName)}, twin ${side}">${strict ? "✓" : "×"} VLM ${strict ? "pass" : "fail"}<span aria-hidden="true"> ↗</span></button>`;
       return `<article class="compare-player ${isOurs ? "our-player" : ""}"><div class="player-heading"><span><b>${escape(modelName)}</b><small>Twin ${side} · ${isOurs ? "Text + first-frame reference" : probe === "rule" ? "Rule-only probe" : "Rule+end probe"}</small></span>${badge}</div><div class="player-media"><video playsinline preload="none" poster="${escape(record.poster)}" aria-label="${escape(modelName)}, ${escape(currentCase)}, twin ${side}"><source src="${escape(record.src)}" type="video/mp4"></video><button class="clip-preview" aria-label="Play the complete ${escape(modelName)} recording for ${escape(currentCase)}, twin ${side}"><span class="clip-preview-icon" aria-hidden="true">▷</span><span>Play full clip<small>Recorded final frame</small></span></button></div><div class="player-footer"><span>${record.duration.toFixed(1)} s · Original generated recording</span><a href="${escape(record.src)}" target="_blank" rel="noopener" aria-label="Open ${escape(modelName)} twin ${side} video">Open clip ↗</a></div></article>`;
     }
     function renderPlayers() {
@@ -297,19 +297,33 @@
         .map((side) =>
           [
             ...[
-              [ours[side], "Stateful Harness"],
-              [theirs[side], model.name],
+              [ours[side], "Stateful Harness", "ours"],
+              [theirs[side], model.name, "baseline"],
             ],
           ]
-            .map(([record, name]) =>
+            .map(([record, name, slot]) =>
               record?.judge
-                ? `<article><p class="evidence-title">${escape(name)} / Twin ${side}</p><p>${escape(record.judge.evidence)}</p><small>Required ending: ${record.judge.outcomeOk ? "yes" : "no"} · Forbidden ending absent: ${record.judge.counterOk ? "yes" : "no"}</small></article>`
+                ? `<article id="judgment-${slot}-${side}" tabindex="-1"><h4 class="evidence-title">${escape(name)} / Twin ${side}</h4><p>${escape(record.judge.evidence)}</p><small>Required ending: ${record.judge.outcomeOk ? "yes" : "no"} · Forbidden ending absent: ${record.judge.counterOk ? "yes" : "no"}</small></article>`
                 : "",
             )
             .join(""),
         )
         .join("");
       $("#judge-evidence", detail).innerHTML = evidence;
+      const judgmentDetails = $(".recorded-judgments", detail);
+      $$("[data-judgment-target]", host).forEach((badge) => {
+        badge.setAttribute("aria-expanded", String(judgmentDetails.open));
+        badge.addEventListener("click", () => {
+          judgmentDetails.open = true;
+          const target = document.getElementById(badge.dataset.judgmentTarget);
+          target.scrollIntoView({
+            block: "center",
+            behavior: reduceMotion.matches ? "instant" : "smooth",
+          });
+          target.focus({ preventScroll: true });
+        });
+      });
+
       $("#selection-status").textContent =
         `${sample.id}, ${sample.name}. Comparing Stateful Harness with ${model.name}, ${probe === "rule" ? "rule-only" : "rule plus ending"} instructions. Four recordings available.`;
       $("#comparison-caption", detail).textContent =
@@ -440,7 +454,7 @@
         .join("");
       detail.innerHTML = `<article class="sample-grid"><div class="sample-visual"><div class="frame-label"><span>${escape(sample.id)} / ${escape(title(sample.theme))}</span><span>Identical first frame</span></div><img src="${escape(sample.image)}" alt="${escape(sample.name)}: the shared first frame for both twins" width="960" height="540" loading="lazy"><div class="action"><small>Same action in both worlds</small><p>${escape(sample.action)}</p></div></div><div class="sample-state"><p class="eyebrow">${escape(sample.name)}</p><h3>Hidden state changes the ending.</h3><div class="twin-list">${twins}</div><details class="sample-program"><summary>Shared rule & executable transition <span aria-hidden="true">+</span></summary><p>${escape(sample.rule)}</p><pre><code>if ${escape(sample.program.precondition)}:\n    ${escape(sample.program.effect)}\nelse:\n    ${escape(sample.program.else_effect)}</code></pre></details></div></article>
     ${sample.failureCase ? '<p class="failure-case-note"><b>A rendering failure.</b> This example includes a missed required ending from our harness. Executing a valid transition does not guarantee that the video model depicts it faithfully.</p>' : ""}
-    <div class="comparison-workbench"><div class="workbench-top"><div><p class="eyebrow">Actual model recordings</p><h3>Two hidden states. Four clips.</h3></div><div class="workbench-controls"><label for="baseline-select">Compare against<select id="baseline-select">${modelOptions}</select></label><div class="probe-control"><span>Baseline probe</span><div role="group" aria-label="Baseline instruction condition"><button data-probe="rule" aria-pressed="${probe === "rule"}" class="${probe === "rule" ? "active" : ""}">Rule-only</button><button data-probe="ending" aria-pressed="${probe === "ending"}" class="${probe === "ending" ? "active" : ""}">Rule + end</button></div></div></div></div><div class="workbench-actions"><p id="comparison-caption"></p><button class="small-button" id="bench-play">Play comparison</button></div><div id="comparison-players"></div><p id="comparison-status" class="fine-print" role="status">Posters show actual final frames. Play a full clip or start all four together.</p><details class="recorded-judgments"><summary>Recorded VLM judgments & evidence <span aria-hidden="true">+</span></summary><div id="judge-evidence"></div><p class="fine-print">Labels are the archived automatic judgments for these recordings. The ten examples are curated illustrations; the main table reports the full submission benchmark, not this showcase subset.</p></details></div>`;
+    <div class="comparison-workbench"><div class="workbench-top"><div><p class="eyebrow">Actual model recordings</p><h3>Two hidden states. Four clips.</h3></div><div class="workbench-controls"><label for="baseline-select">Compare against<select id="baseline-select">${modelOptions}</select></label><div class="probe-control"><span>Baseline probe</span><div role="group" aria-label="Baseline instruction condition"><button data-probe="rule" aria-pressed="${probe === "rule"}" class="${probe === "rule" ? "active" : ""}">Rule-only</button><button data-probe="ending" aria-pressed="${probe === "ending"}" class="${probe === "ending" ? "active" : ""}">Rule + end</button></div></div></div></div><div class="workbench-actions"><p id="comparison-caption"></p><button class="small-button" id="bench-play">Play comparison</button></div><div id="comparison-players"></div><p id="comparison-status" class="fine-print" role="status">Posters show actual final frames. Play a full clip or start all four together.</p><p class="judgment-guide">A correct final frame can still fail the strict check if a forbidden event appeared earlier. Select a VLM label to read its recorded evidence.</p><details class="recorded-judgments"><summary>Recorded VLM judgments & evidence <span aria-hidden="true">+</span></summary><div id="judge-evidence"></div><p class="fine-print">Labels are the archived automatic judgments for these recordings. The ten examples are curated illustrations; the main table reports the full submission benchmark, not this showcase subset.</p></details></div>`;
       gallery.querySelectorAll("button").forEach((button) => {
         const active = button.dataset.sample === id;
         button.classList.toggle("active", active);
@@ -473,6 +487,12 @@
         }),
       );
       $("#bench-play", detail).addEventListener("click", playComparison);
+      $(".recorded-judgments", detail).addEventListener("toggle", (event) => {
+        $$("[data-judgment-target]", detail).forEach((badge) =>
+          badge.setAttribute("aria-expanded", String(event.target.open)),
+        );
+      });
+
       renderPlayers();
       comparisonObserver?.disconnect();
       comparisonObserver = new IntersectionObserver(
