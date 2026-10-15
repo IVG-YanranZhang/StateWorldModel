@@ -99,6 +99,7 @@
     hero.pause();
     $("#episode-dialog-kicker").textContent = "Generated episode / Full recorded replay";
     $("#episode-dialog-title").textContent = currentWorld.name;
+    $("#episode-description").textContent = "Complete recorded episode with English state and action overlays. Original audio included.";
     episodeVideo.src = currentWorld.src;
     episodeVideo.poster = currentWorld.poster;
     episodeVideo.setAttribute(
@@ -114,6 +115,7 @@
     hero.pause();
     $("#episode-dialog-kicker").textContent = "Research overview / Version 4";
     $("#episode-dialog-title").textContent = "State World Models · Project film";
+    $("#episode-description").textContent = "Project film · Battle, narrative interaction and free exploration. Includes music and sound effects.";
     episodeVideo.src = "static/videos/state-world-models-v4.mp4";
     episodeVideo.poster = "static/images/project-film-v4.jpg";
     episodeVideo.setAttribute("aria-label", "State World Models, project film with music and sound effects");
