@@ -44,7 +44,7 @@ def main():
     worlds=json.loads((ROOT/'static/data/worlds.js').read_text().split(' = ',1)[1].rstrip(';\n'))
     for world in worlds:
         paths.update(world[key] for key in ['src','preview','poster','thumbnail'])
-    paths.update(['static/videos/state-world-models-v3.mp4', 'static/images/project-film-v3.jpg'])
+    paths.update(['static/videos/state-world-models-v4.mp4', 'static/images/project-film-v4.jpg'])
     for path in paths:
         source = (ROOT / path).resolve()
         if not source.is_relative_to(ROOT) or not source.is_file():

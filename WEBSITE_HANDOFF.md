@@ -1,5 +1,7 @@
 # State World Model 项目网站 · 交接文档
 
+> 最新更正：用户确认 Wenzhao Zheng 为 † Project leader，而不是通讯作者。网站影片升级 v4：片头战斗 → 叙事 → 自由探索，三组演示均有低音量音乐，增加可辨识的章节转场、状态与重点提示音；v2/v3 本地保留。其余网页结构与 benchmark 结果不变。
+
 > 2026-10-15 后续更新：Wenzhao Zheng 增加 † 通讯作者标记；展示区改为用户指定的六个英文 HUD 完整 replay，预览 20 秒，保留完整画面，完整回放保留声音。接入项目介绍影片 v3（2:59），本地 v2 原样保留；网站整体框架不变。重建脚本为 `scripts/prepare_replays.py`，资源信息为 `static/data/worlds.js`。
 
 > 2026-10-15 最新用户要求：公开八位作者及其个人主页 / GitHub / Scholar 链接，合并清华单位；不再显示 Anonymous submission。下方原始快照中的匿名网页约束已经被用户明确覆盖。More Works 移至右上角原生下拉菜单，顶部设 arXiv、Code、Benchmark 和 Demo 图标按钮；前三项正式地址尚未提供，按用户要求留空。Chan Yan Ki 使用 https://github.com/yankeee-0411 。原始论文 PDF 保留不变。

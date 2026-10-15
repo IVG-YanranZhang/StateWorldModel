@@ -112,10 +112,10 @@
   $("#project-film-link").addEventListener("click", (event) => {
     event.preventDefault();
     hero.pause();
-    $("#episode-dialog-kicker").textContent = "Research overview / Version 3";
+    $("#episode-dialog-kicker").textContent = "Research overview / Version 4";
     $("#episode-dialog-title").textContent = "State World Models · Project film";
-    episodeVideo.src = "static/videos/state-world-models-v3.mp4";
-    episodeVideo.poster = "static/images/project-film-v3.jpg";
+    episodeVideo.src = "static/videos/state-world-models-v4.mp4";
+    episodeVideo.poster = "static/images/project-film-v4.jpg";
     episodeVideo.setAttribute("aria-label", "State World Models, project film with music and sound effects");
     episodeDialog.showModal();
     document.body.classList.add("dialog-open");
