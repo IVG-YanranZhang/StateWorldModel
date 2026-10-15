@@ -1,0 +1,130 @@
+/* Keep native English HUDs readable: headings and controls sit outside the image. */
+.generated-worlds {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding-bottom: 0;
+}
+.generated-worlds .worlds-heading {
+  padding-block: 30px 25px;
+  text-shadow: none;
+}
+.generated-worlds .worlds-heading > p {
+  color: #d3e0d5;
+}
+.project-film-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 12px;
+  color: #eef7eb;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.project-film-link > span:first-child {
+  color: #bacbbe;
+  font-size: 12px;
+  text-decoration: none;
+}
+.generated-worlds .cinematic-media {
+  position: relative;
+  inset: auto;
+  width: min(100%, 1240px);
+  aspect-ratio: 9 / 5;
+  margin: 0 auto;
+  background: #090f0c;
+  border-block: 1px solid #b8cdb529;
+}
+.generated-worlds .cinematic-media video {
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+.generated-worlds .cinematic-shade {
+  display: none;
+}
+.generated-worlds .cinematic-footer {
+  position: relative;
+  inset: auto;
+  background: #12241f;
+  backdrop-filter: none;
+}
+.generated-worlds .cinematic-footer-inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+.world-selector-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  color: #bacbbe;
+  font-size: 12px;
+}
+.generated-worlds .world-selector {
+  display: flex;
+  flex: none;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7d9d88 #12241f;
+  scroll-snap-type: x proximity;
+}
+.generated-worlds .world-choice,
+.generated-worlds .world-choice:first-child {
+  flex: 1 0 198px;
+  padding: 16px 14px;
+  gap: 10px;
+  scroll-snap-align: start;
+  text-align: left;
+}
+.generated-worlds .world-choice:after,
+.generated-worlds .world-choice:first-child:after {
+  left: 14px;
+  right: 14px;
+}
+.generated-worlds .world-choice img {
+  display: block;
+  width: 48px;
+  height: 34px;
+  object-fit: cover;
+  flex: none;
+}
+.generated-worlds .world-choice small {
+  font-size: 11px;
+}
+.generated-worlds .world-choice strong {
+  font-size: 14px;
+  white-space: nowrap;
+}
+.generated-worlds .hero-media-tools {
+  position: static;
+  justify-content: flex-end;
+  gap: 24px;
+  padding-block: 10px;
+  border-top: 1px solid #b8cdb529;
+}
+.publication-contribution .contribution-divider {
+  padding-inline: 6px;
+}
+@media (max-width: 720px) {
+  .generated-worlds .worlds-heading {
+    padding-block: 24px 18px;
+  }
+  .generated-worlds .world-choice,
+  .generated-worlds .world-choice:first-child {
+    flex-basis: 192px;
+    padding-block: 13px;
+  }
+  .generated-worlds .hero-media-tools {
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .publication-contribution {
+    max-width: 300px;
+  }
+}

@@ -85,8 +85,12 @@ expected={
  'HY-WorldPlay':[9,0,4,7,94,0], 'Stateful Harness Ours':[96,92,96,95,98,90]}
 actual={row[0]:list(map(int,row[1:])) for row in page.rows if len(row)==7 and row[0] in expected}
 assert actual==expected, 'Main table does not match the submission'
-world_names=['duel_moon_dragon','romance','openworld']
-world_paths=[f'static/videos/{name}.mp4' for name in world_names]+[f'static/videos/worlds/{name}-preview.mp4' for name in world_names]
+worlds=json.loads((ROOT/'static/data/worlds.js').read_text().split(' = ',1)[1].rstrip(';\n'))
+assert len(worlds)==6 and len({world['id'] for world in worlds})==6
+world_paths=[world[key] for world in worlds for key in ['src','preview']]+['static/videos/state-world-models-v3.mp4']
+for world in worlds:
+    assert world['duration']>150 and world['previewDuration']==20
+    assert all((ROOT/world[key]).is_file() for key in ['src','preview','poster','thumbnail'])
 for path in world_paths:assert (ROOT/path).is_file()
 if args.media:
     for path in sorted(video_paths)+world_paths:
@@ -112,5 +116,5 @@ for frame in episodes['frames']:
     assert Image.open(episode_root/frame['file']).size==(864,480)
 subprocess.run(['node','--check',str(ROOT/'static/js/project.js')],check=True)
 subprocess.run(['node','--check',str(ROOT/'static/data/benchmark.js')],check=True)
-print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 6 world videos; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
+print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 12 English HUD replay/preview videos and project film; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
 print('Full video probes: '+('completed' if args.media else 'not requested')+'. Browser rendering and playback are checked separately.')

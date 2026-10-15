@@ -1,5 +1,7 @@
 # State World Model 项目网站 · 交接文档
 
+> 2026-10-15 后续更新：Wenzhao Zheng 增加 † 通讯作者标记；展示区改为用户指定的六个英文 HUD 完整 replay，预览 20 秒，保留完整画面，完整回放保留声音。接入项目介绍影片 v3（2:59），本地 v2 原样保留；网站整体框架不变。重建脚本为 `scripts/prepare_replays.py`，资源信息为 `static/data/worlds.js`。
+
 > 2026-10-15 最新用户要求：公开八位作者及其个人主页 / GitHub / Scholar 链接，合并清华单位；不再显示 Anonymous submission。下方原始快照中的匿名网页约束已经被用户明确覆盖。More Works 移至右上角原生下拉菜单，顶部设 arXiv、Code、Benchmark 和 Demo 图标按钮；前三项正式地址尚未提供，按用户要求留空。Chan Yan Ki 使用 https://github.com/yankeee-0411 。原始论文 PDF 保留不变。
 
 > 2026-10-13 更新：新版已提交并上线（首个完整发布提交 `e671bbd`）。当前页面为独立 HTML/CSS/JS，接入十组精选样例与 460 段真实录制，完整基准规模仍为 50 对 / 21 主题 / 49 隐藏变量。用户随后授权继续迭代十小时。最新结构、事实校正、媒体来源和验证命令见 [REDESIGN.md](REDESIGN.md)。以下保留原始交接快照；其中旧版行数、占位链接、Figure 6 裁剪与 Asra 拼写均已过时，不能作为当前论文事实来源。

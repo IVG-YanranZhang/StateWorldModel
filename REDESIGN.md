@@ -10,7 +10,7 @@ The workbench includes 460 recordings: both twins for eleven baseline backends u
 
 VLM badges and evidence come from the corresponding archived per-clip judgments. Some archival aggregate metrics differ slightly from the submitted table; the website's main results are transcribed from the supplied PDF rather than recomputed from these illustrative recordings. Initial-state and action checks are not part of the primary ending-compliance metrics.
 
-Three additional worlds appear in the introduction. Clean original turn clips form the background previews; a separate 24-second replay excerpt retains runtime state annotations. These additional demonstrations should not be conflated with the three specific paper episodes in Figure 6.
+Six user-selected English HUD episodes appear in the introduction: Moon Dragon, Erii Sakura, Oracle Machine, Shogun Palace, Starlight Yui and Eclipse Devourer. Each has a muted 20-second preview and a complete replay with source audio. The image is shown uncropped, with headings and controls outside the video. Duel losses and completed narrative sessions are described explicitly. These demonstrations should not be conflated with the three specific paper episodes in Figure 6. A separate 2:59 project film (v3) is available in the same native replay dialog. Its opening Erii/Oracle segments and clay comparison were removed, with restrained original transition/confirmation sound effects; v2 remains archived locally.
 
 The supplied PDF is a 36-page anonymous submission. Figure 4 supplies the published multi-model comparison, and Figure 6 supplies the paper's 15-act exploration, 29-turn dating and 11-turn duel episodes. The previous `swm_multiturn.png` was an incorrect table crop and has been replaced.
 
@@ -20,7 +20,7 @@ At the user's request, More Works indexes the verified project pages for [MoGe4D
 
 Each benchmark case shows the common hidden-variable name once, followed by its two distinct values in the twin cards. Variable and value text uses 13px type without fragmenting identifiers on narrow phones. The shared rule and state transition remain available in the case disclosure, with 12px code that preserves line structure. The static B01 fallback uses the same card layout, including when the inventory request fails or JavaScript is disabled.
 
-The public page lists all eight authors in the requested order, with Chan Yan Ki linked to the user-provided GitHub profile. Chan Yan Ki and Yanran Zhang share an asterisk denoting equal contribution. The two Tsinghua affiliations are merged into index 1; GigaAI is index 2. The three resource destinations for arXiv, Code and Benchmark remain intentionally unset, represented by disabled icon buttons until official URLs are supplied. Demo links to the playable worlds. The original supplied PDF remains unchanged.
+The public page lists all eight authors in the requested order, with Chan Yan Ki linked to the user-provided GitHub profile. Chan Yan Ki and Yanran Zhang share an asterisk denoting equal contribution. Wenzhao Zheng has a dagger denoting corresponding author. The two Tsinghua affiliations are merged into index 1; GigaAI is index 2. The three resource destinations for arXiv, Code and Benchmark remain intentionally unset, represented by disabled icon buttons until official URLs are supplied. Demo links to the playable worlds. The original supplied PDF remains unchanged.
 
 The six section numbers now match the mobile contents exactly: generated worlds, research question, method, main results, benchmark explorer and paper/resources. This final pass changes chapter labels only; the established visual layout and research content remain in place.
 
@@ -32,7 +32,10 @@ The six section numbers now match the mobile contents exactly: generated worlds,
 - `static/css/cover.css`: editorial cover and responsive concept artwork.
 - `static/css/benchmark-refinements.css`: recording previews and archived judgment links.
 - `static/css/reading.css`: larger research type, compact layouts and responsive overrides.
-- `static/css/publication.css`: author and affiliation links, icon resources and the upper-right More Works popover; load last.
+- `static/css/replays.css`: uncropped English HUD replay presentation and six-world selector.
+- `static/data/worlds.js`: six replay records, source hashes, full durations and preview ranges.
+- `scripts/prepare_replays.py`: reproducible 24 fps H.264/AAC web encodes, previews and posters.
+- `static/css/publication.css`: author and affiliation links, icon resources and the upper-right More Works popover.
 - `static/js/project.js`: previews, replay dialog, runtime trace, case/model/probe selection, paired playback, shareable query state and citation copy.
 - `static/data/benchmark.js`: ten curated cases, model registry and original recording metadata; private source paths are omitted.
 - `static/data/showcase-descriptions.json`: downloadable case descriptions, explicitly scoped to the illustrative subset.

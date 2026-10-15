@@ -33,7 +33,7 @@ def main():
         raise ValueError('Export requires a new or empty output directory.')
     page = Assets()
     page.feed((ROOT / 'index.html').read_text())
-    paths = page.paths | {'index.html', 'static/data/benchmark.js', 'static/data/showcase-descriptions.json', 'static/fonts/Manrope.woff2', 'static/fonts/OFL-Manrope.txt', 'static/images/social-card.jpg'}
+    paths = page.paths | {'index.html', 'static/data/benchmark.js', 'static/data/worlds.js', 'static/data/showcase-descriptions.json', 'static/fonts/Manrope.woff2', 'static/fonts/OFL-Manrope.txt', 'static/images/social-card.jpg'}
     samples = json.loads((ROOT / 'static/data/benchmark.js').read_text().split('\nwindow.SWM_SAMPLES = ', 1)[1].rstrip(';\n'))
     for sample in samples:
         paths.update([sample['image'],sample['thumbnail']])
@@ -41,8 +41,10 @@ def main():
             for twins in tracks.values():
                 for record in twins.values():
                     paths.update([record['src'], record['poster']])
-    for name in ['duel_moon_dragon', 'romance', 'openworld']:
-        paths.update([f'static/videos/{name}.mp4', f'static/videos/worlds/{name}-preview.mp4', f'static/images/games/{name}.webp', f'static/images/games/{name}-thumb.webp'])
+    worlds=json.loads((ROOT/'static/data/worlds.js').read_text().split(' = ',1)[1].rstrip(';\n'))
+    for world in worlds:
+        paths.update(world[key] for key in ['src','preview','poster','thumbnail'])
+    paths.update(['static/videos/state-world-models-v3.mp4', 'static/images/project-film-v3.jpg'])
     for path in paths:
         source = (ROOT / path).resolve()
         if not source.is_relative_to(ROOT) or not source.is_file():
