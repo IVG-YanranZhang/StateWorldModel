@@ -178,6 +178,9 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .cover-copy .publication-resource:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
   .publication-resource {
     font-size: 14px;
   }
