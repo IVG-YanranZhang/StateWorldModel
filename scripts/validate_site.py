@@ -87,9 +87,10 @@ actual={row[0]:list(map(int,row[1:])) for row in page.rows if len(row)==7 and ro
 assert actual==expected, 'Main table does not match the submission'
 worlds=json.loads((ROOT/'static/data/worlds.js').read_text().split(' = ',1)[1].rstrip(';\n'))
 assert len(worlds)==6 and len({world['id'] for world in worlds})==6
-world_paths=[world[key] for world in worlds for key in ['src','preview']]+['static/videos/state-world-models-v4.mp4']
+assert all(sum(world['genre']==genre for world in worlds)==2 for genre in ['Exploration','Duel','Narrative']), 'Expected two worlds per game type'
+world_paths=[world[key] for world in worlds for key in ['src','preview']]+['static/videos/state-world-models-v6.mp4']
 for world in worlds:
-    assert world['duration']>150 and world['previewDuration']==20
+    assert world['duration']>world['previewStart']+world['previewDuration'] and world['previewDuration']==20
     assert all((ROOT/world[key]).is_file() for key in ['src','preview','poster','thumbnail'])
 for path in world_paths:assert (ROOT/path).is_file()
 if args.media:

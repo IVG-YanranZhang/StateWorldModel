@@ -1,5 +1,20 @@
 window.SWM_WORLDS = [
   {
+    "id": "chinese-scroll",
+    "name": "The Lost Scroll",
+    "genre": "Exploration",
+    "description": "A 12-act open-world journey through a Chinese mountain village. Follow player actions, stamina and the Lost Scroll quest in the English HUD; the full recorded replay includes audio.",
+    "src": "static/videos/replays/chinese-scroll.mp4",
+    "preview": "static/videos/worlds/chinese-scroll-preview.mp4",
+    "poster": "static/images/games/chinese-scroll.webp",
+    "thumbnail": "static/images/games/chinese-scroll-thumb.webp",
+    "duration": 63.239,
+    "previewStart": 27,
+    "previewDuration": 20,
+    "sourceFile": "chinese_seed7.mp4",
+    "sourceSha256": "721346490c37550401cc9b3b82e15ae3036a0f194a13662daa864ce14e73d2b2"
+  },
+  {
     "id": "moon-dragon",
     "name": "Moon Dragon",
     "genre": "Duel",
@@ -30,49 +45,19 @@ window.SWM_WORLDS = [
     "sourceSha256": "3be2ffc4191f17e0389f76a3167729610f92198e64883b16b243bf56f8babd30"
   },
   {
-    "id": "oracle-machine",
-    "name": "Oracle Machine",
-    "genre": "Duel",
-    "description": "A 15-turn duel against the Six-Winged Arbiter. Action descriptions and the state ledger remain visible throughout this recorded loss.",
-    "src": "static/videos/replays/oracle-machine.mp4",
-    "preview": "static/videos/worlds/oracle-machine-preview.mp4",
-    "poster": "static/images/games/oracle-machine.webp",
-    "thumbnail": "static/images/games/oracle-machine-thumb.webp",
-    "duration": 167.596,
-    "previewStart": 28,
+    "id": "japan-fox",
+    "name": "The Fox's Gift",
+    "genre": "Exploration",
+    "description": "A 12-act open-world journey through a Japanese village, with movement, conversation and the Fox\u2019s Gift quest. The English HUD preserves stamina, quest progression and action feedback.",
+    "src": "static/videos/replays/japan-fox.mp4",
+    "preview": "static/videos/worlds/japan-fox-preview.mp4",
+    "poster": "static/images/games/japan-fox.webp",
+    "thumbnail": "static/images/games/japan-fox-thumb.webp",
+    "duration": 63.239,
+    "previewStart": 26,
     "previewDuration": 20,
-    "sourceFile": "duel_oracle_machine_epic_7_15t_lost_replay_hud.mp4",
-    "sourceSha256": "f2128a5adf78dea9283631eb814a800eed4ae17bae214f2562212a557de40e2f"
-  },
-  {
-    "id": "shogun-palace",
-    "name": "Shogun Palace",
-    "genre": "Duel",
-    "description": "A 15-turn shrine-maiden duel against the Hundred-Mask Oni General, with English action and state overlays. The recorded session ends in a loss.",
-    "src": "static/videos/replays/shogun-palace.mp4",
-    "preview": "static/videos/worlds/shogun-palace-preview.mp4",
-    "poster": "static/images/games/shogun-palace.webp",
-    "thumbnail": "static/images/games/shogun-palace-thumb.webp",
-    "duration": 167.596,
-    "previewStart": 28,
-    "previewDuration": 20,
-    "sourceFile": "duel_shogun_mask_palace_epic_7_15t_lost_replay_hud.mp4",
-    "sourceSha256": "fed537fe6b0649db72df88db6d7269aa6ddb68ec4fad8211d40bb813ff16d771"
-  },
-  {
-    "id": "starlight-yui",
-    "name": "Starlight Yui",
-    "genre": "Narrative",
-    "description": "A 25-turn narrative with Yui Shiraha. The English HUD tracks relationship, mood and story chapters through a completed episode.",
-    "src": "static/videos/replays/starlight-yui.mp4",
-    "preview": "static/videos/worlds/starlight-yui-preview.mp4",
-    "poster": "static/images/games/starlight-yui.webp",
-    "thumbnail": "static/images/games/starlight-yui-thumb.webp",
-    "duration": 173.101,
-    "previewStart": 60,
-    "previewDuration": 20,
-    "sourceFile": "starlight_sister_yui_7_25t_won_replay_hud.mp4",
-    "sourceSha256": "45b6344e8ac298414e8ae4c795769842c557d48081d079b5f04334d1e6930ac3"
+    "sourceFile": "japan_seed7.mp4",
+    "sourceSha256": "118b29a6bcd288b996bde4c5a49bf717d659dfa77099b1c78323c282c575ce15"
   },
   {
     "id": "eclipse-devourer",
@@ -88,5 +73,20 @@ window.SWM_WORLDS = [
     "previewDuration": 20,
     "sourceFile": "duel_eclipse_devourer_epic_7_14t_lost_replay_hud.mp4",
     "sourceSha256": "6bc1ee7b7859cf2e4b41ce6da270654b996542c4fa1801db06ff9cfe7dd8b405"
+  },
+  {
+    "id": "starlight-yui",
+    "name": "Starlight Yui",
+    "genre": "Narrative",
+    "description": "A 25-turn narrative with Yui Shiraha. The English HUD tracks relationship, mood and story chapters through a completed episode.",
+    "src": "static/videos/replays/starlight-yui.mp4",
+    "preview": "static/videos/worlds/starlight-yui-preview.mp4",
+    "poster": "static/images/games/starlight-yui.webp",
+    "thumbnail": "static/images/games/starlight-yui-thumb.webp",
+    "duration": 173.101,
+    "previewStart": 60,
+    "previewDuration": 20,
+    "sourceFile": "starlight_sister_yui_7_25t_won_replay_hud.mp4",
+    "sourceSha256": "45b6344e8ac298414e8ae4c795769842c557d48081d079b5f04334d1e6930ac3"
   }
 ];
