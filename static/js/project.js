@@ -122,6 +122,7 @@
   $("#hero-video-link").addEventListener("click", (event) => {
     event.preventDefault();
     hero.pause();
+    coverFilm.pause();
     $("#episode-dialog-kicker").textContent = "Generated episode / Full recorded replay";
     $("#episode-dialog-title").textContent = currentWorld.name;
     $("#episode-description").textContent = "Complete recorded episode with English state and action overlays. Original audio included.";
@@ -136,65 +137,8 @@
     document.body.classList.add("dialog-open");
     episodeVideo.play().catch(() => {});
   });
-  // Project film in the cover: it plays muted on arrival (unless reduced
-  // motion or data saving is requested), pauses off-screen, can be unmuted in
-  // place, and opens with sound in the larger player at the same moment.
+  // The cover uses native video controls; playback starts on user request.
   const coverFilm = $("#cover-film");
-  let coverVisible = false;
-  let coverManualPause = false;
-  const autoCover = () =>
-    !episodeDialog.open &&
-    !reduceMotion.matches &&
-    !navigator.connection?.saveData &&
-    !document.hidden;
-  function reflectCover() {
-    const paused = coverFilm.paused;
-    const sound = !coverFilm.muted;
-    $("#cover-film-play-icon").textContent = paused ? "▷" : "Ⅱ";
-    $("#cover-film-play-label").textContent = paused ? "Play" : "Pause";
-    $("#cover-film-play").setAttribute(
-      "aria-label",
-      paused ? "Play the project film" : "Pause the project film",
-    );
-    $("#cover-film-sound").setAttribute("aria-pressed", String(sound));
-    $("#cover-film-sound").setAttribute(
-      "aria-label",
-      sound ? "Mute the project film" : "Play the project film with sound",
-    );
-    $("#cover-film-sound-waves").setAttribute("opacity", sound ? "1" : ".35");
-    coverFilm.setAttribute(
-      "aria-label",
-      `State World Models project film, 2:59, ${sound ? "with" : "without"} sound`,
-    );
-  }
-  const playCover = () => coverFilm.play().catch(reflectCover);
-  ["play", "pause", "volumechange"].forEach((type) =>
-    coverFilm.addEventListener(type, reflectCover),
-  );
-  $("#cover-film-play").addEventListener("click", () => {
-    if (coverFilm.paused) {
-      coverManualPause = false;
-      playCover();
-    } else {
-      coverManualPause = true;
-      coverFilm.pause();
-    }
-  });
-  $("#cover-film-sound").addEventListener("click", () => {
-    coverFilm.muted = !coverFilm.muted;
-    if (!coverFilm.muted && coverFilm.paused) {
-      coverManualPause = false;
-      playCover();
-    }
-  });
-  new IntersectionObserver(
-    (entries) => {
-      coverVisible = entries[0].isIntersecting;
-      if (!coverVisible) coverFilm.pause();
-      else if (autoCover() && !coverManualPause) playCover();
-    },
-    { threshold: 0.25 },
-  ).observe(coverFilm);
   const openFilm = (start = 0) => {
     hero.pause();
     coverFilm.pause();
@@ -218,16 +162,12 @@
     event.preventDefault();
     openFilm(0);
   });
-  $("#cover-film-expand").addEventListener("click", () =>
-    openFilm(coverFilm.currentTime),
-  );
   $("#episode-close").addEventListener("click", () => episodeDialog.close());
   episodeDialog.addEventListener("close", () => {
     episodeVideo.pause();
     document.body.classList.remove("dialog-open");
     if (filmInDialog) coverFilm.currentTime = episodeVideo.currentTime;
     if (heroVisible && autoHero() && !heroManualPause) playHero();
-    if (coverVisible && autoCover() && !coverManualPause) playCover();
   });
   episodeDialog.addEventListener("click", (event) => {
     if (event.target === episodeDialog) {
@@ -747,7 +687,6 @@
     } else {
       if (heroVisible && autoHero() && !heroManualPause && !document.hidden)
         playHero();
-      if (coverVisible && autoCover() && !coverManualPause) playCover();
     }
   });
   matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
@@ -768,7 +707,6 @@
       }
     } else {
       if (heroVisible && autoHero() && !heroManualPause) playHero();
-      if (coverVisible && autoCover() && !coverManualPause) playCover();
     }
   });
   $("#copy-citation").addEventListener("click", async () => {

@@ -427,43 +427,21 @@
             <div class="cover-film-frame">
               <video
                 id="cover-film"
-                muted
-                loop
+                controls
                 playsinline
                 preload="metadata"
                 poster="static/images/project-film-v7.jpg"
-                aria-label="State World Models project film, 2:59, playing without sound"
+                aria-label="State World Models project film"
+                aria-describedby="cover-film-credit"
               >
                 <source
                   src="static/videos/state-world-models-v7.mp4"
                   type="video/mp4"
                 />
               </video>
-              <div class="cover-film-tools">
-                <button
-                  id="cover-film-play"
-                  class="cover-film-button"
-                  type="button"
-                  aria-label="Pause the project film"
-                ><span aria-hidden="true" id="cover-film-play-icon">Ⅱ</span><span id="cover-film-play-label">Pause</span></button
-                ><button
-                  id="cover-film-sound"
-                  class="cover-film-button"
-                  type="button"
-                  aria-pressed="false"
-                  aria-label="Play the project film with sound"
-                ><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path id="cover-film-sound-waves" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".35"/></svg><span>Sound</span></button
-                ><button
-                  id="cover-film-expand"
-                  class="cover-film-button"
-                  type="button"
-                  aria-label="Watch the project film in a larger player with sound"
-                ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Larger</span></button>
-              </div>
             </div>
-            <figcaption>
-              Project film <span aria-hidden="true">·</span> 2:59
-              <span aria-hidden="true">·</span> Music: “Tears in Rain” by
+            <figcaption id="cover-film-credit">
+              Music: “Tears in Rain” by
               <a href="https://www.scottbuckley.com.au/library/tears-in-rain/" target="_blank" rel="noopener">Scott Buckley</a>
               (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)
             </figcaption>
