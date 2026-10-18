@@ -128,3 +128,57 @@
     max-width: 300px;
   }
 }
+/* Hero size: the previews are 1728×960 (Real-ESRGAN x2 of the 864×480 HUD
+   recordings); a slightly narrower stage keeps HUD text crisp. */
+.generated-worlds .cinematic-media {
+  width: min(100%, 1080px);
+}
+/* World switching: the new poster covers the previous video's last frame
+   until the chosen preview starts; a small ring marks loading. */
+.generated-worlds .hero-switch-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #090f0c;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.generated-worlds .cinematic-media.is-switching .hero-switch-cover {
+  opacity: 1;
+  transition: none;
+}
+.generated-worlds .cinematic-media::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 2px solid #eef7eb40;
+  border-top-color: #eef7eb;
+  border-radius: 50%;
+  background: #090f0c8c;
+  box-shadow: 0 0 0 8px #090f0c8c;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.generated-worlds .cinematic-media.is-loading::after {
+  opacity: 1;
+  transition-delay: 0.25s;
+  animation: hero-loading 0.9s linear infinite;
+}
+@keyframes hero-loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .generated-worlds .cinematic-media.is-loading::after {
+    animation: none;
+  }
+}

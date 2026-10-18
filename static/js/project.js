@@ -45,14 +45,40 @@
   }
   hero.addEventListener("play", reflectHero);
   hero.addEventListener("pause", reflectHero);
+  // While a newly chosen world loads, browsers keep painting the previous
+  // video's last frame; cover it with the new poster until playback starts.
+  const heroMedia = hero.parentElement;
+  const heroCover = document.createElement("img");
+  heroCover.className = "hero-switch-cover";
+  heroCover.alt = "";
+  heroCover.decoding = "async";
+  heroCover.setAttribute("aria-hidden", "true");
+  heroMedia.append(heroCover);
+  hero.addEventListener("playing", () =>
+    heroMedia.classList.remove("is-switching", "is-loading"),
+  );
+  hero.addEventListener("waiting", () => heroMedia.classList.add("is-loading"));
+  const playHero = () => {
+    if (hero.readyState < 3) heroMedia.classList.add("is-loading");
+    return hero.play().catch(() => {
+      heroMedia.classList.remove("is-loading");
+      reflectHero();
+    });
+  };
+  let postersWarmed = false;
+  const warmPosters = () => {
+    if (postersWarmed || navigator.connection?.saveData) return;
+    postersWarmed = true;
+    worlds.forEach((world) => {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = world.poster;
+    });
+  };
   $("#hero-play").addEventListener("click", async () => {
     if (hero.paused) {
       heroManualPause = false;
-      try {
-        await hero.play();
-      } catch {
-        reflectHero();
-      }
+      await playHero();
     } else {
       heroManualPause = true;
       hero.pause();
@@ -64,6 +90,9 @@
       currentWorld = world;
       const continuePlaying = !hero.paused;
       hero.pause();
+      heroCover.src = world.poster;
+      heroMedia.classList.add("is-switching");
+      heroMedia.classList.remove("is-loading");
       hero.poster = world.poster;
       $("source", hero).src = world.preview;
       hero.setAttribute(
@@ -86,12 +115,7 @@
       });
       hero.load();
       reflectHero();
-      if (continuePlaying)
-        try {
-          await hero.play();
-        } catch {
-          reflectHero();
-        }
+      if (continuePlaying) await playHero();
     }),
   );
   $("#hero-video-link").addEventListener("click", (event) => {
@@ -127,8 +151,7 @@
   episodeDialog.addEventListener("close", () => {
     episodeVideo.pause();
     document.body.classList.remove("dialog-open");
-    if (heroVisible && autoHero() && !heroManualPause)
-      hero.play().catch(reflectHero);
+    if (heroVisible && autoHero() && !heroManualPause) playHero();
   });
   episodeDialog.addEventListener("click", (event) => {
     if (event.target === episodeDialog) {
@@ -145,9 +168,9 @@
   new IntersectionObserver(
     (entries) => {
       heroVisible = entries[0].isIntersecting;
+      if (heroVisible) warmPosters();
       if (!heroVisible) hero.pause();
-      else if (autoHero() && !heroManualPause && !document.hidden)
-        hero.play().catch(reflectHero);
+      else if (autoHero() && !heroManualPause && !document.hidden) playHero();
     },
     { threshold: 0.18 },
   ).observe($(".cinematic"));
@@ -650,12 +673,12 @@
       !heroManualPause &&
       !document.hidden
     )
-      hero.play().catch(reflectHero);
+      playHero();
   });
   matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
     if (!event.matches) hero.pause();
     else if (heroVisible && autoHero() && !heroManualPause && !document.hidden)
-      hero.play().catch(reflectHero);
+      playHero();
   });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -668,7 +691,7 @@
         button.textContent = "Play comparison";
       }
     } else if (heroVisible && autoHero() && !heroManualPause)
-      hero.play().catch(reflectHero);
+      playHero();
   });
   $("#copy-citation").addEventListener("click", async () => {
     const text = $("#citation-text").textContent;
