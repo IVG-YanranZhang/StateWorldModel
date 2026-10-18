@@ -86,9 +86,9 @@ expected={
 actual={row[0]:list(map(int,row[1:])) for row in page.rows if len(row)==7 and row[0] in expected}
 assert actual==expected, 'Main table does not match the submission'
 worlds=json.loads((ROOT/'static/data/worlds.js').read_text().split(' = ',1)[1].rstrip(';\n'))
-assert len(worlds)==6 and len({world['id'] for world in worlds})==6
-assert all(sum(world['genre']==genre for world in worlds)==2 for genre in ['Exploration','Duel','Narrative']), 'Expected two worlds per game type'
-world_paths=[world[key] for world in worlds for key in ['src','preview']]+['static/videos/state-world-models-v6.mp4']
+assert len(worlds)==9 and len({world['id'] for world in worlds})==9
+assert all(sum(world['genre']==genre for world in worlds)==3 for genre in ['Exploration','Duel','Narrative']), 'Expected three worlds per game type'
+world_paths=[world[key] for world in worlds for key in ['src','preview']]+['static/videos/state-world-models-v7.mp4']
 for world in worlds:
     assert world['duration']>world['previewStart']+world['previewDuration'] and world['previewDuration']==20
     assert all((ROOT/world[key]).is_file() for key in ['src','preview','poster','thumbnail'])
@@ -117,5 +117,5 @@ for frame in episodes['frames']:
     assert Image.open(episode_root/frame['file']).size==(864,480)
 subprocess.run(['node','--check',str(ROOT/'static/js/project.js')],check=True)
 subprocess.run(['node','--check',str(ROOT/'static/data/benchmark.js')],check=True)
-print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 12 English HUD replay/preview videos and project film; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
+print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 18 English HUD replay/preview videos and project film; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
 print('Full video probes: '+('completed' if args.media else 'not requested')+'. Browser rendering and playback are checked separately.')

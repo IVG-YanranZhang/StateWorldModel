@@ -88,5 +88,50 @@ window.SWM_WORLDS = [
     "previewDuration": 20,
     "sourceFile": "starlight_sister_yui_7_25t_won_replay_hud.mp4",
     "sourceSha256": "45b6344e8ac298414e8ae4c795769842c557d48081d079b5f04334d1e6930ac3"
+  },
+  {
+    "id": "western-outlaw",
+    "name": "The Outlaw",
+    "genre": "Exploration",
+    "description": "A 12-act open-world journey from a frontier saloon into the canyon, tracking the outlaw Blackthorn. The English HUD preserves stamina, quest progression and action feedback; the full recorded replay includes audio.",
+    "src": "static/videos/replays/western-outlaw.mp4",
+    "preview": "static/videos/worlds/western-outlaw-preview.mp4",
+    "poster": "static/images/games/western-outlaw.webp",
+    "thumbnail": "static/images/games/western-outlaw-thumb.webp",
+    "duration": 63.239,
+    "previewStart": 21,
+    "previewDuration": 20,
+    "sourceFile": "western_seed7.mp4",
+    "sourceSha256": "ad774a9f89187b224e31bf22ac5be0582486931c325f8d0d349583cf794ccfb0"
+  },
+  {
+    "id": "shogun-palace",
+    "name": "Shogun Palace",
+    "genre": "Duel",
+    "description": "A 15-turn shrine-maiden duel against the Hundred-Mask Oni General, with English action and state overlays. The recorded session ends in a loss.",
+    "src": "static/videos/replays/shogun-palace.mp4",
+    "preview": "static/videos/worlds/shogun-palace-preview.mp4",
+    "poster": "static/images/games/shogun-palace.webp",
+    "thumbnail": "static/images/games/shogun-palace-thumb.webp",
+    "duration": 167.596,
+    "previewStart": 28,
+    "previewDuration": 20,
+    "sourceFile": "duel_shogun_mask_palace_epic_7_15t_lost_replay_hud.mp4",
+    "sourceSha256": "fed537fe6b0649db72df88db6d7269aa6ddb68ec4fad8211d40bb813ff16d771"
+  },
+  {
+    "id": "before-rain-mio",
+    "name": "Before the Rain",
+    "genre": "Narrative",
+    "description": "A 25-turn narrative with Mio Amamiya, from a first meeting to the final choice. The English HUD tracks relationship, mood and story chapters through a completed episode.",
+    "src": "static/videos/replays/before-rain-mio.mp4",
+    "preview": "static/videos/worlds/before-rain-mio-preview.mp4",
+    "poster": "static/images/games/before-rain-mio.webp",
+    "thumbnail": "static/images/games/before-rain-mio-thumb.webp",
+    "duration": 173.101,
+    "previewStart": 60,
+    "previewDuration": 20,
+    "sourceFile": "before_rain_mio_7_25t_won_replay_hud.mp4",
+    "sourceSha256": "f9ee5edb045b185a11c1fed619314bb0024d6ffd5ec7e289c9a415a6e4bf26aa"
   }
 ];

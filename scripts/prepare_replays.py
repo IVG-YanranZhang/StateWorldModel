@@ -1,4 +1,4 @@
-"""Prepare the six requested English HUD replays without cropping or changing content."""
+"""Prepare the nine English HUD replays (three per game type) without cropping or changing content."""
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import subprocess,json,hashlib,argparse
@@ -11,6 +11,9 @@ SPECS=[
  ('japan-fox',"The Fox's Gift",'Exploration','openworld/japan_seed7.mp4',26,'A 12-act open-world journey through a Japanese village, with movement, conversation and the Fox’s Gift quest. The English HUD preserves stamina, quest progression and action feedback.'),
  ('eclipse-devourer','Eclipse Devourer','Duel','duel_en/duel_eclipse_devourer_epic_7_14t_lost_replay_hud.mp4',28,'A 14-turn occultist duel against the World Devourer. Inspect attacks, wards and resource changes in the full recorded session, which ends in a loss.'),
  ('starlight-yui','Starlight Yui','Narrative','adv_eng/starlight_sister_yui_7_25t_won_replay_hud.mp4',60,'A 25-turn narrative with Yui Shiraha. The English HUD tracks relationship, mood and story chapters through a completed episode.'),
+ ('western-outlaw','The Outlaw','Exploration','openworld/western_seed7.mp4',21,'A 12-act open-world journey from a frontier saloon into the canyon, tracking the outlaw Blackthorn. The English HUD preserves stamina, quest progression and action feedback; the full recorded replay includes audio.'),
+ ('shogun-palace','Shogun Palace','Duel','duel_en/duel_shogun_mask_palace_epic_7_15t_lost_replay_hud.mp4',28,'A 15-turn shrine-maiden duel against the Hundred-Mask Oni General, with English action and state overlays. The recorded session ends in a loss.'),
+ ('before-rain-mio','Before the Rain','Narrative','adv_eng/before_rain_mio_7_25t_won_replay_hud.mp4',60,'A 25-turn narrative with Mio Amamiya, from a first meeting to the final choice. The English HUD tracks relationship, mood and story chapters through a completed episode.'),
 ]
 def run(args):subprocess.run(['ffmpeg','-v','error','-nostdin','-y',*args],check=True)
 def prepare(spec):

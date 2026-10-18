@@ -26,6 +26,7 @@
   let heroVisible = false;
   let currentWorld = worlds[0];
   let heroManualPause = false;
+  let filmInDialog = false;
   const autoHero = () =>
     !episodeDialog.open &&
     innerWidth >= 768 &&
@@ -124,6 +125,7 @@
     $("#episode-dialog-kicker").textContent = "Generated episode / Full recorded replay";
     $("#episode-dialog-title").textContent = currentWorld.name;
     $("#episode-description").textContent = "Complete recorded episode with English state and action overlays. Original audio included.";
+    filmInDialog = false;
     episodeVideo.src = currentWorld.src;
     episodeVideo.poster = currentWorld.poster;
     episodeVideo.setAttribute(
@@ -134,24 +136,98 @@
     document.body.classList.add("dialog-open");
     episodeVideo.play().catch(() => {});
   });
-  $("#project-film-link").addEventListener("click", (event) => {
-    event.preventDefault();
+  // Project film in the cover: it plays muted on arrival (unless reduced
+  // motion or data saving is requested), pauses off-screen, can be unmuted in
+  // place, and opens with sound in the larger player at the same moment.
+  const coverFilm = $("#cover-film");
+  let coverVisible = false;
+  let coverManualPause = false;
+  const autoCover = () =>
+    !episodeDialog.open &&
+    !reduceMotion.matches &&
+    !navigator.connection?.saveData &&
+    !document.hidden;
+  function reflectCover() {
+    const paused = coverFilm.paused;
+    const sound = !coverFilm.muted;
+    $("#cover-film-play-icon").textContent = paused ? "▷" : "Ⅱ";
+    $("#cover-film-play-label").textContent = paused ? "Play" : "Pause";
+    $("#cover-film-play").setAttribute(
+      "aria-label",
+      paused ? "Play the project film" : "Pause the project film",
+    );
+    $("#cover-film-sound").setAttribute("aria-pressed", String(sound));
+    $("#cover-film-sound").setAttribute(
+      "aria-label",
+      sound ? "Mute the project film" : "Play the project film with sound",
+    );
+    $("#cover-film-sound-waves").setAttribute("opacity", sound ? "1" : ".35");
+    coverFilm.setAttribute(
+      "aria-label",
+      `State World Models project film, 2:59, ${sound ? "with" : "without"} sound`,
+    );
+  }
+  const playCover = () => coverFilm.play().catch(reflectCover);
+  ["play", "pause", "volumechange"].forEach((type) =>
+    coverFilm.addEventListener(type, reflectCover),
+  );
+  $("#cover-film-play").addEventListener("click", () => {
+    if (coverFilm.paused) {
+      coverManualPause = false;
+      playCover();
+    } else {
+      coverManualPause = true;
+      coverFilm.pause();
+    }
+  });
+  $("#cover-film-sound").addEventListener("click", () => {
+    coverFilm.muted = !coverFilm.muted;
+    if (!coverFilm.muted && coverFilm.paused) {
+      coverManualPause = false;
+      playCover();
+    }
+  });
+  new IntersectionObserver(
+    (entries) => {
+      coverVisible = entries[0].isIntersecting;
+      if (!coverVisible) coverFilm.pause();
+      else if (autoCover() && !coverManualPause) playCover();
+    },
+    { threshold: 0.25 },
+  ).observe(coverFilm);
+  const openFilm = (start = 0) => {
     hero.pause();
-    $("#episode-dialog-kicker").textContent = "Research overview / Version 6";
+    coverFilm.pause();
+    $("#episode-dialog-kicker").textContent = "Research overview / Project film";
     $("#episode-dialog-title").textContent = "State World Models · Project film";
-    $("#episode-description").textContent = "Project film · Free exploration, battle and narrative interaction. Includes music and sound effects.";
-    episodeVideo.src = "static/videos/state-world-models-v6.mp4";
-    episodeVideo.poster = "static/images/project-film-v6.jpg";
-    episodeVideo.setAttribute("aria-label", "State World Models, project film with music and sound effects");
+    $("#episode-description").textContent =
+      "Project film · Free exploration, battle and narrative interaction, then how the harness works. Music: “Tears in Rain” by Scott Buckley (CC BY 4.0).";
+    const film = "static/videos/state-world-models-v7.mp4";
+    episodeVideo.src = start > 0.5 ? `${film}#t=${start.toFixed(2)}` : film;
+    episodeVideo.poster = "static/images/project-film-v7.jpg";
+    episodeVideo.setAttribute(
+      "aria-label",
+      "State World Models, project film with music and sound effects",
+    );
+    filmInDialog = true;
     episodeDialog.showModal();
     document.body.classList.add("dialog-open");
     episodeVideo.play().catch(() => {});
+  };
+  $("#project-film-link").addEventListener("click", (event) => {
+    event.preventDefault();
+    openFilm(0);
   });
+  $("#cover-film-expand").addEventListener("click", () =>
+    openFilm(coverFilm.currentTime),
+  );
   $("#episode-close").addEventListener("click", () => episodeDialog.close());
   episodeDialog.addEventListener("close", () => {
     episodeVideo.pause();
     document.body.classList.remove("dialog-open");
+    if (filmInDialog) coverFilm.currentTime = episodeVideo.currentTime;
     if (heroVisible && autoHero() && !heroManualPause) playHero();
+    if (coverVisible && autoCover() && !coverManualPause) playCover();
   });
   episodeDialog.addEventListener("click", (event) => {
     if (event.target === episodeDialog) {
@@ -666,14 +742,13 @@
   reduceMotion.addEventListener("change", () => {
     if (reduceMotion.matches) {
       hero.pause();
+      coverFilm.pause();
       pauseBench();
-    } else if (
-      heroVisible &&
-      autoHero() &&
-      !heroManualPause &&
-      !document.hidden
-    )
-      playHero();
+    } else {
+      if (heroVisible && autoHero() && !heroManualPause && !document.hidden)
+        playHero();
+      if (coverVisible && autoCover() && !coverManualPause) playCover();
+    }
   });
   matchMedia("(min-width: 768px)").addEventListener("change", (event) => {
     if (!event.matches) hero.pause();
@@ -683,6 +758,7 @@
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       hero.pause();
+      coverFilm.pause();
       episodeVideo.pause();
       pauseBench();
       const button = $("#bench-play");
@@ -690,8 +766,10 @@
         button.disabled = false;
         button.textContent = "Play comparison";
       }
-    } else if (heroVisible && autoHero() && !heroManualPause)
-      playHero();
+    } else {
+      if (heroVisible && autoHero() && !heroManualPause) playHero();
+      if (coverVisible && autoCover() && !coverManualPause) playCover();
+    }
   });
   $("#copy-citation").addEventListener("click", async () => {
     const text = $("#citation-text").textContent;
