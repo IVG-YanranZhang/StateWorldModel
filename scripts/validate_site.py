@@ -117,5 +117,9 @@ for frame in episodes['frames']:
     assert Image.open(episode_root/frame['file']).size==(864,480)
 subprocess.run(['node','--check',str(ROOT/'static/js/project.js')],check=True)
 subprocess.run(['node','--check',str(ROOT/'static/data/benchmark.js')],check=True)
-print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 18 English HUD replay/preview videos and project film; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax.')
+for script in ['static/js/i18n.js','static/data/i18n-zh.js','static/data/i18n-zh-strings.js']:
+    subprocess.run(['node','--check',str(ROOT/script)],check=True)
+i18n=subprocess.run(['python3',str(ROOT/'scripts/i18n_tag.py'),'--check'],capture_output=True,text=True)
+assert i18n.returncode==0, 'Chinese page text is stale or incomplete (run scripts/i18n_tag.py):\n'+i18n.stdout
+print(f'PASS: {len(page.ids)} unique HTML ids; 10 curated pairs; 12 model configurations; 72 submission-table scores; 460 paired recordings; 18 English HUD replay/preview videos and project film; 12 paper episode stills with source hashes; anonymous 36-page PDF; JS syntax; Chinese translation in sync.')
 print('Full video probes: '+('completed' if args.media else 'not requested')+'. Browser rendering and playback are checked separately.')

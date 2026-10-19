@@ -185,3 +185,59 @@
     font-size: 14px;
   }
 }
+/* Language switch (static/js/i18n.js): English by default, Chinese on request. */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+}
+.lang-switch a {
+  padding: 6px 10px;
+  border-radius: 999px;
+  opacity: 0.72;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+.lang-switch a:hover {
+  opacity: 1;
+}
+.lang-switch a[aria-current="true"] {
+  background: #2e5c4a;
+  color: #f4f7f0;
+  opacity: 1;
+}
+.lang-switch a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+@media (max-width: 720px) {
+  .nav-actions {
+    gap: 8px;
+  }
+  .lang-switch a {
+    padding: 6px 8px;
+  }
+}
+/* Chinese: CJK fonts after the Latin faces, and no negative tracking on CJK headlines. */
+html:lang(zh-CN) {
+  --sans: Manrope, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, sans-serif;
+  --serif: Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+}
+html:lang(zh-CN) :is(h2, h3, .hero-subtitle) {
+  letter-spacing: 0;
+}
+html:lang(zh-CN) .eyebrow {
+  letter-spacing: 0.06em;
+}
